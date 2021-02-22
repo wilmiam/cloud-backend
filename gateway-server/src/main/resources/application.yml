@@ -1,0 +1,40 @@
+server:
+  port: ${gateway.port}
+spring:
+  application:
+    name: ${gateway.name}
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_UNIQUE
+      discovery:
+        locator:
+          enabled: true
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowCredentials: true
+            allowedOrigins: "*"
+            allowedMethods: "PUT, POST, GET, OPTIONS, DELETE"
+            allowedHeaders: "Content-type, Authorization"
+            maxAge: 3600
+      routes:
+        - id: file
+          uri: lb://${file.name}
+          predicates:
+            - Path=/file/**
+#          filters:
+#            - StripPrefix= 2
+        - id: oauth
+          uri: lb://${oauth.name}
+          predicates:
+            - Path=/oauth/**
+        - id: sys
+          uri: lb://${sys.name}
+          predicates:
+            - Path=/sys/**
+        - id: camellia
+          uri: lb://${camellia.name}
+          predicates:
+            - Path=/camellia/**
+
