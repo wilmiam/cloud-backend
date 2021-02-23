@@ -16,7 +16,6 @@
 package com.zq.common.config.base;
 
 import lombok.Data;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * Jwt参数配置
