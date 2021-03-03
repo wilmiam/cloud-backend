@@ -35,7 +35,6 @@
         <module>config-server</module>
         <module>common-utils</module>
         <module>sys-server</module>
-        <module>camellia-server</module>
         <module>cms-server</module>
         <module>file-server</module>
     </modules>

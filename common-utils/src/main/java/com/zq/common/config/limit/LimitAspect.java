@@ -69,9 +69,9 @@ public class LimitAspect {
             if (limitType == LimitType.IP) {
                 key = HttpRequestUtils.getClientIp(request);
             } else {
-                key = signatureMethod.getName();
+                key = signatureMethod.getName();// 获取方法名
                 if ("sendCode".equals(key)) {
-                    key = (String) joinPoint.getArgs()[0];
+                    key = (String) joinPoint.getArgs()[0];// 获取方法的第一个参数
                 }
             }
         }

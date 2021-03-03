@@ -74,6 +74,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         Map<RequestMappingInfo, HandlerMethod> handlerMethodMap = requestMappingHandlerMapping.getHandlerMethods();
         // 获取匿名标记
         Map<String, Set<String>> anonymousUrls = getAnonymousUrl(handlerMethodMap);
+        Set<String> apiSet = new HashSet<>();
+        //不使用注解的时候在这添加url放行
+        // apiSet.add("/app/**");
+
+        anonymousUrls.put("API", apiSet);
         httpSecurity
                 // 禁用 CSRF
                 .csrf().disable()
@@ -127,6 +132,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, anonymousUrls.get(RequestMethodEnum.DELETE.getType()).toArray(new String[0])).permitAll()
                 // 所有类型的接口都放行
                 .antMatchers(anonymousUrls.get(RequestMethodEnum.ALL.getType()).toArray(new String[0])).permitAll()
+                // API接口放行
+                .antMatchers(anonymousUrls.get("API").toArray(new String[0])).permitAll()
                 // 所有请求都需要认证
                 .anyRequest().authenticated()
                 .and().apply(securityConfigurerAdapter());
