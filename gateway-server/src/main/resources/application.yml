@@ -33,8 +33,12 @@ spring:
           uri: lb://${sys.name}
           predicates:
             - Path=/sys/**
-        - id: camellia
-          uri: lb://${camellia.name}
+        - id: cms
+          uri: lb://${cms.name}
           predicates:
-            - Path=/camellia/**
+            - Path=/cms/**
+        - id: api
+          uri: lb://${api.name}
+          predicates:
+            - Path=/api/**
 

@@ -18,6 +18,7 @@ package com.zq.cms.config;
 import cn.hutool.core.util.StrUtil;
 import com.zq.common.config.base.SecurityProperties;
 import com.zq.common.config.redis.RedisUtils;
+import com.zq.common.context.ContextUtils;
 import com.zq.common.vo.OnlineUserDto;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.slf4j.Logger;
@@ -81,6 +82,9 @@ public class TokenFilter extends GenericFilterBean {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 // Token 续期
                 tokenProvider.checkRenewal(token);
+
+                // 设置当前用户
+                ContextUtils.setAdminContext(onlineUserDto);
             }
         }
         filterChain.doFilter(servletRequest, servletResponse);

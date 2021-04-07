@@ -15,11 +15,13 @@
  */
 package com.zq.system;
 
+import com.zq.common.config.base.SecurityProperties;
 import com.zq.system.utils.SpringContextHolder;
 import com.zq.common.annotation.rest.AnonymousGetMapping;
 import io.swagger.annotations.Api;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;

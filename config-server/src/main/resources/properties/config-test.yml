@@ -7,8 +7,8 @@ sys.name: SYS-SERVER
 file.port: 9500
 file.name: FILE-SERVER
 
-camellia.port: 9600
-camellia.name: CAMELLIA-SERVER
+api.port: 9100
+api.name: API-SERVER
 
 cms.port: 9700
 cms.name: CMS-SERVER

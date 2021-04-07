@@ -29,12 +29,12 @@ public class SecurityProperties {
     /**
      * Request Headers ： Authorization
      */
-    private String header;
+    private String header = "Authorization";
 
     /**
      * 令牌前缀，最后留个空格 Bearer
      */
-    private String tokenStartWith;
+    private String tokenStartWith = "Bearer";
 
     /**
      * 必须使用最少88位的Base64对该令牌进行编码

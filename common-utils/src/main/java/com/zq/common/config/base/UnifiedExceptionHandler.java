@@ -1,7 +1,6 @@
 package com.zq.common.config.base;
 
 import com.zq.common.exception.BusinessException;
-import com.zq.common.http.HttpRequestUtils;
 import com.zq.common.vo.ResultVo;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -94,8 +93,8 @@ public class UnifiedExceptionHandler {
     @ExceptionHandler(DataAccessException.class)
     public ResultVo handleDataAccessException(DataAccessException ex, HttpServletRequest request) {
         log.error(">> 访问数据失败 " + request.getRequestURI(), ex);
-        log.info(">> 访问参数QueryString：" + request.getQueryString());
-        log.info(">> 访问参数body：" + HttpRequestUtils.getBodyParams(request));
+        // log.info(">> 访问参数QueryString：" + ServletUtil.getParamMap(request));
+        // log.info(">> 访问参数body：" + ServletUtil.getBody(request));
         return ResultVo.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "服务器繁忙");
     }
 

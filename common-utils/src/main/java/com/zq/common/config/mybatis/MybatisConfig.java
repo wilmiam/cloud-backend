@@ -1,4 +1,4 @@
-package com.zq.common.config.base;
+package com.zq.common.config.mybatis;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;

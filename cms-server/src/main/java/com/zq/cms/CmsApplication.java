@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
-@MapperScan("com.zq.camellia.dao")
+@MapperScan("com.zq.cms.dao")
 @EnableDiscoveryClient
 @SpringBootApplication(scanBasePackages = {"com.zq.cms", "com.zq.common.config"})
 public class CmsApplication {
