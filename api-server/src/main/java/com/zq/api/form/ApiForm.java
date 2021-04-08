@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.zq.api.config.ConfigCache;
 import com.zq.api.utils.ApiUtils;
 import com.zq.api.utils.NumberUtils;
 import com.zq.common.vo.ApiTokenVo;
@@ -181,7 +182,7 @@ public class ApiForm {
             bizContent = this.bizContent;
             bizContent = StrUtil.isBlank(bizContent) ? "" : bizContent;
 
-            boolean flag = false;//ConfigCache.getValueToBoolean("API.PARAM.ENCRYPT"); // API参数是否加密
+            boolean flag = ConfigCache.getValueToBoolean("API.PARAM.ENCRYPT"); // API参数是否加密
             if (StrUtil.isNotBlank(bizContent) && flag) {
                 bizContent = ApiUtils.decode(bizContent);
             }
