@@ -29,7 +29,7 @@ public final class AssertUtils {
      * @param errMsg 错误信息
      */
     public static void isImgExt(String ext, String errMsg) {
-        isImgExt(ext, 0, errMsg);
+        isImgExt(ext, 400, errMsg);
     }
 
     /**
@@ -54,7 +54,7 @@ public final class AssertUtils {
      * @throws BusinessException
      */
     public static void notTrue(boolean expression, String message) throws BusinessException {
-        notTrue(expression, 0, message);
+        notTrue(expression, 400, message);
     }
 
     /**
@@ -79,7 +79,7 @@ public final class AssertUtils {
      * @throws BusinessException
      */
     public static void isTrue(boolean expression, String message) throws BusinessException {
-        isTrue(expression, 0, message);
+        isTrue(expression, 400, message);
     }
 
     /**
@@ -114,7 +114,7 @@ public final class AssertUtils {
      * @throws BusinessException
      */
     public static void notNull(Object object, String message) throws BusinessException {
-        notNull(object, 0, message);
+        notNull(object, 400, message);
     }
 
     /**
@@ -138,7 +138,7 @@ public final class AssertUtils {
      * @throws BusinessException
      */
     public static void hasText(String text) throws BusinessException {
-        hasText(text, 0, "参数不能为空字符串");
+        hasText(text, 400, "参数不能为空字符串");
     }
 
     /**
@@ -149,7 +149,7 @@ public final class AssertUtils {
      * @throws BusinessException
      */
     public static void hasText(String text, String message) throws BusinessException {
-        hasText(text, 0, message);
+        hasText(text, 400, message);
     }
 
     /**
@@ -175,7 +175,7 @@ public final class AssertUtils {
      * @throws BusinessException
      */
     public static <T> void notEmpty(T[] array, String message) throws BusinessException {
-        notEmpty(array, 0, message);
+        notEmpty(array, 400, message);
     }
 
     /**
@@ -202,7 +202,7 @@ public final class AssertUtils {
      * @throws BusinessException
      */
     public static <T> void noNullElements(T[] array, String message) throws BusinessException {
-        noNullElements(array, 0, message);
+        noNullElements(array, 400, message);
     }
 
     /**
@@ -232,7 +232,7 @@ public final class AssertUtils {
      * @throws BusinessException
      */
     public static void notEmpty(Collection<?> collection, String message) throws BusinessException {
-        notEmpty(collection, 0, message);
+        notEmpty(collection, 400, message);
     }
 
     /**
@@ -257,7 +257,7 @@ public final class AssertUtils {
      * @throws BusinessException
      */
     public static void notEmpty(Map<?, ?> map, String message) throws BusinessException {
-        notEmpty(map, 0, message);
+        notEmpty(map, 400, message);
     }
 
     /**

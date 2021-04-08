@@ -1,8 +1,6 @@
 package com.zq.api.form;
 
-import com.alibaba.fastjson.JSON;
 import com.zq.api.constant.ApiCodeEnum;
-import com.zq.common.vo.ResultVo;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -34,15 +32,6 @@ public class ApiResp {
     public ApiResp(ApiCodeEnum apiCodeEnum) {
         this.code = apiCodeEnum.code();
         this.msg = apiCodeEnum.msg();
-    }
-
-    public static ApiResp of(ApiForm form, ResultVo resultVo) {
-        if (resultVo.isSuccess()) {
-            return new ApiResp(form).addData("data", resultVo.getData());
-        } else {
-            System.out.println(JSON.toJSONString(resultVo));
-            return new ApiResp(form).setCode(ApiCodeEnum.BUSINESS_ERROR.code()).setMsg(resultVo.getErrMsg());
-        }
     }
 
     public ApiResp setFrom(ApiForm from) {

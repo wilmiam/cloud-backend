@@ -7,6 +7,7 @@ import com.zq.api.form.ApiResp;
 import com.zq.api.service.IApiLogic;
 import com.zq.api.service.impl.ApiV100Logic;
 import com.zq.api.service.impl.ApiV101Logic;
+import com.zq.common.vo.ResultVo;
 import org.apache.commons.codec.binary.Base64;
 
 import java.io.UnsupportedEncodingException;
@@ -102,6 +103,16 @@ public class ApiUtils {
      */
     public static ApiResp getMethodHandlerError(ApiForm form) {
         return new ApiResp(form, ApiCodeEnum.METHOD_HANDLER_ERROR);
+    }
+
+    public static ApiResp toApiResp(ApiForm form, ResultVo resultVo) {
+        ApiResp apiResp = new ApiResp(form);
+        if (resultVo.isSuccess()) {
+            apiResp.addData("data", resultVo.getData());
+        } else {
+            return apiResp.setCode(String.valueOf(resultVo.getErrCode())).setMsg(resultVo.getErrMsg());
+        }
+        return apiResp;
     }
 
     /**

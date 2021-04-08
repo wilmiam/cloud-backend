@@ -13,7 +13,7 @@ api.name: API-SERVER
 cms.port: 9700
 cms.name: CMS-SERVER
 
-gateway.port: 9888
+gateway.port: 9889
 gateway.name: GATEWAY-SERVER
 
 redis.url: 127.0.0.1
