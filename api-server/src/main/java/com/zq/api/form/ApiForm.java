@@ -40,7 +40,11 @@ public class ApiForm {
     private ApiTokenVo apiTokenVo;
 
     public JSONObject getBizContentJson() {
-        return JSON.parseObject(bizContent);
+        JSONObject object = JSON.parseObject(bizContent);
+        if (object == null) {
+            return new JSONObject();
+        }
+        return object;
     }
 
     /**
@@ -143,8 +147,8 @@ public class ApiForm {
      *
      * @return
      */
-    public Map<String, Object> getParamsMap(boolean isSetAppUserId) {
-        return getParamsMap(isSetAppUserId, null);
+    public Map<String, Object> getParamsMap(boolean isSetUserId) {
+        return getParamsMap(isSetUserId, null);
     }
 
     /**
@@ -152,11 +156,11 @@ public class ApiForm {
      *
      * @return
      */
-    public Map<String, Object> getParamsMap(boolean isSetAppUserId, String key) {
+    public Map<String, Object> getParamsMap(boolean isSetUserId, String key) {
         JSONObject json = getBizContentJson();
         Map<String, Object> innerMap = json.getInnerMap();
         innerMap.put("token", getToken());
-        if (isSetAppUserId) {
+        if (isSetUserId) {
             if (StringUtils.isBlank(key)) {
                 innerMap.put("userId", userId);
             } else {
@@ -182,7 +186,7 @@ public class ApiForm {
                 bizContent = ApiUtils.decode(bizContent);
             }
         } catch (UnsupportedEncodingException e) {
-            log.error("p参数解析失败", e);
+            log.error("bizContent参数解析失败", e);
         }
         treeMap.put("bizContent", bizContent);
 
