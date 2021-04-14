@@ -120,7 +120,7 @@ public class ApiUtils {
     public static ApiResp toApiResp(ApiForm form, ResultVo resultVo) {
         ApiResp apiResp = new ApiResp(form);
         if (resultVo.isSuccess()) {
-            apiResp.addData("data", resultVo.getData());
+            apiResp.addData("data", resultVo.getData() == null ? "" : resultVo.getData());
         } else {
             return apiResp.setCode(String.valueOf(resultVo.getErrCode())).setMsg(resultVo.getErrMsg());
         }

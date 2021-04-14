@@ -37,7 +37,7 @@ public class ApiResp {
 
     public ApiResp setFrom(ApiForm from) {
         if (from != null) {
-            this.apiNo = from.getApiNo();
+            this.apiNo = from.getApiNo() == null ? "" : from.getApiNo();
         }
         return this;
     }
