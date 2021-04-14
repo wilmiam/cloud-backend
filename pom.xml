@@ -20,7 +20,7 @@
         <project.reporting.outputencoding>UTF-8</project.reporting.outputencoding>
         <java.version>1.8</java.version>
 
-        <swagger.version>3.0.0</swagger.version>
+        <swagger.version>2.9.2</swagger.version>
         <alibaba.druid.version>1.1.22</alibaba.druid.version>
         <mybatis.plus.version>3.4.0</mybatis.plus.version>
         <pagehelper.version>5.2.0</pagehelper.version>
