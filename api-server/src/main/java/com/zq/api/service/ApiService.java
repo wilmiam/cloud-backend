@@ -10,10 +10,10 @@ import com.zq.api.utils.ReflectionUtils;
 import com.zq.common.entity.ApiLog;
 import com.zq.common.utils.DateUtils;
 import com.zq.common.vo.ResultVo;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -68,8 +68,9 @@ public class ApiService {
         try {
             return (ApiResp) ReflectionUtils.invokeMethod(apiLogic, form.getMethod(), new Class<?>[]{ApiForm.class}, new Object[]{form});
         } catch (Exception e) {
+            e.printStackTrace();
             // 判断指定异常是否来自或者包含指定异常
-            if (ExceptionUtil.isFromOrSuppressedThrowable(e, HttpClientErrorException.Unauthorized.class)) {
+            if (ExceptionUtil.isFromOrSuppressedThrowable(e, FeignException.Unauthorized.class)) {
                 return ApiUtils.toApiResp(form, ResultVo.fail(401, "Unauthorized"));
             }
             return ApiUtils.getMethodHandlerError(form);

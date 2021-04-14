@@ -9,6 +9,7 @@ import com.zq.api.service.impl.ApiV100Logic;
 import com.zq.api.service.impl.ApiV101Logic;
 import com.zq.common.vo.ResultVo;
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -18,17 +19,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+@Component
 public class ApiUtils {
 
-    private static final Map<String, IApiLogic> map = new HashMap<String, IApiLogic>();
+    private static final Map<String, IApiLogic> map = new HashMap<>();
     /**
      * 调试日志
      */
     public static boolean DEBUG = false;
 
-    static {
-        addApi("1.0.0", new ApiV100Logic());
-        addApi("1.0.1", new ApiV101Logic());
+    public ApiUtils(ApiV100Logic apiV100Logic, ApiV101Logic apiV101Logic) {
+        addApi("1.0.0", apiV100Logic);
+        addApi("1.0.1", apiV101Logic);
     }
 
     public static void addApi(String version, IApiLogic apiLogic) {
@@ -37,6 +39,16 @@ public class ApiUtils {
 
     public static IApiLogic getApiLogic(ApiForm form) {
         return map.get(form.getVersion());
+    }
+
+    /**
+     * 获取成功响应
+     *
+     * @param form
+     * @return
+     */
+    public static ApiResp getSuccessResp(ApiForm form) {
+        return new ApiResp(form, ApiCodeEnum.SUCCESS);
     }
 
     /**
