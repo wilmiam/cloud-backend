@@ -76,7 +76,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         Map<String, Set<String>> anonymousUrls = getAnonymousUrl(handlerMethodMap);
         Set<String> apiSet = new HashSet<>();
         //不使用注解的时候在这添加url放行
-        // apiSet.add("/app/**");
+        // apiSet.add("/cms/app/**");
 
         anonymousUrls.put("API", apiSet);
         httpSecurity
