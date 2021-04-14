@@ -32,7 +32,7 @@ spring:
         - id: sys
           uri: lb://${sys.name}
           predicates:
-            - Path=/sys/**
+            - Path=/sys/**, /webSocket/**
         - id: cms
           uri: lb://${cms.name}
           predicates:
