@@ -23,7 +23,7 @@ redis.port: 6379
 jdbc.driver-class-name: com.mysql.cj.jdbc.Driver
 jdbc.username: root
 jdbc.password: Dk2019!23456
-jdbc.url: jdbc:mysql://47.107.148.253:3306/cloud?characterEncoding=utf8&useSSL=false&serverTimezone=Hongkong
+jdbc.url: jdbc:mysql://47.107.148.253:3306/cloud?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
 
 #jwt
 jwt:
