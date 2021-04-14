@@ -2,6 +2,7 @@ package com.zq.common.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.zq.common.context.ThreadContext;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -32,10 +33,14 @@ public class ResultVo<T> implements Serializable {
     private T data;
 
     public static ResultVo success() {
+        ThreadContext.close();
+
         return success(null);
     }
 
     public static <E> ResultVo<E> success(E data) {
+        ThreadContext.close();
+
         ResultVo<E> result = new ResultVo<>();
         result.setSuccess(true);
         result.setData(data);
@@ -43,10 +48,14 @@ public class ResultVo<T> implements Serializable {
     }
 
     public static ResultVo fail(String errMsg) {
+        ThreadContext.close();
+
         return fail(500, errMsg);
     }
 
     public static ResultVo fail(int errCode, String errMsg) {
+        ThreadContext.close();
+
         ResultVo result = new ResultVo<>();
         result.setSuccess(false);
         result.setErrCode(errCode);
