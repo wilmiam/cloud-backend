@@ -12,6 +12,7 @@ public class ApiResp {
     private String apiNo = "";
     private String code = ApiCodeEnum.SUCCESS.code();
     private String msg = ApiCodeEnum.SUCCESS.msg();
+    private Long timestamp = System.currentTimeMillis();
     private Map<String, Map<String, Object>> data = new HashMap<>();
 
     public ApiResp(ApiForm from) {
@@ -66,6 +67,10 @@ public class ApiResp {
     public ApiResp setMsg(String msg) {
         this.msg = msg;
         return this;
+    }
+
+    public Boolean isSuccess() {
+        return this.getCode().equals(ApiCodeEnum.SUCCESS.code());
     }
 
     public Map<String, Object> getData() {

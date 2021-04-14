@@ -5,7 +5,6 @@ import com.zq.api.form.ApiForm;
 import com.zq.api.form.ApiResp;
 import com.zq.api.service.IApiLogic;
 import com.zq.api.utils.ApiUtils;
-import com.zq.common.vo.ResultVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +22,6 @@ public class ApiV100Logic extends BaseApiLogic implements IApiLogic {
      */
     @Override
     public ApiResp test(ApiForm form) {
-        return ApiUtils.toApiResp(form, ResultVo.success());
+        return ApiUtils.toApiResp(form, cmsFeign.test(form.getParamsMap()));
     }
 }
