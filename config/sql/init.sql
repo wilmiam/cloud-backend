@@ -72,6 +72,7 @@ CREATE TABLE `t_api_log`  (
   `biz_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL COMMENT '业务参数',
   `log_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '日志类型',
   `resp_msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '响应信息',
+  `error_info` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL COMMENT '错误信息',
   `time_cost` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '耗时-毫秒',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
