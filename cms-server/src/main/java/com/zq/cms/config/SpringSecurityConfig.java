@@ -56,7 +56,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private final RedisUtils redisUtils;
 
     @Bean
-    GrantedAuthorityDefaults grantedAuthorityDefaults() {
+    public GrantedAuthorityDefaults grantedAuthorityDefaults() {
         // 去除 ROLE_ 前缀
         return new GrantedAuthorityDefaults("");
     }
