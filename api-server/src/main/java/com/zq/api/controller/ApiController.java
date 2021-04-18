@@ -1,15 +1,19 @@
 package com.zq.api.controller;
 
+import cn.hutool.core.exceptions.ExceptionUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.alibaba.fastjson.JSON;
-import com.zq.api.config.ApiTokenUtils;
 import com.zq.api.constant.ApiCodeEnum;
 import com.zq.api.form.ApiForm;
 import com.zq.api.form.ApiResp;
 import com.zq.api.service.ApiService;
 import com.zq.api.utils.ApiUtils;
+import com.zq.common.config.security.ApiTokenUtils;
+import com.zq.common.utils.ThrowableUtil;
 import com.zq.common.vo.ApiTokenVo;
+import com.zq.common.vo.ResultVo;
+import feign.FeignException;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,11 +43,10 @@ public class ApiController {
         long start = System.currentTimeMillis();
 
         ApiForm form = ServletUtil.toBean(request, ApiForm.class, true);
-        ApiResp resp = new ApiResp(form);
 
         // 不处理Request Method:OPTIONS的请求
         if (request.getMethod().equals("OPTIONS")) {
-            return resp;
+            return ApiUtils.getSuccessResp(form);
         }
 
         String method = form.getMethod();
@@ -70,16 +73,31 @@ public class ApiController {
             form.setApiTokenVo(tokenVo);
         }
 
+        String errorInfo = "";
         // 调用接口方法
-        resp = apiService.action(form);
+        ApiResp resp;
+        try {
+            resp = apiService.action(form);
+        } catch (Exception e) {
+            errorInfo = ThrowableUtil.getStackTrace(e);
+            e.printStackTrace();
+            // 判断指定异常是否来自或者包含指定异常
+            if (ExceptionUtil.isFromOrSuppressedThrowable(e, FeignException.Unauthorized.class)) {
+                resp = ApiUtils.toApiResp(form, ResultVo.fail(401, "Unauthorized"));
+            } else {
+                resp = ApiUtils.getMethodHandlerError(form);
+            }
+        }
         // 没有数据输出空
         resp = resp == null ? new ApiResp(form) : resp;
 
-        String logType = "INFO";
-        if (!resp.getCode().equals(ApiCodeEnum.SUCCESS.code())) {
-            logType = "ERROR";
+        String logType = resp.isSuccess() ? "INFO" : "ERROR";
+
+        // 如果是500错误, 服务会返回错误的堆栈信息
+        if (resp.getCode().equals(ApiCodeEnum.SERVER_ERROR.code())) {
+            errorInfo = resp.getMsg();
+            resp.setMsg(ApiCodeEnum.SERVER_ERROR.msg());
         }
-        String respMsg = resp.getMsg();
 
         // 调试日志
         if (ApiUtils.DEBUG) {
@@ -88,7 +106,7 @@ public class ApiController {
                     + "\n[time=" + (System.currentTimeMillis() - start) + "ms]");
         }
 
-        apiService.addLog(form, logType, respMsg, System.currentTimeMillis() - start);
+        apiService.addLog(form, logType, resp.getMsg(), errorInfo, System.currentTimeMillis() - start);
         return resp;
     }
 

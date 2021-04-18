@@ -74,6 +74,12 @@ public class ApiLog {
     private String respMsg;
 
     /**
+     * 错误信息
+     */
+    @ApiModelProperty("错误信息")
+    private String errorInfo;
+
+    /**
      * 耗时-毫秒
      */
     @ApiModelProperty("耗时-毫秒")
