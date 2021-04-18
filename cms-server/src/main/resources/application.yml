@@ -71,5 +71,3 @@ mybatis-plus:
     db-config:
       select-strategy: not_empty
       update-strategy: not_empty
-
-#logging.level.com.zq.drug.dao: debug

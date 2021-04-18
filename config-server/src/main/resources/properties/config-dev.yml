@@ -44,4 +44,4 @@ jwt:
   renew: 3600000
 
 #日志等级
-log.level: debug
+logging.level.com.zq.*.dao: debug
