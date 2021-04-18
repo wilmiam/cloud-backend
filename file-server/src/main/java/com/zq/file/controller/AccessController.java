@@ -24,11 +24,19 @@ import java.io.InputStream;
 public class AccessController {
 
     @GetMapping(value = "/images/**", produces = MediaType.IMAGE_JPEG_VALUE)
-    public BufferedImage getImage(HttpServletRequest request) throws IOException {
-        try (InputStream is = new FileInputStream(request.getRequestURI())) {
-            return ImageIO.read(is);
-        }
+    public byte[] getImage(HttpServletRequest request) throws IOException {
+        FileInputStream inputStream = new FileInputStream(request.getRequestURI());
+        byte[] bytes = new byte[inputStream.available()];
+        inputStream.read(bytes, 0, inputStream.available());
+        return bytes;
     }
+
+    // @GetMapping(value = "/images/**", produces = MediaType.IMAGE_JPEG_VALUE)
+    // public BufferedImage getImage(HttpServletRequest request) throws IOException {
+    //     try (InputStream is = new FileInputStream(request.getRequestURI())) {
+    //         return ImageIO.read(is);
+    //     }
+    // }
 
     @GetMapping(value = "/file/**")
     public ResponseEntity<Resource> download(HttpServletRequest request) {
