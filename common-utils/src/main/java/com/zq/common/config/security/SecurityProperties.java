@@ -13,9 +13,11 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.zq.common.config.base;
+package com.zq.common.config.security;
 
 import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 /**
  * Jwt参数配置
@@ -24,17 +26,19 @@ import lombok.Data;
  * @date 2019年11月28日
  */
 @Data
+@Component
+@ConfigurationProperties(prefix = "jwt")
 public class SecurityProperties {
 
     /**
      * Request Headers ： Authorization
      */
-    private String header = "Authorization";
+    private String header;
 
     /**
      * 令牌前缀，最后留个空格 Bearer
      */
-    private String tokenStartWith = "Bearer";
+    private String tokenStartWith;
 
     /**
      * 必须使用最少88位的Base64对该令牌进行编码

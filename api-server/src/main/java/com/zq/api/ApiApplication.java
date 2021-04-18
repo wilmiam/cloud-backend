@@ -1,6 +1,6 @@
 package com.zq.api;
 
-import com.zq.common.config.base.SecurityProperties;
+import com.zq.common.config.security.SecurityProperties;
 import com.zq.common.config.base.SpringContextHolder;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

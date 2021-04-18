@@ -1,6 +1,6 @@
 package com.zq.cms;
 
-import com.zq.common.config.base.SecurityProperties;
+import com.zq.common.config.security.SecurityProperties;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -18,7 +18,7 @@ import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
-import com.zq.common.config.base.SecurityProperties;
+import com.zq.common.config.security.SecurityProperties;
 import com.zq.common.config.redis.RedisUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

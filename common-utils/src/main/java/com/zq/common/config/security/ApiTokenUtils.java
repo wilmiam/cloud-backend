@@ -1,4 +1,4 @@
-package com.zq.api.config;/*
+package com.zq.common.config.security;/*
  *  Copyright 2019-2020 Zheng Jie
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,6 @@ package com.zq.api.config;/*
  */
 
 import com.alibaba.fastjson.JSON;
-import com.zq.common.config.security.SecurityProperties;
 import com.zq.common.vo.ApiTokenVo;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;

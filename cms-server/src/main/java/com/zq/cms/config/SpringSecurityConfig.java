@@ -16,7 +16,7 @@
 package com.zq.cms.config;
 
 import com.zq.common.annotation.AnonymousAccess;
-import com.zq.common.config.base.SecurityProperties;
+import com.zq.common.config.security.SecurityProperties;
 import com.zq.common.config.redis.RedisUtils;
 import com.zq.common.utils.RequestMethodEnum;
 import lombok.RequiredArgsConstructor;

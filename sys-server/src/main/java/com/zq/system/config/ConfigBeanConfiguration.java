@@ -16,7 +16,6 @@
 package com.zq.system.config;
 
 import com.zq.system.config.bean.LoginProperties;
-import com.zq.common.config.base.SecurityProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,9 +34,4 @@ public class ConfigBeanConfiguration {
         return new LoginProperties();
     }
 
-    @Bean
-    @ConfigurationProperties(prefix = "jwt")
-    public SecurityProperties securityProperties() {
-        return new SecurityProperties();
-    }
 }

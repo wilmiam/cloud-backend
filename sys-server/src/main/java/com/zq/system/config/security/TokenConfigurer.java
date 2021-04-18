@@ -17,7 +17,7 @@ package com.zq.system.config.security;
 
 import com.zq.system.modules.system.service.OnlineUserService;
 import com.zq.system.modules.system.service.UserCacheClean;
-import com.zq.common.config.base.SecurityProperties;
+import com.zq.common.config.security.SecurityProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

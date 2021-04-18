@@ -20,7 +20,7 @@ import com.zq.system.modules.system.service.dto.UserDto;
 import com.zq.system.utils.EncryptUtils;
 import com.zq.system.utils.FileUtil;
 import com.zq.system.utils.PageUtil;
-import com.zq.common.config.base.SecurityProperties;
+import com.zq.common.config.security.SecurityProperties;
 import com.zq.common.config.redis.RedisUtils;
 import com.zq.common.http.HttpRequestUtils;
 import com.zq.common.utils.StringUtils;

@@ -16,7 +16,7 @@
 package com.zq.system.config.security;
 
 import cn.hutool.core.util.StrUtil;
-import com.zq.common.config.base.SecurityProperties;
+import com.zq.common.config.security.SecurityProperties;
 import com.zq.common.vo.OnlineUserDto;
 import com.zq.system.modules.system.service.OnlineUserService;
 import com.zq.system.modules.system.service.UserCacheClean;
