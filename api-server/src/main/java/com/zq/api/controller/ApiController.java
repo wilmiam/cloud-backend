@@ -106,7 +106,8 @@ public class ApiController {
                     + "\n[time=" + (System.currentTimeMillis() - start) + "ms]");
         }
 
-        apiService.addLog(form, logType, resp.getMsg(), errorInfo, System.currentTimeMillis() - start);
+        String clientIP = ServletUtil.getClientIP(request);
+        apiService.addLog(form, clientIP, logType, resp.getMsg(), errorInfo, System.currentTimeMillis() - start);
         return resp;
     }
 

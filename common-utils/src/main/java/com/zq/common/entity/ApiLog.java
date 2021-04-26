@@ -62,6 +62,12 @@ public class ApiLog {
     private String bizContent;
 
     /**
+     * IP
+     */
+    @ApiModelProperty("IP")
+    private String ip;
+
+    /**
      * 日志类型
      */
     @ApiModelProperty("日志类型")

@@ -11,6 +11,7 @@ import com.zq.common.entity.ApiLog;
 import com.zq.common.utils.DateUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Method;
@@ -66,13 +67,15 @@ public class ApiService {
         return (ApiResp) ReflectionUtils.invokeMethod(apiLogic, form.getMethod(), new Class<?>[]{ApiForm.class}, new Object[]{form});
     }
 
-    public void addLog(ApiForm form, String logType, String respMsg, String errorInfo, Long timeCost) {
+    @Async
+    public void addLog(ApiForm form, String ip, String logType, String respMsg, String errorInfo, Long timeCost) {
         apiLogDao.insert(ApiLog.builder()
                 .appId(form.getAppId())
                 .userId(form.getUserId())
                 .method(form.getMethod())
                 .version(form.getVersion())
                 .bizContent(form.getBizContent())
+                .ip(ip)
                 .logType(logType)
                 .respMsg(respMsg)
                 .errorInfo(errorInfo)
