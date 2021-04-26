@@ -28,6 +28,10 @@ public class FeignConfig {
                 if (headerNames != null) {
                     while (headerNames.hasMoreElements()) {
                         String name = headerNames.nextElement();
+                        // 跳过content-length
+                        if (name.equals("content-length")) {
+                            continue;
+                        }
                         String values = request.getHeader(name);
                         template.header(name, values);
                     }
