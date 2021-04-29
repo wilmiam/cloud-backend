@@ -51,19 +51,19 @@ INSERT INTO `sys_config` VALUES (7, '腾讯云秘钥KEY', 'CLOUD.SECRET.KEY', 'S
 -- ----------------------------
 DROP TABLE IF EXISTS `t_api_log`;
 CREATE TABLE `t_api_log`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `app_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT 'APPID',
-  `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '用户ID',
-  `method` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '调用方法',
-  `version` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '版本号',
-  `biz_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL COMMENT '业务参数',
-  `ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT 'IP',
-  `log_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '日志类型',
-  `resp_msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '响应信息',
-  `error_info` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL COMMENT '错误信息',
-  `time_cost` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '耗时-毫秒',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`) USING BTREE
+    `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+    `app_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT 'APPID',
+    `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '用户ID',
+    `method` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '调用方法',
+    `version` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '版本号',
+    `biz_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL COMMENT '业务参数',
+    `ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT 'IP',
+    `log_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '日志类型',
+    `resp_msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '响应信息',
+    `error_info` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL COMMENT '错误信息',
+    `time_cost` bigint(20) NULL DEFAULT 0 COMMENT '耗时-毫秒',
+    `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+    PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = 'api调用记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------

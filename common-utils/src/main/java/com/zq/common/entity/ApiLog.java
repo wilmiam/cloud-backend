@@ -89,7 +89,7 @@ public class ApiLog {
      * 耗时-毫秒
      */
     @ApiModelProperty("耗时-毫秒")
-    private String timeCost;
+    private Long timeCost;
 
     /**
      * 创建时间

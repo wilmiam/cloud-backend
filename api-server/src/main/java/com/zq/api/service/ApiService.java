@@ -79,7 +79,7 @@ public class ApiService {
                 .logType(logType)
                 .respMsg(respMsg)
                 .errorInfo(errorInfo)
-                .timeCost(String.valueOf(timeCost))
+                .timeCost(timeCost)
                 .createTime(DateUtils.now())
                 .build());
     }
