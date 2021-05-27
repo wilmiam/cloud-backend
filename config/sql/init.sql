@@ -43,8 +43,8 @@ INSERT INTO `sys_config` VALUES (2, 'ip黑名单，逗号分隔', 'API.IP.BLACK'
 INSERT INTO `sys_config` VALUES (3, '支持的版本，逗号分隔', 'API.VERSIONS', '1.0.0,1.0.1', 'txt', 112, '2016-12-17 23:17:00', 1, '2016-12-17 23:17:00', 1);
 INSERT INTO `sys_config` VALUES (4, '登陆验证是否开启', 'API.LOGIN.VALID', 'false', 'bool', 114, '2016-12-17 23:17:23', 1, '2016-12-17 23:17:23', 1);
 INSERT INTO `sys_config` VALUES (5, 'API参数加密是否开启', 'API.PARAM.ENCRYPT', 'false', 'bool', 115, '2017-03-17 23:17:23', 1, '2017-03-17 23:17:23', 1);
-INSERT INTO `sys_config` VALUES (6, '腾讯云秘钥ID', 'CLOUD.SECRET.ID', 'AKIDwi1CB9h9HDex4yaahdbVHzVXN3XpqzEH', 'txt', 10, '2017-04-05 22:59:24', 1, '2017-04-05 22:59:24', 1);
-INSERT INTO `sys_config` VALUES (7, '腾讯云秘钥KEY', 'CLOUD.SECRET.KEY', 'SghR2ECxh5D3rsmiTH2XoqrbXGl5A0a0', 'txt', 10, '2017-04-05 22:59:51', 1, '2017-04-05 22:59:51', 1);
+INSERT INTO `sys_config` VALUES (6, '腾讯云秘钥ID', 'CLOUD.SECRET.ID', 'xxx', 'txt', 10, '2017-04-05 22:59:24', 1, '2017-04-05 22:59:24', 1);
+INSERT INTO `sys_config` VALUES (7, '腾讯云秘钥KEY', 'CLOUD.SECRET.KEY', 'xxx', 'txt', 10, '2017-04-05 22:59:51', 1, '2017-04-05 22:59:51', 1);
 
 -- ----------------------------
 -- Table structure for t_api_log
