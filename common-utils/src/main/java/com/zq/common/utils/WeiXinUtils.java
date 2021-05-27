@@ -32,7 +32,12 @@ import java.util.Map;
 
 @Slf4j
 @Data
-public class WeixinUtils {
+public class WeiXinUtils {
+
+    // 小程序发送红包的请求
+    private String sendminiprogramhb = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendminiprogramhb";
+    // 企业向个人用户付款
+    private String transfers = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
 
     /**
      * 获取不限量小程序二维码
