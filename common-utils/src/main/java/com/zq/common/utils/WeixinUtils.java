@@ -1,5 +1,6 @@
 package com.zq.common.utils;
 
+import cn.hutool.core.codec.Base64;
 import cn.hutool.http.HttpRequest;
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.weixin.sdk.api.AccessToken;
@@ -32,7 +33,7 @@ import java.util.Map;
 
 @Slf4j
 @Data
-public class WeiXinUtils {
+public class WeixinUtils {
 
     // 小程序发送红包的请求
     private String sendminiprogramhb = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendminiprogramhb";
@@ -59,11 +60,12 @@ public class WeiXinUtils {
         Map<String, String> header = new HashMap<>();
         header.put("Content-type", "application/json; charset=utf-8");
         header.put("Accept", "application/json");
-        String result = HttpRequest.post(url)
+
+        byte[] bytes = HttpRequest.post(url)
                 .body(param.toString())
                 .headerMap(header, true)
-                .execute().body();
-        return "data:image/png;base64," + result;
+                .execute().bodyBytes();
+        return "data:image/png;base64," + Base64.encode(bytes);
     }
 
     /**
