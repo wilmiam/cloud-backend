@@ -15,6 +15,7 @@
  */
 package com.zq.common.utils;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.poi.excel.BigExcelWriter;
@@ -40,7 +41,7 @@ import java.util.Map;
  * @author Zheng Jie
  * @date 2018-12-27
  */
-public class FileUtils extends cn.hutool.core.io.FileUtil {
+public class FileUtils extends FileUtil {
 
     /**
      * 定义GB的计算常量

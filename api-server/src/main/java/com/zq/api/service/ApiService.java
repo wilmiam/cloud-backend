@@ -1,5 +1,6 @@
 package com.zq.api.service;
 
+import cn.hutool.core.date.DateUtil;
 import com.zq.api.config.ConfigCache;
 import com.zq.api.constant.ApiCodeEnum;
 import com.zq.api.dao.ApiLogDao;
@@ -8,7 +9,6 @@ import com.zq.api.form.ApiResp;
 import com.zq.api.utils.ApiUtils;
 import com.zq.api.utils.ReflectionUtils;
 import com.zq.common.entity.ApiLog;
-import com.zq.common.utils.DateUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -80,7 +80,7 @@ public class ApiService {
                 .respMsg(respMsg)
                 .errorInfo(errorInfo)
                 .timeCost(timeCost)
-                .createTime(DateUtils.now())
+                .createTime(DateUtil.date().toJdkDate())
                 .build());
     }
 }
