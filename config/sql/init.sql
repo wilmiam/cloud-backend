@@ -60,7 +60,7 @@ CREATE TABLE `t_api_log`  (
     `ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT 'IP',
     `log_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '日志类型',
     `resp_msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '响应信息',
-    `error_info` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL COMMENT '错误信息',
+    `stack_trace` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL COMMENT '堆栈跟踪',
     `time_cost` bigint(20) NULL DEFAULT 0 COMMENT '耗时-毫秒',
     `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
     PRIMARY KEY (`id`) USING BTREE

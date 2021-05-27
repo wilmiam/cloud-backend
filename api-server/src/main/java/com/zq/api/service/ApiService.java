@@ -78,7 +78,7 @@ public class ApiService {
                 .ip(ip)
                 .logType(logType)
                 .respMsg(respMsg)
-                .errorInfo(errorInfo)
+                .stackTrace(errorInfo)
                 .timeCost(timeCost)
                 .createTime(DateUtil.date().toJdkDate())
                 .build());

@@ -80,10 +80,10 @@ public class ApiLog {
     private String respMsg;
 
     /**
-     * 错误信息
+     * 堆栈跟踪
      */
-    @ApiModelProperty("错误信息")
-    private String errorInfo;
+    @ApiModelProperty("堆栈跟踪")
+    private String stackTrace;
 
     /**
      * 耗时-毫秒

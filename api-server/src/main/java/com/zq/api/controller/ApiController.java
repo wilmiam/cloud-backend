@@ -73,13 +73,13 @@ public class ApiController {
             form.setApiTokenVo(tokenVo);
         }
 
-        String errorInfo = "";
+        String stackTrace = "";
         // 调用接口方法
         ApiResp resp;
         try {
             resp = apiService.action(form);
         } catch (Exception e) {
-            errorInfo = ThrowableUtil.getStackTrace(e);
+            stackTrace = ThrowableUtil.getStackTrace(e);
             e.printStackTrace();
             // 判断指定异常是否来自或者包含指定异常
             if (ExceptionUtil.isFromOrSuppressedThrowable(e, FeignException.Unauthorized.class)) {
@@ -95,7 +95,7 @@ public class ApiController {
 
         // 如果是500错误, 服务会返回错误的堆栈信息
         if (resp.getCode().equals(ApiCodeEnum.SERVER_ERROR.code())) {
-            errorInfo = resp.getMsg();
+            stackTrace = resp.getMsg();
             resp.setMsg(ApiCodeEnum.SERVER_ERROR.msg());
         }
 
@@ -107,7 +107,7 @@ public class ApiController {
         }
 
         String clientIP = ServletUtil.getClientIP(request);
-        apiService.addLog(form, clientIP, logType, resp.getMsg(), errorInfo, System.currentTimeMillis() - start);
+        apiService.addLog(form, clientIP, logType, resp.getMsg(), stackTrace, System.currentTimeMillis() - start);
         return resp;
     }
 
