@@ -126,18 +126,19 @@ public class WeixinUtils {
     public static Boolean checkImg(InputStream inputStream, String contentType, String accessToken) {
         try {
             CloseableHttpClient httpclient = HttpClients.createDefault();
-            CloseableHttpResponse response;
+
             HttpPost request = new HttpPost("https://api.weixin.qq.com/wxa/img_sec_check?access_token=" + accessToken);
             request.addHeader("Content-Type", "application/octet-stream");
             byte[] byt = new byte[inputStream.available()];
             inputStream.read(byt);
             request.setEntity(new ByteArrayEntity(byt, ContentType.create(contentType)));
-            response = httpclient.execute(request);
+
+            CloseableHttpResponse response = httpclient.execute(request);
             HttpEntity httpEntity = response.getEntity();
             String result = EntityUtils.toString(httpEntity, "UTF-8");// 转成string
 
             //打印检测结果
-            log.info("检测结果: {}", result);
+            log.debug("检测结果: {}", result);
 
             JSONObject jso = JSONObject.parseObject(result);
 
@@ -155,6 +156,7 @@ public class WeixinUtils {
 
     /**
      * 获取访问凭证
+     * 使用jfinal自带的方式缓存在内存中
      *
      * @param appId
      * @param appSecret
@@ -167,16 +169,20 @@ public class WeixinUtils {
         ApiConfigKit.putApiConfig(apiConfig);
 
         AccessToken accessToken = AccessTokenApi.getAccessToken();
-        AccessTokenApi.setAccessToken(accessToken);
 
         if (!accessToken.isAvailable()) {
             accessToken = AccessTokenApi.refreshAccessToken(apiConfig);
         }
 
+        // 设置到jfinal自带的方式缓存在内存中
+        AccessTokenApi.setAccessToken(accessToken);
+
         return accessToken.getAccessToken();
     }
 
     /**
+     * 商户支付请求方法
+     *
      * @param params   传入参数
      * @param certFile 证书
      * @param payMchId 商户号id
@@ -206,19 +212,17 @@ public class WeixinUtils {
             httpPost.addHeader("Cache-Control", "max-age=0");
             httpPost.addHeader("User-Agent", "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0) ");
             httpPost.setEntity(new StringEntity(PaymentKit.toXml(params), "UTF-8"));
-            try (CloseableHttpResponse response = httpclient.execute(httpPost)) {
-                HttpEntity entity = response.getEntity();
-                if (entity != null) {
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(entity.getContent(), StandardCharsets.UTF_8));
-                    String text;
-                    while ((text = bufferedReader.readLine()) != null) {
-                        message.append(text);
-                    }
+
+            CloseableHttpResponse response = httpclient.execute(httpPost);
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(entity.getContent(), StandardCharsets.UTF_8));
+                String text;
+                while ((text = bufferedReader.readLine()) != null) {
+                    message.append(text);
                 }
-                EntityUtils.consume(entity);
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+            EntityUtils.consume(entity);
         } catch (Exception e1) {
             e1.printStackTrace();
         }
