@@ -41,16 +41,26 @@ public class ApiForm {
     private JSONObject bizContentJson; // 请求业务的json对象
     private ApiTokenVo apiTokenVo;
 
+    public boolean parseBizContent() {
+        try {
+            bizContentJson = JSON.parseObject(bizContent);
+            if (bizContentJson == null) {
+                bizContentJson = new JSONObject();
+            }
+            return true;
+        } catch (Exception e) {
+            log.error("bizContent解析失败：{}", e.getMessage());
+            return false;
+        }
+    }
+
     public JSONObject getContentJson() {
         if (bizContentJson != null) {
             return bizContentJson;
         }
 
-        JSONObject object = JSON.parseObject(bizContent);
-        if (object == null) {
-            return new JSONObject();
-        }
-        return object;
+        parseBizContent();
+        return bizContentJson;
     }
 
     /**

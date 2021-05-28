@@ -4,7 +4,6 @@ import cn.hutool.core.exceptions.ExceptionUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.zq.api.constant.ApiCodeEnum;
 import com.zq.api.form.ApiForm;
 import com.zq.api.form.ApiResp;
@@ -44,10 +43,7 @@ public class ApiController {
         long start = System.currentTimeMillis();
 
         ApiForm form = ServletUtil.toBean(request, ApiForm.class, true);
-        try {
-            JSONObject jsonObject = JSON.parseObject(form.getBizContent());
-            form.setBizContentJson(jsonObject);
-        } catch (Exception e) {
+        if (!form.parseBizContent()) {
             return ApiUtils.getParamError(form);
         }
 
