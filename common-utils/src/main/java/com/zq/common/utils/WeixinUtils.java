@@ -3,11 +3,11 @@ package com.zq.common.utils;
 import cn.hutool.core.codec.Base64;
 import cn.hutool.http.HttpRequest;
 import com.alibaba.fastjson.JSONObject;
-import com.jfinal.weixin.sdk.api.AccessToken;
-import com.jfinal.weixin.sdk.api.AccessTokenApi;
-import com.jfinal.weixin.sdk.api.ApiConfig;
-import com.jfinal.weixin.sdk.api.ApiConfigKit;
 import com.jfinal.weixin.sdk.kit.PaymentKit;
+import com.jfinal.wxaapp.WxaConfig;
+import com.jfinal.wxaapp.WxaConfigKit;
+import com.jfinal.wxaapp.api.WxaAccessToken;
+import com.jfinal.wxaapp.api.WxaAccessTokenApi;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
@@ -163,19 +163,12 @@ public class WeixinUtils {
      * @return
      */
     public static String getAccessToken(String appId, String appSecret) {
-        ApiConfig apiConfig = new ApiConfig();
+        WxaConfig apiConfig = new WxaConfig();
         apiConfig.setAppId(appId);
         apiConfig.setAppSecret(appSecret);
-        ApiConfigKit.putApiConfig(apiConfig);
+        WxaConfigKit.setWxaConfig(apiConfig);
 
-        AccessToken accessToken = AccessTokenApi.getAccessToken();
-
-        if (!accessToken.isAvailable()) {
-            accessToken = AccessTokenApi.refreshAccessToken(apiConfig);
-        }
-
-        // 设置到jfinal自带的方式缓存在内存中
-        AccessTokenApi.setAccessToken(accessToken);
+        WxaAccessToken accessToken = WxaAccessTokenApi.getAccessToken();
 
         return accessToken.getAccessToken();
     }
