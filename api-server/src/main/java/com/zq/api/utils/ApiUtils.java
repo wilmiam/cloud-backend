@@ -117,6 +117,17 @@ public class ApiUtils {
         return new ApiResp(form, ApiCodeEnum.METHOD_HANDLER_ERROR);
     }
 
+    /**
+     * 传递参数异常
+     * <p>
+     * 2016年9月29日 上午11:44:38
+     *
+     * @return
+     */
+    public static ApiResp getParamError(ApiForm form) {
+        return new ApiResp(form, ApiCodeEnum.PARAM_ERROR);
+    }
+
     public static ApiResp toApiResp(ApiForm form, ResultVo resultVo) {
         ApiResp apiResp = new ApiResp(form);
         if (resultVo.isSuccess()) {

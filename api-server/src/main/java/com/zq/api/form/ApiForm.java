@@ -38,9 +38,14 @@ public class ApiForm {
     private String version; // 接口版本
     private String apiNo; // 接口码
     private String bizContent; // 请求业务参数
+    private JSONObject bizContentJson; // 请求业务的json对象
     private ApiTokenVo apiTokenVo;
 
-    public JSONObject getBizContentJson() {
+    public JSONObject getContentJson() {
+        if (bizContentJson != null) {
+            return bizContentJson;
+        }
+
         JSONObject object = JSON.parseObject(bizContent);
         if (object == null) {
             return new JSONObject();
@@ -97,7 +102,7 @@ public class ApiForm {
      * @return
      */
     public String get(String key) {
-        return getBizContentJson().getString(key);
+        return getContentJson().getString(key);
     }
 
     /**
@@ -107,7 +112,7 @@ public class ApiForm {
      * @return
      */
     public Boolean getBoolean(String key) {
-        return getBizContentJson().getBoolean(key);
+        return getContentJson().getBoolean(key);
     }
 
     /**
@@ -119,7 +124,7 @@ public class ApiForm {
      * @return
      */
     public JSONObject getJSONObject(String key) {
-        return getBizContentJson().getJSONObject(key);
+        return getContentJson().getJSONObject(key);
     }
 
     /**
@@ -131,7 +136,7 @@ public class ApiForm {
      * @return
      */
     public JSONArray getJSONArray(String key) {
-        return getBizContentJson().getJSONArray(key);
+        return getContentJson().getJSONArray(key);
     }
 
     /**
@@ -158,7 +163,7 @@ public class ApiForm {
      * @return
      */
     public Map<String, Object> getParamsMap(boolean isSetUserId, String key) {
-        JSONObject json = getBizContentJson();
+        JSONObject json = getContentJson();
         Map<String, Object> innerMap = json.getInnerMap();
         innerMap.put("token", getToken());
         if (isSetUserId) {
