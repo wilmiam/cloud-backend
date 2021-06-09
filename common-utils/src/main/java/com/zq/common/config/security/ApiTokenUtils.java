@@ -85,19 +85,23 @@ public class ApiTokenUtils implements InitializingBean {
         }
     }
 
-    public static boolean isTokenValid(String token) {
+    public static Claims getClaims(String token) {
         try {
             //解析JWT字符串中的数据，并进行最基础的验证
             Claims claims = Jwts.parser()
                     .setSigningKey(DatatypeConverter.parseBase64Binary(properties.getBase64Secret()))
                     .parseClaimsJws(token)
                     .getBody();
-            return true;
+            return claims;
         }
         //在解析JWT字符串时，如果密钥不正确，将会解析失败，抛出SignatureException异常，说明该JWT字符串是伪造的
         //在解析JWT字符串时，如果‘过期时间字段’已经早于当前时间，将会抛出ExpiredJwtException异常，说明本次请求已经失效
         catch (SignatureException | ExpiredJwtException e) {
-            return false;
+            return null;
         }
+    }
+
+    public static boolean isTokenValid(String token) {
+        return getClaims(token) != null;
     }
 }
