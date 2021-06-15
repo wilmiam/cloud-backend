@@ -1,14 +1,19 @@
 package com.zq.api.utils;
 
 import cn.hutool.crypto.digest.MD5;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.zq.api.constant.ApiCodeEnum;
 import com.zq.api.form.ApiForm;
 import com.zq.api.form.ApiResp;
 import com.zq.api.service.IApiLogic;
 import com.zq.api.service.impl.ApiV100Logic;
 import com.zq.api.service.impl.ApiV101Logic;
+import com.zq.common.encrypt.EncryptUtils;
+import com.zq.common.encrypt.RsaUtils;
 import com.zq.common.vo.ResultVo;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
@@ -128,10 +133,21 @@ public class ApiUtils {
         return new ApiResp(form, ApiCodeEnum.PARAM_ERROR);
     }
 
+    /**
+     * 传递参数异常
+     * <p>
+     * 2016年9月29日 上午11:44:38
+     *
+     * @return
+     */
+    public static ApiResp getCheckSignValidError(ApiForm form) {
+        return new ApiResp(form, ApiCodeEnum.CHECK_SIGN_VALID_ERROR);
+    }
+
     public static ApiResp toApiResp(ApiForm form, ResultVo resultVo) {
         ApiResp apiResp = new ApiResp(form);
         if (resultVo.isSuccess()) {
-            apiResp.addData("data", resultVo.getData() == null ? "" : resultVo.getData());
+            apiResp.setData(resultVo.getData() == null ? "" : resultVo.getData());
         } else {
             return apiResp.setCode(String.valueOf(resultVo.getErrCode())).setMsg(resultVo.getErrMsg());
         }
@@ -149,7 +165,7 @@ public class ApiUtils {
      */
     public static String decode(String params) throws UnsupportedEncodingException {
         params = URLDecoder.decode(params, "utf-8");
-        params = new String(Base64.decodeBase64(params.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
+        params = EncryptUtils.rsaDecodeByPrivateKey(params, RsaUtils.privateKey);
         return params;
     }
 
@@ -163,7 +179,10 @@ public class ApiUtils {
      * @throws UnsupportedEncodingException
      */
     public static String encode(String params) throws UnsupportedEncodingException {
-        params = new String(Base64.encodeBase64(params.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
+        params = EncryptUtils.rsaDecodeByPrivateKey(params, RsaUtils.publicKey);
+        if (StringUtils.isBlank(params)) {
+            return "";
+        }
         params = URLEncoder.encode(params, "utf-8");
         return params;
     }
@@ -177,19 +196,12 @@ public class ApiUtils {
      * @return
      */
     public static String getSign(TreeMap<String, String> paramMaps) {
-        String nonce = "";
         // 原始请求串
         StringBuilder src = new StringBuilder();
         for (Map.Entry<String, String> entry : paramMaps.entrySet()) {
-            if (entry.getKey().equals("nonce")) {
-                nonce = entry.getValue();
-                continue;
-            }
             src.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
         }
-        // 待加密串
-        src.append("nonce=").append(nonce == null ? "" : nonce);
-        System.out.println("签名：" + src.toString());
         return MD5.create().digestHex(src.toString());
     }
+
 }

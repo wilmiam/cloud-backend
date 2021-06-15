@@ -44,6 +44,14 @@ public class EncryptUtils {
 
     private static final int HEX_RADIUS = 16;
 
+    public static void main(String[] args) throws Exception {
+        String data = "123456";
+        String bytes = rsaEncryptByPublicKey(data, RsaUtils.publicKey);
+        System.out.println(bytes);
+        String bytes1 = rsaDecodeByPrivateKey(bytes, RsaUtils.privateKey);
+        System.out.println(bytes1);
+    }
+
     /**
      * MD5 加密字符串
      *

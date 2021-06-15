@@ -7,12 +7,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.zq.api.config.ConfigCache;
 import com.zq.api.utils.ApiUtils;
 import com.zq.api.utils.NumberUtils;
+import com.zq.common.encrypt.EncryptUtils;
+import com.zq.common.encrypt.RsaUtils;
 import com.zq.common.vo.ApiTokenVo;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -43,6 +44,10 @@ public class ApiForm {
 
     public boolean parseBizContent() {
         try {
+            boolean flag = ConfigCache.getValueToBoolean("API.PARAM.ENCRYPT"); // API参数是否加密
+            if (StrUtil.isNotBlank(bizContent) && flag) {
+                bizContent = ApiUtils.decode(bizContent);
+            }
             bizContentJson = JSON.parseObject(bizContent);
             if (bizContentJson == null) {
                 bizContentJson = new JSONObject();
@@ -192,20 +197,8 @@ public class ApiForm {
         treeMap.put("nonce", this.nonce);
         treeMap.put("method", this.method);
         treeMap.put("version", this.version);
-        String bizContent = null;
-        try {
-            bizContent = this.bizContent;
-            bizContent = StrUtil.isBlank(bizContent) ? "" : bizContent;
-
-            boolean flag = ConfigCache.getValueToBoolean("API.PARAM.ENCRYPT"); // API参数是否加密
-            if (StrUtil.isNotBlank(bizContent) && flag) {
-                bizContent = ApiUtils.decode(bizContent);
-            }
-        } catch (UnsupportedEncodingException e) {
-            log.error("bizContent参数解析失败", e);
-        }
+        String bizContent = StrUtil.isBlank(this.bizContent) ? "" : this.bizContent;
         treeMap.put("bizContent", bizContent);
-
         return treeMap;
     }
 

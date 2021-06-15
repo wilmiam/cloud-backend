@@ -1,33 +1,19 @@
 package com.zq.api.form;
 
 import com.zq.api.constant.ApiCodeEnum;
-import lombok.Data;
+import lombok.Getter;
 
-import java.util.HashMap;
-import java.util.Map;
-
-@Data
+@Getter
 public class ApiResp {
 
     private String apiNo = "";
     private String code = ApiCodeEnum.SUCCESS.code();
     private String msg = ApiCodeEnum.SUCCESS.msg();
     private Long timestamp = System.currentTimeMillis();
-    private Map<String, Map<String, Object>> data = new HashMap<>();
+    private Object data;
 
-    public ApiResp(ApiForm from) {
-        setFrom(from);
-    }
-
-    public ApiResp(ApiForm from, Map<String, Object> map) {
-        setFrom(from);
-        data.put("data", map);
-    }
-
-    public ApiResp(ApiForm from, ApiCodeEnum apiCodeEnum) {
-        setFrom(from);
-        this.code = apiCodeEnum.code();
-        this.msg = apiCodeEnum.msg();
+    public ApiResp(ApiForm form) {
+        this.apiNo = form.getApiNo() == null ? "" : form.getApiNo();
     }
 
     public ApiResp(ApiCodeEnum apiCodeEnum) {
@@ -35,15 +21,9 @@ public class ApiResp {
         this.msg = apiCodeEnum.msg();
     }
 
-    public ApiResp setFrom(ApiForm from) {
-        if (from != null) {
-            this.apiNo = from.getApiNo() == null ? "" : from.getApiNo();
-        }
-        return this;
-    }
-
-    public String getApiNo() {
-        return apiNo;
+    public ApiResp(ApiForm form, ApiCodeEnum apiCodeEnum) {
+        this.code = apiCodeEnum.code();
+        this.msg = apiCodeEnum.msg();
     }
 
     public ApiResp setApiNo(String apiNo) {
@@ -51,17 +31,9 @@ public class ApiResp {
         return this;
     }
 
-    public String getCode() {
-        return code;
-    }
-
     public ApiResp setCode(String code) {
         this.code = code;
         return this;
-    }
-
-    public String getMsg() {
-        return msg;
     }
 
     public ApiResp setMsg(String msg) {
@@ -69,35 +41,18 @@ public class ApiResp {
         return this;
     }
 
+    public ApiResp setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+        return this;
+    }
+
+    public ApiResp setData(Object data) {
+        this.data = data;
+        return this;
+    }
+
     public Boolean isSuccess() {
         return this.getCode().equals(ApiCodeEnum.SUCCESS.code());
-    }
-
-    public Map<String, Object> getData() {
-        return this.data.get("data");
-    }
-
-    public ApiResp setData(Map<String, Object> dataMap) {
-        this.data.put("data", dataMap);
-        return this;
-    }
-
-    public ApiResp addData(String key, Object value) {
-        Map<String, Object> dataMap = getData();
-        if (dataMap == null) {
-            dataMap = new HashMap<>();
-        }
-        dataMap.put(key, value);
-        this.data.put("data", dataMap);
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return "[apiNo=" + this.apiNo + "]"
-                + "[code=" + this.code + "]"
-                + "[msg=" + this.msg + "]"
-                + "[data=" + this.data + "]";
     }
 
 }

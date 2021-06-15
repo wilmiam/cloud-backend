@@ -1,6 +1,5 @@
 package com.zq.api.service.impl;
 
-import com.zq.api.constant.ApiCodeEnum;
 import com.zq.api.form.ApiForm;
 import com.zq.api.form.ApiResp;
 import com.zq.api.service.IApiLogic;
@@ -24,15 +23,20 @@ public abstract class BaseApiLogic implements IApiLogic {
     public ApiResp valid(ApiForm form) {
         // 不需要验证的方法
         if (notValid(form)) {
-            return new ApiResp(form);
+            return ApiUtils.getSuccessResp(form);
         }
 
-        TreeMap<String, String> tree = form.getSignTreeMap();
-        String serverSign = ApiUtils.getSign(tree);
-        if (!serverSign.equals(form.getSign())) {
-            return new ApiResp(form, ApiCodeEnum.CHECK_SIGN_VALID_ERROR);
+        String timestamp = form.getTimestamp();
+        // 一分钟内的数据有效
+        if (Long.parseLong(timestamp) + (60 * 1000) > System.currentTimeMillis()) {
+            return ApiUtils.getCheckSignValidError(form);
         }
-        return new ApiResp(form);
+
+        String serverSign = ApiUtils.getSign(form.getSignTreeMap());
+        if (!serverSign.equals(form.getSign())) {
+            return ApiUtils.getCheckSignValidError(form);
+        }
+        return ApiUtils.getSuccessResp(form);
     }
 
     /**
@@ -49,7 +53,7 @@ public abstract class BaseApiLogic implements IApiLogic {
 
     @Override
     public ApiResp logout(ApiForm form) {
-        return new ApiResp(form).addData("r", "ok");
+        return new ApiResp(form).setData("ok");
     }
 
     @Override

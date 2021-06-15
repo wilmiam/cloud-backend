@@ -43,13 +43,15 @@ public class ApiController {
         long start = System.currentTimeMillis();
 
         ApiForm form = ServletUtil.toBean(request, ApiForm.class, true);
-        if (!form.parseBizContent()) {
-            return ApiUtils.getParamError(form);
-        }
 
         // 不处理Request Method:OPTIONS的请求
         if (request.getMethod().equals("OPTIONS")) {
             return ApiUtils.getSuccessResp(form);
+        }
+
+        //解析业务参数
+        if (!form.parseBizContent()) {
+            return ApiUtils.getParamError(form);
         }
 
         String method = form.getMethod();
@@ -124,6 +126,6 @@ public class ApiController {
         ApiForm from = ServletUtil.toBean(request, ApiForm.class, true);
 
         ApiUtils.DEBUG = !ApiUtils.DEBUG;
-        return new ApiResp(from).addData("debug", ApiUtils.DEBUG);
+        return new ApiResp(from).setData(ApiUtils.DEBUG);
     }
 }
