@@ -16,6 +16,7 @@ import com.zq.common.vo.ResultVo;
 import feign.FeignException;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
 @Api(tags = "API接口")
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -84,8 +86,8 @@ public class ApiController {
         try {
             resp = apiService.action(form);
         } catch (Exception e) {
+            log.error("调用方法异常：{}", e.getMessage());
             stackTrace = ThrowableUtil.getStackTrace(e);
-            e.printStackTrace();
             // 判断指定异常是否来自或者包含指定异常
             if (ExceptionUtil.isFromOrSuppressedThrowable(e, FeignException.Unauthorized.class)) {
                 resp = ApiUtils.toApiResp(form, ResultVo.fail(401, "Unauthorized"));
