@@ -18,6 +18,7 @@ package com.zq.system.utils;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.zq.common.config.base.SpringContextHolder;
 import com.zq.system.exception.BadRequestException;
 import com.zq.system.utils.enums.DataScopeEnum;
 import lombok.extern.slf4j.Slf4j;

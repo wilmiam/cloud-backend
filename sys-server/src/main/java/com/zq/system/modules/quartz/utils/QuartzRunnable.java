@@ -15,7 +15,7 @@
  */
 package com.zq.system.modules.quartz.utils;
 
-import com.zq.system.utils.SpringContextHolder;
+import com.zq.common.config.base.SpringContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.ReflectionUtils;

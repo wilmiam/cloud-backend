@@ -16,7 +16,7 @@
 package com.zq.system.config.thread;
 
 
-import com.zq.system.utils.SpringContextHolder;
+import com.zq.common.config.base.SpringContextHolder;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
