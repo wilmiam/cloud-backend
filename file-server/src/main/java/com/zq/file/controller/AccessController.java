@@ -25,7 +25,7 @@ public class AccessController {
     @GetMapping(value = "/images/**", produces = MediaType.IMAGE_JPEG_VALUE)
     public byte[] getImage(HttpServletRequest request) throws IOException {
         File file = new File(request.getRequestURI());
-        AssertUtils.isTrue(file.exists(), "图片不存在");
+        AssertUtils.isTrue(file.exists(), "访问图片不存在");
 
         FileInputStream inputStream = new FileInputStream(file);
         byte[] bytes = new byte[inputStream.available()];
@@ -44,7 +44,7 @@ public class AccessController {
     @GetMapping(value = "/file/**")
     public ResponseEntity<Resource> download(HttpServletRequest request) {
         File file = new File(request.getRequestURI());
-        AssertUtils.isTrue(file.exists(), "文件不存在");
+        AssertUtils.isTrue(file.exists(), "访问文件不存在");
 
         String contentDisposition = ContentDisposition
                 .builder("attachment")
