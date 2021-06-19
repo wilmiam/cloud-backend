@@ -113,15 +113,16 @@ public class UploadUtils {
 
     public static String tempToFormal(String tempPath) {
         Path path = Paths.get(tempPath);
-        File formal = new File(tempPath.replace("/temp", ""));
+        String formalPath = tempPath.replace("/temp", "");
+        File formalFile = new File(formalPath);
         try {
-            FileUtils.writeByteArrayToFile(formal, Files.readAllBytes(path));
+            FileUtils.writeByteArrayToFile(formalFile, Files.readAllBytes(path));
             Files.delete(path);
         } catch (IOException e) {
             log.error("文件转存失败：{}", e.getMessage());
             throw new BusinessException("文件转存失败");
         }
-        return tempPath.replace("/temp", "");
+        return formalPath;
     }
 
     /*public static void main(String[] args) {
