@@ -1,5 +1,6 @@
 package com.zq.file.controller;
 
+import com.zq.common.utils.AssertUtils;
 import io.swagger.annotations.Api;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -11,12 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
-import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 @Api(tags = "访问图片文件")
 @RestController
@@ -25,9 +24,13 @@ public class AccessController {
 
     @GetMapping(value = "/images/**", produces = MediaType.IMAGE_JPEG_VALUE)
     public byte[] getImage(HttpServletRequest request) throws IOException {
-        FileInputStream inputStream = new FileInputStream(request.getRequestURI());
+        File file = new File(request.getRequestURI());
+        AssertUtils.isTrue(file.exists(), "图片不存在");
+
+        FileInputStream inputStream = new FileInputStream(file);
         byte[] bytes = new byte[inputStream.available()];
         inputStream.read(bytes, 0, inputStream.available());
+        inputStream.close();
         return bytes;
     }
 
@@ -40,6 +43,9 @@ public class AccessController {
 
     @GetMapping(value = "/file/**")
     public ResponseEntity<Resource> download(HttpServletRequest request) {
+        File file = new File(request.getRequestURI());
+        AssertUtils.isTrue(file.exists(), "文件不存在");
+
         String contentDisposition = ContentDisposition
                 .builder("attachment")
                 .filename(request.getRequestURI())
@@ -47,6 +53,6 @@ public class AccessController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .body(new FileSystemResource(request.getRequestURI()));
+                .body(new FileSystemResource(file));
     }
 }
