@@ -19,7 +19,15 @@ public class MybatisConfig {
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.H2));
+
+        // 分页插件
+        // 其他:
+        // 生成 countSql 会在 left join 的表不参与 where 条件的情况下,把 left join 优化掉
+        // 所以建议任何带有 left join 的sql,都写标准sql,即给于表一个别名,字段也要 别名.字段
+        PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor();
+        paginationInnerInterceptor.setDbType(DbType.MYSQL);
+        interceptor.addInnerInterceptor(paginationInnerInterceptor);
+
         return interceptor;
     }
 
@@ -35,7 +43,11 @@ public class MybatisConfig {
         return configuration -> configuration.setUseDeprecatedExecutor(false);
     }
 
-    // pagehelper分页插件
+    /**
+     * pagehelper分页插件
+     *
+     * @return
+     */
     @Bean
     public PageInterceptor pageInterceptor() {
         PageInterceptor pageInterceptor = new PageInterceptor();
