@@ -19,26 +19,30 @@ spring:
             allowedHeaders: "Content-type, Authorization"
             maxAge: 3600
       routes:
+        - id: api
+          uri: lb://${api.name}
+          predicates:
+            - Path=/api/**
+
+        - id: sys
+          uri: lb://${sys.name}
+          predicates:
+            - Path=/sys/**, /webSocket/**
+
+        - id: oauth
+          uri: lb://${oauth.name}
+          predicates:
+            - Path=/oauth/**
+
         - id: file
           uri: lb://${file.name}
           predicates:
             - Path=/file/**
 #          filters:
 #            - StripPrefix= 2
-        - id: oauth
-          uri: lb://${oauth.name}
-          predicates:
-            - Path=/oauth/**
-        - id: sys
-          uri: lb://${sys.name}
-          predicates:
-            - Path=/sys/**, /webSocket/**
+
         - id: cms
           uri: lb://${cms.name}
           predicates:
             - Path=/cms/**
-        - id: api
-          uri: lb://${api.name}
-          predicates:
-            - Path=/api/**
 
