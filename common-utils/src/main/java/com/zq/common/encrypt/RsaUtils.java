@@ -163,7 +163,7 @@ public class RsaUtils {
     }
 
     /**
-     * 使用私钥对数据进行加密
+     * 私钥加密
      *
      * @param data       源数据
      * @param privateKey 私钥(BASE64编码)
