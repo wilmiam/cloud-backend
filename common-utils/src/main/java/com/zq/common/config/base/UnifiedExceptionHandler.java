@@ -1,6 +1,7 @@
 package com.zq.common.config.base;
 
 import com.zq.common.exception.BusinessException;
+import com.zq.common.utils.ThrowableUtil;
 import com.zq.common.vo.ResultVo;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -93,15 +94,21 @@ public class UnifiedExceptionHandler {
     @ExceptionHandler(DataAccessException.class)
     public ResultVo handleDataAccessException(DataAccessException ex, HttpServletRequest request) {
         log.error(">> 访问数据失败 " + request.getRequestURI(), ex);
-        // log.info(">> 访问参数QueryString：" + ServletUtil.getParamMap(request));
-        // log.info(">> 访问参数body：" + ServletUtil.getBody(request));
-        return ResultVo.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "服务器繁忙");
+        String error = "服务器繁忙";
+        if (request.getRequestURI().contains("/app/")) {
+            error = ThrowableUtil.getStackTrace(ex);
+        }
+        return ResultVo.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), error);
     }
 
     @ExceptionHandler(value = Exception.class)
     public ResultVo defaultErrorHandler(Exception ex, HttpServletRequest request) {
         log.error(">> 服务器内部错误 " + request.getRequestURI(), ex);
-        return ResultVo.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "服务器繁忙");
+        String error = "服务器繁忙";
+        if (request.getRequestURI().contains("/app/")) {
+            error = ThrowableUtil.getStackTrace(ex);
+        }
+        return ResultVo.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), error);
     }
 
 }
