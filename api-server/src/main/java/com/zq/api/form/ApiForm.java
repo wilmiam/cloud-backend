@@ -7,8 +7,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.zq.api.config.ConfigCache;
 import com.zq.api.utils.ApiUtils;
 import com.zq.api.utils.NumberUtils;
-import com.zq.common.encrypt.EncryptUtils;
-import com.zq.common.encrypt.RsaUtils;
 import com.zq.common.vo.ApiTokenVo;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -77,7 +75,7 @@ public class ApiForm {
      * @return
      */
     public double getDouble(String key) {
-        return NumberUtils.parseDbl(get(key));
+        return NumberUtils.parseDbl(getString(key));
     }
 
     /**
@@ -89,11 +87,11 @@ public class ApiForm {
      * @return
      */
     public long getLong(String key) {
-        return NumberUtils.parseLong(get(key));
+        return NumberUtils.parseLong(getString(key));
     }
 
     public float getFloat(String key) {
-        return NumberUtils.parseFloat(get(key));
+        return NumberUtils.parseFloat(getString(key));
     }
 
     /**
@@ -105,7 +103,7 @@ public class ApiForm {
      * @return
      */
     public int getInt(String key) {
-        return NumberUtils.parseInt(get(key));
+        return NumberUtils.parseInt(getString(key));
     }
 
     /**
@@ -116,8 +114,9 @@ public class ApiForm {
      * @param key
      * @return
      */
-    public String get(String key) {
-        return getContentJson().getString(key);
+    public String getString(String key) {
+        String value = getContentJson().getString(key);
+        return value == null ? "" : value;
     }
 
     /**
