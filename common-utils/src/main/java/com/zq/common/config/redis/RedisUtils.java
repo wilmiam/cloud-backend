@@ -107,8 +107,8 @@ public class RedisUtils {
      * @param key 键
      * @return 值
      */
-    public void setObj(String key, Object value, long time, TimeUnit timeUnit) {
-        redisTemplate.opsForValue().set(key, value, time, timeUnit);
+    public void setObj(String key, Object value, long time) {
+        redisTemplate.opsForValue().set(key, value, time, TimeUnit.MINUTES);
     }
 
     /**
@@ -117,8 +117,8 @@ public class RedisUtils {
      * @param key 键
      * @return 值
      */
-    public void setObj(String key, Object value, long time) {
-        redisTemplate.opsForValue().set(key, value, time, TimeUnit.MINUTES);
+    public void setObj(String key, Object value, long time, TimeUnit timeUnit) {
+        redisTemplate.opsForValue().set(key, value, time, timeUnit);
     }
 
     /**
