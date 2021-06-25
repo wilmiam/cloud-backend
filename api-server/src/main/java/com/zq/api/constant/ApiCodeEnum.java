@@ -25,6 +25,8 @@ public enum ApiCodeEnum {
 
     CHECK_SIGN_VALID_ERROR("108", "签名校验失败"),
 
+    SERVICE_NOT_AVAILABLE("109", "服务不可用"),
+
     BUSINESS_ERROR("400", "业务处理失败"),
 
     SERVER_ERROR("500", "服务器繁忙"),
