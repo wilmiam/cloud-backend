@@ -12,3 +12,10 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://admin:123456@127.0.0.1:8800/eureka/
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000 #连接超时时间
+        readTimeout: 10000 #读超时时间
