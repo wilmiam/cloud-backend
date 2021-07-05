@@ -51,23 +51,60 @@ INSERT INTO `sys_config` VALUES (7, '腾讯云秘钥KEY', 'CLOUD.SECRET.KEY', 'x
 -- ----------------------------
 DROP TABLE IF EXISTS `t_api_log`;
 CREATE TABLE `t_api_log`  (
-    `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
-    `app_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT 'APPID',
-    `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '用户ID',
-    `method` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '调用方法',
-    `version` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '版本号',
-    `biz_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL COMMENT '业务参数',
-    `ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT 'IP',
-    `log_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '日志类型',
-    `resp_msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '响应信息',
-    `stack_trace` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL COMMENT '堆栈跟踪',
-    `time_cost` bigint(20) NULL DEFAULT 0 COMMENT '耗时-毫秒',
-    `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-    PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = 'api调用记录' ROW_FORMAT = Dynamic;
+                              `id`          bigint(20)                                             NOT NULL AUTO_INCREMENT COMMENT 'ID',
+                              `app_id`      varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT 'APPID',
+                              `user_id`     varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '用户ID',
+                              `method`      varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '调用方法',
+                              `version`     varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '版本号',
+                              `biz_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin         NULL COMMENT '业务参数',
+                              `ip`          varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT 'IP',
+                              `log_type`    varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '日志类型',
+                              `resp_msg`    varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '响应信息',
+                              `stack_trace` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin     NULL COMMENT '堆栈跟踪',
+                              `time_cost`   bigint(20)                                             NULL DEFAULT 0 COMMENT '耗时-毫秒',
+                              `create_time` datetime(0)                                            NULL DEFAULT NULL COMMENT '创建时间',
+                              PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 1
+  CHARACTER SET = utf8mb4
+  COLLATE = utf8mb4_bin COMMENT = 'api调用记录'
+  ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of t_api_log
+-- Table structure for t_app_user
 -- ----------------------------
+DROP TABLE IF EXISTS `t_app_user`;
+CREATE TABLE `t_app_user`
+(
+    `id`              bigint(20)                                              NOT NULL AUTO_INCREMENT,
+    `account`         varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin  NULL DEFAULT '' COMMENT '账号',
+    `phone`           varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin   NULL DEFAULT '' COMMENT '手机号',
+    `password`        varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin  NULL DEFAULT '' COMMENT '登录密码',
+    `dealpwd`         varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin  NULL DEFAULT '' COMMENT '交易密码',
+    `user_type`       int(11)                                                 NULL DEFAULT NULL COMMENT '用户类型',
+    `realname`        varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin   NULL DEFAULT '' COMMENT '真实姓名',
+    `nickname`        varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin   NULL DEFAULT '' COMMENT '昵称',
+    `avatar`          varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin  NULL DEFAULT '' COMMENT '头像',
+    `gender`          varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin   NULL DEFAULT '' COMMENT '性别',
+    `age`             int(11)                                                 NULL DEFAULT 0 COMMENT '年龄',
+    `address`         varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin  NULL DEFAULT '' COMMENT '地址',
+    `invite_code`     varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin  NULL DEFAULT '' COMMENT '邀请码',
+    `invite_link`     varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin  NULL DEFAULT NULL COMMENT '邀请二维码连接',
+    `pid`             bigint(20)                                              NULL DEFAULT NULL COMMENT '上级',
+    `pids`            varchar(2550) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '所有上级ID线路，上级在左',
+    `level`           int(11)                                                 NULL DEFAULT 0 COMMENT '用户等级',
+    `status`          int(11)                                                 NULL DEFAULT 0 COMMENT '状态：0未激活 1正常 2暂停使用 3永久停号',
+    `union_id`        varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin  NULL DEFAULT '' COMMENT '开放平台获取的unionid,解决这个同一个企业的不同APP和不同公众号之间的帐号共通',
+    `access_ip`       varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin   NULL DEFAULT '' COMMENT '最后登录访问IP',
+    `area_code`       varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin   NULL DEFAULT '' COMMENT '区域码',
+    `last_login_time` datetime(0)                                             NULL DEFAULT NULL COMMENT '最后登录时间',
+    `create_time`     datetime(0)                                             NULL DEFAULT CURRENT_TIMESTAMP(0),
+    `update_time`     datetime(0)                                             NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 1
+  CHARACTER SET = utf8mb4
+  COLLATE = utf8mb4_bin COMMENT = '用户表'
+  ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

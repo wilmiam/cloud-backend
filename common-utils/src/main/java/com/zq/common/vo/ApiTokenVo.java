@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -15,28 +13,24 @@ public class ApiTokenVo {
 
     private Long userId;
 
+    private String account;
+
     private String phone;
 
-    private String name;
+    private String realname;
 
     private String nickname;
 
-    private String sex;
+    private String gender;
 
     private Integer age;
 
     private Integer userType;
 
-    private String headPortraitUrl;
-
-    private Integer level;
-
-    private Date dueTime;
+    private String avatar;
 
     private String token;
 
     private String sessionKey;
-
-    private String userSig;
 
 }

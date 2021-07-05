@@ -38,11 +38,11 @@ spring:
           uri: lb://${file.name}
           predicates:
             - Path=/file/**
-#          filters:
-#            - StripPrefix= 2
+        #          filters:
+        #            - StripPrefix= 2
 
-        - id: cms
-          uri: lb://${cms.name}
+        - id: user
+          uri: lb://${user.name}
           predicates:
-            - Path=/cms/**
+            - Path=/user/**
 

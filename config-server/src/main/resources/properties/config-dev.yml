@@ -10,8 +10,8 @@ file.name: FILE-SERVER
 api.port: 9100
 api.name: API-SERVER
 
-cms.port: 9700
-cms.name: CMS-SERVER
+user.port: 9700
+user.name: USER-SERVER
 
 gateway.port: 9889
 gateway.name: GATEWAY-SERVER
