@@ -1,4 +1,4 @@
-package com.zq.user.controller;
+package com.zq.user.controller.app;
 
 
 import com.zq.common.utils.AssertUtils;
@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @ApiOperation("重置登录密码")
-    @PostMapping(value = "/resetPassword")
+    @PostMapping(value = "/resetPasswd")
     public ResultVo resetPassword(@RequestBody LoginVo vo) {
         AssertUtils.hasText(vo.getPhone(), "手机号不能为空");
         AssertUtils.isTrue(ValidateUtil.isMobilePhoneNo(vo.getPhone()), "手机号格式不正确");
