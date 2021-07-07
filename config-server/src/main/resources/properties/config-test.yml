@@ -1,19 +1,19 @@
-oauth.port: 9999
+oauth.port: 8555
 oauth.name: AUTH-SERVER
 
-sys.port: 9000
+sys.port: 8666
 sys.name: SYS-SERVER
 
-file.port: 9500
+file.port: 8200
 file.name: FILE-SERVER
 
-api.port: 9100
+api.port: 8100
 api.name: API-SERVER
 
-user.port: 9700
+user.port: 8700
 user.name: USER-SERVER
 
-gateway.port: 9888
+gateway.port: 8999
 gateway.name: GATEWAY-SERVER
 
 redis.url: 127.0.0.1

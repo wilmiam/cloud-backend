@@ -33,7 +33,7 @@ public class ApiController {
     private final ApiService apiService;
 
     // 允许用户未登录状态下执行的方法名
-    private String[] allowMethod = {"test"};
+    private String[] allowMethod = {"sendCode"};
 
     /**
      * 获取信息入口

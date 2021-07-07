@@ -11,7 +11,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://admin:123456@127.0.0.1:8800/eureka/
+      defaultZone: http://admin:123456@127.0.0.1:9900/eureka/
 #  instance:
 #    lease-renewal-interval-in-seconds: 2 #每间隔1s，向服务端发送一次心跳，证明自己依然"存活"
 #    lease-expiration-duration-in-seconds: 6 #告诉服务端，如果我2s之内没有给你发心跳，就代表我"死"了，将我踢出掉。

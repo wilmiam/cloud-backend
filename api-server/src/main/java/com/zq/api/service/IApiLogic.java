@@ -11,11 +11,11 @@ import com.zq.api.form.ApiResp;
 public interface IApiLogic extends IApiCommon {
 
     /**
-     * 测试连接
+     * 发送验证码
      *
      * @param form
      * @return
      */
-    ApiResp test(ApiForm form);
+    ApiResp sendCode(ApiForm form);
 
 }

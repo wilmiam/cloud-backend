@@ -14,6 +14,9 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
+
 @Api(tags = "用户相关接口")
 @RequiredArgsConstructor
 @RestController
@@ -25,6 +28,17 @@ public class UserController {
     @ApiOperation("发送验证码")
     @GetMapping(value = "/sendCode")
     public ResultVo sendCode(String phone) {
+        HttpServletRequest request = HttpRequestUtils.getRequest();
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String name = headerNames.nextElement();
+            String values = request.getHeader(name);
+            System.out.println(name + ": " + values);
+        }
+
+
+        System.out.println(ServletUtil.getClientIP(request));
+        System.out.println(HttpRequestUtils.getClientIp(request));
         AssertUtils.hasText(phone, "手机号不能为空");
         AssertUtils.isTrue(ValidateUtil.isMobilePhoneNo(phone), "手机号格式不正确");
         userService.sendCode(phone);
@@ -71,8 +85,6 @@ public class UserController {
     @ApiOperation("获取用户信息")
     @GetMapping(value = "/getUserInfo")
     public ResultVo getUserInfo(@RequestParam String userId) {
-        System.out.println(ServletUtil.getClientIP(HttpRequestUtils.getRequest()));
-        System.out.println(HttpRequestUtils.getClientIp(HttpRequestUtils.getRequest()));
         return ResultVo.success(userService.getUserInfo(userId));
     }
 

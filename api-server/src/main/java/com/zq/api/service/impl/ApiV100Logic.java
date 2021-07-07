@@ -15,13 +15,13 @@ public class ApiV100Logic extends BaseApiLogic implements IApiLogic {
     private UserFeign userFeign;
 
     /**
-     * 测试连接
+     * 发送验证码
      *
      * @param form
      * @return
      */
     @Override
-    public ApiResp test(ApiForm form) {
+    public ApiResp sendCode(ApiForm form) {
         return ApiUtils.toApiResp(form, userFeign.sendCode(form.getString("phone")));
     }
 }
