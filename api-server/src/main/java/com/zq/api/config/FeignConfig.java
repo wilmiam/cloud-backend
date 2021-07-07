@@ -33,7 +33,8 @@ public class FeignConfig {
             "HTTP_FORWARDED",
             "HTTP_VIA",
             "REMOTE_ADDR",
-            "X-REAL-IP"
+            "X-REAL-IP",
+            "HOST"
     );
 
     /**

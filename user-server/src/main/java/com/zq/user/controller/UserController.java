@@ -1,8 +1,6 @@
 package com.zq.user.controller;
 
 
-import cn.hutool.extra.servlet.ServletUtil;
-import com.zq.common.http.HttpRequestUtils;
 import com.zq.common.utils.AssertUtils;
 import com.zq.common.utils.ValidateUtil;
 import com.zq.common.vo.ApiTokenVo;
@@ -13,9 +11,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
 
 @Api(tags = "用户相关接口")
 @RequiredArgsConstructor
@@ -28,17 +23,6 @@ public class UserController {
     @ApiOperation("发送验证码")
     @GetMapping(value = "/sendCode")
     public ResultVo sendCode(String phone) {
-        HttpServletRequest request = HttpRequestUtils.getRequest();
-        Enumeration<String> headerNames = request.getHeaderNames();
-        while (headerNames.hasMoreElements()) {
-            String name = headerNames.nextElement();
-            String values = request.getHeader(name);
-            System.out.println(name + ": " + values);
-        }
-
-
-        System.out.println(ServletUtil.getClientIP(request));
-        System.out.println(HttpRequestUtils.getClientIp(request));
         AssertUtils.hasText(phone, "手机号不能为空");
         AssertUtils.isTrue(ValidateUtil.isMobilePhoneNo(phone), "手机号格式不正确");
         userService.sendCode(phone);
