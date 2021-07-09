@@ -13,6 +13,10 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author wilmiam
+ * @since 2021-07-09 10:34
+ */
 @Configuration
 public class FeignConfig {
 
