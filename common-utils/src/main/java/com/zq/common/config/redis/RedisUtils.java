@@ -14,8 +14,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * 缓存管理, 所有缓存操作应在此完成, 避免redis操作各处分散，后期难以维护
  *
- * @author CodeAnyWay
- * @since 2019-03-19
+ * @author wilmiam
+ * @since 2021-07-09 17:53
  */
 @SuppressWarnings({"unchecked", "all"})
 @Slf4j

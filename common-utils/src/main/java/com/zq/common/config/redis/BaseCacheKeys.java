@@ -1,8 +1,14 @@
 package com.zq.common.config.redis;
 
-public abstract class CacheKeys {
+/**
+ * 公共缓存key
+ *
+ * @author wilmiam
+ * @since 2021-07-09 17:52
+ */
+public abstract class BaseCacheKeys {
 
-    public static final String PREFIX = "drug.";
+    public static final String PREFIX = "cloud.";
 
     private static final String APP_TOKEN = PREFIX + "app-token.";
 

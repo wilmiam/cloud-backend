@@ -2,9 +2,10 @@ package com.zq.common.exception;
 
 /**
  * @author wilmiam
- * @since 2019-03-21
+ * @since 2021-07-09 17:56
  */
 public class RateLimitExceededException extends RuntimeException {
+
     public RateLimitExceededException() {
     }
 
@@ -19,4 +20,5 @@ public class RateLimitExceededException extends RuntimeException {
     public RateLimitExceededException(Throwable cause) {
         super(cause);
     }
+
 }

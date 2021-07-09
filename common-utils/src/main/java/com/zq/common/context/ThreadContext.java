@@ -9,13 +9,14 @@ import java.util.Map;
 /**
  * 基于ThreadLocal的线程相关上下文帮助类, 用于在同一线程下传递变量.
  *
- * @date 2017-12-18
+ * @author wilmiam
+ * @since 2021-07-09 17:49
  */
 public class ThreadContext {
 
     private static final Logger log = LoggerFactory.getLogger(ThreadContext.class);
 
-    private static ThreadLocal<Map<String, Object>> threadLocalMap = ThreadLocal.withInitial(HashMap::new);
+    private static final ThreadLocal<Map<String, Object>> THREAD_LOCAL_MAP = ThreadLocal.withInitial(HashMap::new);
 
     /**
      * Don't let anyone instantiate this class
@@ -33,7 +34,7 @@ public class ThreadContext {
      */
     @SuppressWarnings("unchecked")
     public static <T> T get(String key) {
-        return (T) threadLocalMap.get().get(key);
+        return (T) THREAD_LOCAL_MAP.get().get(key);
     }
 
     /**
@@ -58,7 +59,7 @@ public class ThreadContext {
      * @param value 变量值
      */
     public static void set(String key, Object value) {
-        threadLocalMap.get().put(key, value);
+        THREAD_LOCAL_MAP.get().put(key, value);
     }
 
     /**
@@ -67,13 +68,13 @@ public class ThreadContext {
      * @param key 变量的key
      */
     public static void remove(String key) {
-        threadLocalMap.get().remove(key);
+        THREAD_LOCAL_MAP.get().remove(key);
     }
 
     /**
      * 清除当前线程相关的上下文
      */
     public static void close() {
-        threadLocalMap.remove();
+        THREAD_LOCAL_MAP.remove();
     }
 }

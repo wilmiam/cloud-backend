@@ -1,6 +1,6 @@
 package com.zq.common.config.interceptor;
 
-import com.zq.common.config.redis.CacheKeys;
+import com.zq.common.config.redis.BaseCacheKeys;
 import com.zq.common.config.redis.RedisUtils;
 import com.zq.common.config.security.SecurityProperties;
 import com.zq.common.context.ContextUtils;
@@ -14,6 +14,10 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * @author wilmiam
+ * @since 2021-07-09 14:39
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -27,7 +31,7 @@ public class UserInfoInterceptor extends HandlerInterceptorAdapter {
         if (request.getRequestURI().contains("/app/")) {
             String token = getToken(request);
             log.info(">> [UserInfo token] {}", token);
-            ApiTokenVo tokenVo = redisUtils.getObj(CacheKeys.appTokenKey(token), ApiTokenVo.class);
+            ApiTokenVo tokenVo = redisUtils.getObj(BaseCacheKeys.appTokenKey(token), ApiTokenVo.class);
             ContextUtils.setUserContext(tokenVo);
         }
         return true;

@@ -13,6 +13,12 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.zip.Deflater;
 
+/**
+ * 腾讯云TRTC签名工具类
+ *
+ * @author wilmiam
+ * @since 2021-07-09 18:09
+ */
 public class WxUserSigUtils {
 
     /**

@@ -15,8 +15,8 @@ import java.util.concurrent.Executor;
 /**
  * 异步执行配置
  *
- * @author
- * @since 2018-01-19
+ * @author wilmiam
+ * @since 2021-07-09 17:50
  */
 @Configuration
 @ConditionalOnProperty(value = "async.pool.enable", havingValue = "true")

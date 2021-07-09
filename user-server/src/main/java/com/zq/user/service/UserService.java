@@ -21,6 +21,10 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+/**
+ * @author wilmiam
+ * @since 2021-07-09 14:37
+ */
 @CacheConfig(cacheNames = "user")
 @Slf4j
 @Service
@@ -38,8 +42,8 @@ public class UserService {
     public void sendCode(String phone) {
         String code = RandomUtil.randomNumbers(6);
         String content = "您的验证码为：" + code + "（5分钟内有效）。为了保障信息安全，如非本人操作请忽略本短信。";
-        // boolean sendMsg = MobileSmsUtils.sendMsg(phone, content);
-        // log.info(">> phone: {}, sendCode: {}, success: {}", phone, code, sendMsg);
+        // TODO 发送验证码
+
         log.info(">> phone: {}, sendCode: {}, success: ", phone, code);
         redisUtils.setStr(UserCacheKeys.authCodeKey(phone), code, 5);
     }
@@ -145,7 +149,7 @@ public class UserService {
         userDao.updateById(appUser);
     }
 
-    @Cacheable(cacheNames = "user")
+    @Cacheable
     public AppUser getUserInfo(String userId) {
         return userDao.selectById(userId);
     }

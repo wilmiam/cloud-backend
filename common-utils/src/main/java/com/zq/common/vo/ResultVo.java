@@ -12,7 +12,7 @@ import java.io.Serializable;
  * 统一的接口响应信息
  *
  * @author wilmiam
- * @since 2019-03-13
+ * @since 2021-07-09 17:45
  */
 @ApiModel("API响应消息")
 @JsonInclude(JsonInclude.Include.NON_NULL)

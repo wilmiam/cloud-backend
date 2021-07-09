@@ -7,8 +7,10 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 
 /**
- * @author Bernix Ning
- * @since 2019-03-14
+ * 分页查询结果
+ *
+ * @author wilmiam
+ * @since 2021-07-09 18:13
  */
 @ApiModel("分页查询结果")
 @JsonPropertyOrder({"start", "size", "total", "rows"})

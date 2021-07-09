@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
  * 分页查询请求对象
  *
  * @author wilmiam
- * @since 2019-03-14
+ * @since 2021-07-09 18:13
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PageReqVo {

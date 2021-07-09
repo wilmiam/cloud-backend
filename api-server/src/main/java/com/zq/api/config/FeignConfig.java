@@ -20,7 +20,10 @@ import java.util.Objects;
 @Configuration
 public class FeignConfig {
 
-    private static final List<String> HEADERS_TO_TRY = Arrays.asList(
+    /**
+     * 转发请求头
+     */
+    private static final List<String> FORWARD_HEADERS = Arrays.asList(
             "AUTHORIZATION",
             "X-FORWARDED-FOR",
             "X-FORWARDED-PROTO",
@@ -58,11 +61,11 @@ public class FeignConfig {
                     while (headerNames.hasMoreElements()) {
                         String name = headerNames.nextElement();
                         // 不要设置content-length
-                        if (name.equals("content-length")) {
+                        if ("content-length".equals(name)) {
                             continue;
                         }
 
-                        if (HEADERS_TO_TRY.contains(name.toUpperCase())) {
+                        if (FORWARD_HEADERS.contains(name.toUpperCase())) {
                             String values = request.getHeader(name);
                             template.header(name, values);
                         }

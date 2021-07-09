@@ -40,7 +40,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @author /
+ * @author wilmiam
+ * @since 2021-07-09 17:51
  */
 @Aspect
 @Component
@@ -69,9 +70,11 @@ public class LimitAspect {
             if (limitType == LimitType.IP) {
                 key = HttpRequestUtils.getClientIp(request);
             } else {
-                key = signatureMethod.getName();// 获取方法名
+                // 获取方法名
+                key = signatureMethod.getName();
                 if ("sendCode".equals(key)) {
-                    key = (String) joinPoint.getArgs()[0];// 获取方法的第一个参数
+                    // 获取方法的第一个参数
+                    key = (String) joinPoint.getArgs()[0];
                 }
             }
         }

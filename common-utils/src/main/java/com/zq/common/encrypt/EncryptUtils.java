@@ -19,7 +19,7 @@ import java.util.*;
  * 加密工具类
  *
  * @author wilmiam
- * @since 2013-11-04
+ * @since 2021-07-09 17:55
  */
 public class EncryptUtils {
 

@@ -8,12 +8,11 @@ import java.text.NumberFormat;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-
 /**
  * 字符串工具类
  *
  * @author wilmiam
- * @date 2015年10月29日
+ * @since 2021-07-09 18:04
  */
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
 

@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Bernix Ning
- * @since 2019-03-19
+ * Map build工具类
+ *
+ * @author wilmiam
+ * @since 2021-07-09 18:03
  */
 public class ParamMapBuilder {
 
@@ -16,7 +18,7 @@ public class ParamMapBuilder {
      */
     private static final int MAX_POWER_OF_TWO = 1 << (Integer.SIZE - 2);
 
-    private Map<String, Object> map;
+    private final Map<String, Object> map;
 
     private ParamMapBuilder(int expectedSize) {
         map = new HashMap<>(capacity(expectedSize));
@@ -60,4 +62,5 @@ public class ParamMapBuilder {
         // any large value
         return Integer.MAX_VALUE;
     }
+
 }

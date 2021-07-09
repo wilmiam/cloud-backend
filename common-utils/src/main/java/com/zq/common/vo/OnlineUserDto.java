@@ -25,7 +25,8 @@ import java.util.Date;
 /**
  * 在线用户
  *
- * @author Zheng Jie
+ * @author wilmiam
+ * @since 2021-07-09 18:13
  */
 @Data
 @AllArgsConstructor

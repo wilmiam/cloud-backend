@@ -31,13 +31,24 @@ import java.security.KeyStore;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 微信工具类
+ *
+ * @author wilmiam
+ * @since 2021-07-09 18:05
+ */
 @Slf4j
 @Data
 public class WeixinUtils {
 
-    // 小程序发送红包的请求
+    /**
+     * 小程序发送红包的请求
+     */
     private String sendminiprogramhb = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendminiprogramhb";
-    // 企业向个人用户付款
+
+    /**
+     * 企业向个人用户付款
+     */
     private String transfers = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
 
     /**

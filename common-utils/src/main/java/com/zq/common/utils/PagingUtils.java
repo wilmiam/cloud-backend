@@ -15,10 +15,12 @@ import java.util.List;
 import java.util.function.Function;
 
 /**
- * @author
- * @since 2019-04-02
+ * Mybatis 分页工具
+ *
+ * @author wilmiam
+ * @since 2021-07-09 17:59
  */
-public abstract class PagingUtils {
+public class PagingUtils {
 
     /**
      * pagehelper分页插件

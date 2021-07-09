@@ -17,7 +17,9 @@ package com.zq.common.config.limit;
 
 /**
  * 限流枚举
- * @author /
+ *
+ * @author wilmiam
+ * @since 2021-07-09 17:51
  */
 public enum LimitType {
     // 默认

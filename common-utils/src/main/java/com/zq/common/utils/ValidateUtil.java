@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  * 验证工具类
  *
  * @author wilmiam
- * @since 2015-10-29
+ * @since 2021-07-09 18:05
  */
 public class ValidateUtil {
 

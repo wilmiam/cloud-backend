@@ -6,7 +6,7 @@ import java.util.UUID;
  * Utility class that handles the uuid stuff.
  *
  * @author wilmiam
- * @since 2018-01-02
+ * @since 2021-07-09 18:05
  */
 public class UuidUtils {
 

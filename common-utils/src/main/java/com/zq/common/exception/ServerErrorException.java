@@ -4,7 +4,7 @@ package com.zq.common.exception;
  * 服务器错误
  *
  * @author wilmiam
- * @since 2019-03-14
+ * @since 2021-07-09 17:59
  */
 public class ServerErrorException extends RuntimeException {
 
