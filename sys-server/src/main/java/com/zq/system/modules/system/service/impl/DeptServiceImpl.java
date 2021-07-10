@@ -17,6 +17,7 @@ package com.zq.system.modules.system.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.zq.common.config.redis.RedisUtils;
 import com.zq.system.exception.BadRequestException;
 import com.zq.system.modules.system.domain.Dept;
 import com.zq.system.modules.system.domain.User;
@@ -29,9 +30,8 @@ import com.zq.system.modules.system.service.dto.DeptQueryCriteria;
 import com.zq.system.modules.system.service.mapstruct.DeptMapper;
 import com.zq.system.utils.*;
 import com.zq.system.utils.enums.DataScopeEnum;
-import com.zq.common.config.redis.RedisUtils;
-import com.zq.common.utils.StringUtils;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;

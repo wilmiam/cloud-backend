@@ -15,6 +15,7 @@
  */
 package com.zq.system.modules.system.service.impl;
 
+import com.zq.common.config.redis.RedisUtils;
 import com.zq.system.config.FileProperties;
 import com.zq.system.exception.EntityExistException;
 import com.zq.system.exception.EntityNotFoundException;
@@ -28,10 +29,9 @@ import com.zq.system.modules.system.service.dto.RoleSmallDto;
 import com.zq.system.modules.system.service.dto.UserDto;
 import com.zq.system.modules.system.service.dto.UserQueryCriteria;
 import com.zq.system.modules.system.service.mapstruct.UserMapper;
-import com.zq.common.config.redis.RedisUtils;
-import com.zq.common.utils.StringUtils;
 import com.zq.system.utils.*;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;

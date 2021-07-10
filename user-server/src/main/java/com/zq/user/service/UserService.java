@@ -2,20 +2,23 @@ package com.zq.user.service;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.servlet.ServletUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.zq.common.config.redis.RedisUtils;
 import com.zq.common.config.security.ApiTokenUtils;
 import com.zq.common.entity.AppUser;
 import com.zq.common.http.HttpRequestUtils;
 import com.zq.common.utils.AssertUtils;
+import com.zq.common.utils.PagingUtils;
 import com.zq.common.vo.ApiTokenVo;
 import com.zq.user.dao.AppUserDao;
 import com.zq.user.manager.UserCacheKeys;
+import com.zq.user.vo.AppUserPageReqVo;
 import com.zq.user.vo.LoginVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -101,7 +104,7 @@ public class UserService {
      */
     public void verificationCode(String phone, String code) {
         String cacheCode = redisUtils.getStr(UserCacheKeys.authCodeKey(phone));
-        AssertUtils.isTrue(StringUtils.isNotBlank(cacheCode) && cacheCode.equalsIgnoreCase(code), "验证码错误");
+        AssertUtils.isTrue(StrUtil.isNotBlank(cacheCode) && cacheCode.equalsIgnoreCase(code), "验证码错误");
         redisUtils.deleteStr(UserCacheKeys.authCodeKey(phone));
     }
 
@@ -152,5 +155,27 @@ public class UserService {
     @Cacheable
     public AppUser getUserInfo(String userId) {
         return userDao.selectById(userId);
+    }
+
+    /**
+     * 获取用户列表
+     *
+     * @param vo
+     * @return
+     */
+    public Object getUserList(AppUserPageReqVo vo) {
+        LambdaQueryWrapper<AppUser> lambdaQuery = Wrappers.lambdaQuery(AppUser.class);
+        lambdaQuery.orderByAsc(AppUser::getId);
+
+        if (StrUtil.isNotBlank(vo.getAccount())) {
+            lambdaQuery.like(AppUser::getAccount, vo.getAccount());
+            vo.setAccount(null);
+        }
+        if (StrUtil.isNotBlank(vo.getPhone())) {
+            lambdaQuery.like(AppUser::getPhone, vo.getPhone());
+            vo.setPhone(null);
+        }
+
+        return PagingUtils.paging(vo, userDao, AppUser.class, lambdaQuery);
     }
 }

@@ -15,17 +15,17 @@
  */
 package com.zq.system.modules.system.service;
 
+import com.zq.common.config.redis.RedisUtils;
+import com.zq.common.config.security.SecurityProperties;
+import com.zq.common.http.HttpRequestUtils;
+import com.zq.common.vo.OnlineUserDto;
 import com.zq.system.modules.system.service.dto.DeptSmallDto;
 import com.zq.system.modules.system.service.dto.UserDto;
 import com.zq.system.utils.EncryptUtils;
 import com.zq.system.utils.FileUtil;
 import com.zq.system.utils.PageUtil;
-import com.zq.common.config.security.SecurityProperties;
-import com.zq.common.config.redis.RedisUtils;
-import com.zq.common.http.HttpRequestUtils;
-import com.zq.common.utils.StringUtils;
-import com.zq.common.vo.OnlineUserDto;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;

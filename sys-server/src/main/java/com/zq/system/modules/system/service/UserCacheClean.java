@@ -16,7 +16,7 @@
 
 package com.zq.system.modules.system.service;
 
-import com.zq.common.utils.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 /**

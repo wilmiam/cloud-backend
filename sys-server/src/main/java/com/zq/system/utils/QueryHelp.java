@@ -20,8 +20,8 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.zq.common.annotation.DataPermission;
 import com.zq.common.annotation.Query;
-import com.zq.common.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.criteria.*;
 import java.lang.reflect.Field;

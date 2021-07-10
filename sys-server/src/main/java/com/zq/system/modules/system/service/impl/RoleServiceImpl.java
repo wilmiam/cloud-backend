@@ -16,6 +16,7 @@
 package com.zq.system.modules.system.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.zq.common.config.redis.RedisUtils;
 import com.zq.system.exception.BadRequestException;
 import com.zq.system.exception.EntityExistException;
 import com.zq.system.modules.system.domain.Menu;
@@ -31,10 +32,9 @@ import com.zq.system.modules.system.service.dto.RoleSmallDto;
 import com.zq.system.modules.system.service.dto.UserDto;
 import com.zq.system.modules.system.service.mapstruct.RoleMapper;
 import com.zq.system.modules.system.service.mapstruct.RoleSmallMapper;
-import com.zq.common.config.redis.RedisUtils;
-import com.zq.common.utils.StringUtils;
 import com.zq.system.utils.*;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;

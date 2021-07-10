@@ -18,8 +18,8 @@ package com.zq.system.config.bean;
 import com.wf.captcha.*;
 import com.wf.captcha.base.Captcha;
 import com.zq.system.exception.BadConfigurationException;
-import com.zq.common.utils.StringUtils;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
 import java.util.Objects;
@@ -104,7 +104,7 @@ public class LoginProperties {
                     throw new BadConfigurationException("验证码配置信息错误！正确配置查看 LoginCodeEnum ");
             }
         }
-        if(StringUtils.isNotBlank(loginCode.getFontName())){
+        if (StringUtils.isNotBlank(loginCode.getFontName())) {
             captcha.setFont(new Font(loginCode.getFontName(), Font.PLAIN, loginCode.getFontSize()));
         }
         return captcha;

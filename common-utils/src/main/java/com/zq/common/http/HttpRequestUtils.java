@@ -26,7 +26,7 @@ import java.util.Objects;
 
 /**
  * @author wilmiam
- * @since 2019-03-14
+ * @since 2021-07-10 16:30
  */
 public class HttpRequestUtils {
     private static boolean ipLocal = false;
@@ -93,7 +93,7 @@ public class HttpRequestUtils {
             }
             if (ipAddress == null || ipAddress.length() == 0 || UNKNOWN.equalsIgnoreCase(ipAddress)) {
                 ipAddress = request.getRemoteAddr();
-                if (ipAddress.equals("127.0.0.1")) {
+                if ("127.0.0.1".equals(ipAddress)) {
                     // 根据网卡取本机配置的IP
                     InetAddress inet;
                     try {
@@ -269,6 +269,13 @@ public class HttpRequestUtils {
     //     }
     //     return "";
     // }
+
+    /**
+     * 获取浏览器
+     *
+     * @param request
+     * @return
+     */
     public static String getBrowser(HttpServletRequest request) {
         UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
         Browser browser = userAgent.getBrowser();
