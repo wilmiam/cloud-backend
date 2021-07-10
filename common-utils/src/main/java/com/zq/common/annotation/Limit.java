@@ -73,14 +73,14 @@ public @interface Limit {
     int count() default 3;
 
     /**
-     * 对象里的属性名,仅当仅当{@link #limitType}为{@code RateLimitTypeEnum.POJO_FIELD}时有用
+     * 对象里的属性名,仅当{@link #limitType}为{@code LimitType.POJO_FIELD}时有用
      *
      * @return
      */
     String field() default "";
 
     /**
-     * 要用来作为key组成的参数索引(从0开始), 该索引对应的参数必须为string/Long/Integer/Short/Byte, 仅当{@link #limitType}为{@code RateLimitTypeEnum.PARAM}时有用
+     * 要用来作为key组成的参数索引(从0开始), 该索引对应的参数必须为string/Long/Integer/Short/Byte, 仅当{@link #limitType}为{@code LimitType.PARAM}时有用
      *
      * @return
      */
