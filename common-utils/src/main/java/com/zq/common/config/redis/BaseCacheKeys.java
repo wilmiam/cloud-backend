@@ -43,23 +43,28 @@ public abstract class BaseCacheKeys {
      * 构建限流Key
      *
      * @param type
+     * @param prefix
      * @param key
      * @return
      */
-    public static String rateLimitKey(LimitType type, String key) {
-        return rateLimitKey(type, key, null);
+    public static String rateLimitKey(LimitType type, String prefix, String key) {
+        return rateLimitKey(type, prefix, key, null);
     }
 
     /**
      * 构建限流key
      *
      * @param type
+     * @param prefix
      * @param key
      * @param param
      * @return
      */
-    public static String rateLimitKey(LimitType type, String key, String param) {
+    public static String rateLimitKey(LimitType type, String prefix, String key, String param) {
         String result = RATE_LIMIT;
+        if (StringUtils.isNotBlank(prefix)) {
+            result = PREFIX + prefix + ".";
+        }
         switch (type) {
             case IP:
                 result += "ip.";

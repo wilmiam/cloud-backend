@@ -117,6 +117,7 @@ public class LimitAspect {
      */
     private String buildLimitKey(Limit limit, JoinPoint joinPoint, Method signatureMethod) {
         String limitKey = null;
+        String prefix = limit.prefix();
         String key = limit.key();
         key = StringUtils.isBlank(key) ? signatureMethod.getName() : key;
         LimitType limitType = limit.limitType();
@@ -124,13 +125,13 @@ public class LimitAspect {
         Object[] args = joinPoint.getArgs();
         switch (limitType) {
             case IP:
-                limitKey = BaseCacheKeys.rateLimitKey(LimitType.IP, key, HttpRequestUtils.getClientIp());
+                limitKey = BaseCacheKeys.rateLimitKey(LimitType.IP, prefix, key, HttpRequestUtils.getClientIp());
                 break;
             case USER:
                 // 按用户登录id限流
                 ApiTokenVo apiTokenVo = ContextUtils.getUserContext();
                 if (apiTokenVo != null) {
-                    limitKey = BaseCacheKeys.rateLimitKey(LimitType.USER, key, String.valueOf(apiTokenVo.getUserId()));
+                    limitKey = BaseCacheKeys.rateLimitKey(LimitType.USER, prefix, key, String.valueOf(apiTokenVo.getUserId()));
                 } else {
                     log.warn(">> 未找到登录用户信息,限流失败: {}", joinPoint);
                 }
@@ -146,7 +147,7 @@ public class LimitAspect {
                     break;
                 }
                 String fieldValue = getPojoField(field, args[0]);
-                limitKey = BaseCacheKeys.rateLimitKey(LimitType.POJO_FIELD, key, fieldValue);
+                limitKey = BaseCacheKeys.rateLimitKey(LimitType.POJO_FIELD, prefix, key, fieldValue);
                 break;
             case PARAM:
                 int keyIndex = limit.keyParamIndex();
@@ -154,13 +155,13 @@ public class LimitAspect {
                 if (keyIndex < 0 || args == null || args.length < (keyIndex + 1) || args[keyIndex] == null) {
                     log.warn(">> 未找到参数或参数值为空,限流失败: {}, keyParamIndex={}", joinPoint, keyIndex);
                 } else if (isValidKeyParamType(args[keyIndex])) {
-                    limitKey = BaseCacheKeys.rateLimitKey(LimitType.PARAM, key, String.valueOf(args[keyIndex]));
+                    limitKey = BaseCacheKeys.rateLimitKey(LimitType.PARAM, prefix, key, String.valueOf(args[keyIndex]));
                 } else {
                     log.warn(">> 设置的参数不是string/long/int/short/byte类型,限流失败: {}", joinPoint);
                 }
                 break;
             case KEY:
-                limitKey = BaseCacheKeys.rateLimitKey(LimitType.KEY, key);
+                limitKey = BaseCacheKeys.rateLimitKey(LimitType.KEY, prefix, key);
                 break;
             default:
                 // nothing to do
