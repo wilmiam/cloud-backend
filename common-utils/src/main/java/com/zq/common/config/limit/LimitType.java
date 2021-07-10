@@ -22,10 +22,24 @@ package com.zq.common.config.limit;
  * @since 2021-07-09 17:51
  */
 public enum LimitType {
-    // 默认
-    CUSTOMER,
-    //  by ip USER_ID
-    USER_ID,
-    //  by ip address
-    IP
+    /**
+     * 针对每个IP进行限流
+     */
+    IP,
+    /**
+     * 针对每个用户进行限流
+     */
+    USER,
+    /**
+     * 针对对象的某个属性值进行限流
+     */
+    POJO_FIELD,
+    /**
+     * 针对某个参数进行限流
+     */
+    PARAM,
+    /**
+     * 直接对指定的key进行限流
+     */
+    KEY
 }

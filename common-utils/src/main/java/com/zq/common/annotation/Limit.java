@@ -30,6 +30,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Limit {
 
+    // 限制类型
+    LimitType limitType() default LimitType.IP;
+
     // 资源名称，用于描述接口功能
     String name() default "";
 
@@ -40,12 +43,30 @@ public @interface Limit {
     String prefix() default "";
 
     // 时间的，单位秒
-    int period();
+    int period() default 1;
 
     // 限制访问次数
-    int count();
+    int count() default 3;
 
-    // 限制类型
-    LimitType limitType() default LimitType.CUSTOMER;
+    /**
+     * 对象里的属性名,仅当仅当{@link #limitType}为{@code RateLimitTypeEnum.POJO_FIELD}时有用
+     *
+     * @return
+     */
+    String field() default "";
+
+    /**
+     * 要用来作为key组成的参数索引(从0开始), 该索引对应的参数必须为string/Long/Integer/Short/Byte, 仅当{@link #limitType}为{@code RateLimitTypeEnum.PARAM}时有用
+     *
+     * @return
+     */
+    int keyParamIndex() default 0;
+
+    /**
+     * 达到限流上限时的错误提示
+     *
+     * @return
+     */
+    String errMsg() default "操作过于频繁";
 
 }

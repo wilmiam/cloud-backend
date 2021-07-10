@@ -1,6 +1,7 @@
 package com.zq.user.controller.app;
 
 
+import com.zq.common.annotation.Limit;
 import com.zq.common.utils.AssertUtils;
 import com.zq.common.utils.ValidateUtil;
 import com.zq.common.vo.ApiTokenVo;
@@ -70,6 +71,7 @@ public class UserController {
         return ResultVo.success(userService.passwdLogin(vo));
     }
 
+    @Limit(count = 1)
     @ApiOperation("获取用户信息")
     @GetMapping(value = "/getUserInfo")
     public ResultVo getUserInfo(@RequestParam String userId) {

@@ -1,5 +1,8 @@
 package com.zq.common.config.redis;
 
+import com.zq.common.config.limit.LimitType;
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * 公共缓存key
  *
@@ -13,6 +16,8 @@ public abstract class BaseCacheKeys {
     private static final String APP_TOKEN = PREFIX + "app-token.";
 
     private static final String ADMIN_TOKEN = PREFIX + "admin-token.";
+
+    private static final String RATE_LIMIT = PREFIX + "rate-limit.";
 
     /**
      * 构建app端用户token的缓存key
@@ -32,6 +37,53 @@ public abstract class BaseCacheKeys {
      */
     public static String adminTokenKey(String token) {
         return ADMIN_TOKEN + token;
+    }
+
+    /**
+     * 构建限流Key
+     *
+     * @param type
+     * @param key
+     * @return
+     */
+    public static String rateLimitKey(LimitType type, String key) {
+        return rateLimitKey(type, key, null);
+    }
+
+    /**
+     * 构建限流key
+     *
+     * @param type
+     * @param key
+     * @param param
+     * @return
+     */
+    public static String rateLimitKey(LimitType type, String key, String param) {
+        String result = RATE_LIMIT;
+        switch (type) {
+            case IP:
+                result += "ip.";
+                break;
+            case USER:
+                result += "u.";
+                break;
+            case PARAM:
+                result += "p.";
+                break;
+            case POJO_FIELD:
+                result += "f.";
+                break;
+            case KEY:
+                result += "k.";
+                break;
+            default:
+                // nothing to do
+        }
+        result += key;
+        if (StringUtils.isNotBlank(param)) {
+            result += "." + param;
+        }
+        return result;
     }
 
 }
