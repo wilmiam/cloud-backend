@@ -2,6 +2,7 @@ package com.zq.user.controller.app;
 
 
 import com.zq.common.annotation.Limit;
+import com.zq.common.config.limit.LimitType;
 import com.zq.common.utils.AssertUtils;
 import com.zq.common.utils.ValidateUtil;
 import com.zq.common.vo.ApiTokenVo;
@@ -25,6 +26,8 @@ public class UserController {
 
     private final UserService userService;
 
+    // 30秒只能访问一次
+    @Limit(limitType = LimitType.PARAM, keyParamIndex = 0, period = 30, count = 1, name = "发送验证码", errMsg = "请稍后再试!")
     @ApiOperation("发送验证码")
     @GetMapping(value = "/sendCode")
     public ResultVo sendCode(String phone) {
@@ -71,7 +74,6 @@ public class UserController {
         return ResultVo.success(userService.passwdLogin(vo));
     }
 
-    @Limit(count = 1)
     @ApiOperation("获取用户信息")
     @GetMapping(value = "/getUserInfo")
     public ResultVo getUserInfo(@RequestParam String userId) {

@@ -67,10 +67,13 @@ public class LimitAspect {
         Method signatureMethod = signature.getMethod();
         Limit limit = signatureMethod.getAnnotation(Limit.class);
 
-        String key = buildLimitKey(limit, joinPoint, signatureMethod);
-        log.debug("限流缓存KEY: {}", key);
+        String limitKey = buildLimitKey(limit, joinPoint, signatureMethod);
+        log.debug(">> 限流缓存KEY: {}", limitKey);
+        if (limitKey == null || limitKey.trim().length() == 0) {
+            return;
+        }
 
-        List<String> keys = Collections.singletonList(key);
+        List<String> keys = Collections.singletonList(limitKey);
         String luaScript = buildLuaScript();
         RedisScript<Long> redisScript = new DefaultRedisScript<>(luaScript, Long.class);
         Long count = stringRedisTemplate.execute(redisScript, keys, String.valueOf(limit.count()), String.valueOf(limit.period()));
@@ -79,7 +82,7 @@ public class LimitAspect {
 
         String name = limit.name();
         name = StringUtils.isNotBlank(name) ? name : signatureMethod.getName();
-        logger.info("第{}次访问key为 {}，描述为 [{}] 的接口", count, keys, name);
+        logger.debug("第{}次访问，KEY为 {}，描述为 [{}] 的接口", count, keys, name);
     }
 
     /**
@@ -146,7 +149,11 @@ public class LimitAspect {
                     log.warn(">> 未找到对象,限流失败: {}", joinPoint);
                     break;
                 }
-                String fieldValue = getPojoField(field, args[0]);
+                String fieldValue = getPojoField(args[0], field);
+                if (StringUtils.isBlank(fieldValue)) {
+                    log.warn(">> 对象字段值为空,请检查限流字段是否准确,限流失败: {}", joinPoint);
+                    break;
+                }
                 limitKey = BaseCacheKeys.rateLimitKey(LimitType.POJO_FIELD, prefix, key, fieldValue);
                 break;
             case PARAM:
@@ -174,7 +181,7 @@ public class LimitAspect {
                 || (param instanceof Byte);
     }
 
-    private String getPojoField(String field, Object pojo) {
+    private String getPojoField(Object pojo, String field) {
         try {
             JSONObject object = JSON.parseObject(JSON.toJSONString(pojo));
             return object.getString(field);

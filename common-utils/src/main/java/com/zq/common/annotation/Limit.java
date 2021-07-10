@@ -30,22 +30,46 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Limit {
 
-    // 限制类型
+    /**
+     * 限流类型
+     *
+     * @return
+     */
     LimitType limitType() default LimitType.IP;
 
-    // 资源名称，用于描述接口功能
+    /**
+     * 资源名称，用于描述接口功能, 不设置将默认为调用方法名
+     *
+     * @return
+     */
     String name() default "";
 
-    // 资源 key
+    /**
+     * 缓存key, 不设置将默认为调用方法名
+     *
+     * @return
+     */
     String key() default "";
 
-    // key prefix
+    /**
+     * 前缀前面还会有一个{@code BaseCacheKeys.PREFIX}的项目前缀, 默认为"rate-limit"
+     *
+     * @return
+     */
     String prefix() default "";
 
-    // 时间的，单位秒
+    /**
+     * 时间范围，单位秒, 在这个时间范围内可以调用多少次
+     *
+     * @return
+     */
     int period() default 1;
 
-    // 限制访问次数
+    /**
+     * 限制访问次数
+     *
+     * @return
+     */
     int count() default 3;
 
     /**
