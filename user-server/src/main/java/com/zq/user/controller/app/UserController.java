@@ -26,8 +26,14 @@ public class UserController {
 
     private final UserService userService;
 
-    // 30秒只能访问一次
-    @Limit(limitType = LimitType.PARAM, keyParamIndex = 0, period = 30, count = 1, name = "发送验证码", errMsg = "请稍后再试!")
+    /**
+     * 发送手机验证码
+     * 使用第一个参数值作为限流key, 30秒只能访问一次
+     *
+     * @param phone
+     * @return
+     */
+    @Limit(limitType = LimitType.PARAM, keyParamIndex = 0, period = 30, count = 1, name = "发送手机验证码", errMsg = "请稍后再试!")
     @ApiOperation("发送验证码")
     @GetMapping(value = "/sendCode")
     public ResultVo sendCode(String phone) {
