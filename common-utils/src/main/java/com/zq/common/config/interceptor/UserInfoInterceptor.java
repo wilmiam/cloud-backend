@@ -4,6 +4,7 @@ import com.zq.common.config.redis.BaseCacheKeys;
 import com.zq.common.config.redis.RedisUtils;
 import com.zq.common.config.security.SecurityProperties;
 import com.zq.common.context.ContextUtils;
+import com.zq.common.utils.AssertUtils;
 import com.zq.common.vo.ApiTokenVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,9 +31,12 @@ public class UserInfoInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (request.getRequestURI().contains("/app/")) {
             String token = getToken(request);
-            log.info(">> [UserInfo token] {}", token);
-            ApiTokenVo tokenVo = redisUtils.getObj(BaseCacheKeys.appTokenKey(token), ApiTokenVo.class);
-            ContextUtils.setUserContext(tokenVo);
+            log.debug(">> [UserInfo token] {}", token);
+            if (StringUtils.isNotBlank(token)) {
+                ApiTokenVo tokenVo = redisUtils.getObj(BaseCacheKeys.appTokenKey(token), ApiTokenVo.class);
+                AssertUtils.notNull(tokenVo, "登录信息过期");
+                ContextUtils.setUserContext(tokenVo);
+            }
         }
         return true;
     }

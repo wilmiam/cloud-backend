@@ -16,6 +16,7 @@
 package com.zq.common.config.limit;
 
 import com.zq.common.annotation.Limit;
+import com.zq.common.context.ContextUtils;
 import com.zq.common.http.HttpRequestUtils;
 import com.zq.common.utils.AssertUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -66,16 +67,17 @@ public class LimitAspect {
         Limit limit = signatureMethod.getAnnotation(Limit.class);
         LimitType limitType = limit.limitType();
         String key = limit.key();
+
+        // 构建key
         if (StringUtils.isBlank(key)) {
             if (limitType == LimitType.IP) {
                 key = HttpRequestUtils.getClientIp(request);
+            } else if (limitType == LimitType.USER_ID) {
+                Long userId = ContextUtils.getUserUserId();
+                key = userId != null ? userId.toString() : HttpRequestUtils.getClientIp(request);
             } else {
                 // 获取方法名
                 key = signatureMethod.getName();
-                if ("sendCode".equals(key)) {
-                    // 获取方法的第一个参数
-                    key = (String) joinPoint.getArgs()[0];
-                }
             }
         }
 

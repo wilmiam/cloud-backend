@@ -29,7 +29,7 @@ public class ContextUtils {
 
     public static Long getUserUserId() {
         ApiTokenVo apiTokenVo = ThreadContext.get(APP_TOKEN_CONTEXT_KEY);
-        return apiTokenVo.getUserId();
+        return apiTokenVo == null ? null : apiTokenVo.getUserId();
     }
 
     public static void setAdminContext(OnlineUserDto onlineUserDto) {
@@ -44,7 +44,7 @@ public class ContextUtils {
 
     public static Long getAdminUserId() {
         OnlineUserDto userDto = ThreadContext.get(ADMIN_TOKEN_CONTEXT_KEY);
-        return userDto.getUserId();
+        return userDto == null ? null : userDto.getUserId();
     }
 
 }

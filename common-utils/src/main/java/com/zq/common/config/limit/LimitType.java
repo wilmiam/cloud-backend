@@ -24,6 +24,8 @@ package com.zq.common.config.limit;
 public enum LimitType {
     // 默认
     CUSTOMER,
-    //  by ip addr
+    //  by ip USER_ID
+    USER_ID,
+    //  by ip address
     IP
 }
