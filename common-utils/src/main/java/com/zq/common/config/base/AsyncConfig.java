@@ -7,36 +7,52 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
 
 /**
  * 异步执行配置
+ * <p>
+ * 注解ConditionalOnProperty(value = "async.pool.enable", havingValue = "true")
+ * 当获取到async.pool.enable的值等于havingValue的值时才加载配置
  *
  * @author wilmiam
  * @since 2021-07-09 17:50
  */
 @Configuration
-@ConditionalOnProperty(value = "async.pool.enable", havingValue = "true")
-@EnableAsync
+@ConditionalOnProperty(value = "task.pool.enable", havingValue = "true")
 public class AsyncConfig implements AsyncConfigurer {
 
     private static final Logger log = LoggerFactory.getLogger(AsyncConfig.class);
 
-    @Value("${async.pool.core-pool-size:5}")
+    /**
+     * 核心线程池大小
+     */
+    @Value("${task.pool.core-pool-size:5}")
     private int corePoolSize;
-    @Value("${async.pool.queue-capacity:10}")
+
+    /**
+     * 最大线程数
+     */
+    @Value("${task.pool.max-pool-size:15}")
     private int maxPoolSize;
-    @Value("${async.pool.max-pool-size:25}")
+
+    /**
+     * 队列容量
+     */
+    @Value("${task.pool.queue-capacity:20}")
     private int queueCapacity;
-    @Value("${async.pool.keepalive-seconds:10}")
+
+    /**
+     * 活跃时间
+     */
+    @Value("${task.pool.keep-alive-seconds:30}")
     private int threadTimeout;
 
     @Override
     public Executor getAsyncExecutor() {
-        log.debug(">> 初始化spring线程池...");
+        log.info(">> 初始化spring线程池...");
         ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
 
         // 当一个任务通过execute(Runnable)方法欲添加到线程池时：
@@ -55,6 +71,8 @@ public class AsyncConfig implements AsyncConfigurer {
         threadPoolTaskExecutor.setQueueCapacity(queueCapacity);
         // 线程池维护线程所允许的空闲时间
         threadPoolTaskExecutor.setKeepAliveSeconds(threadTimeout);
+
+        threadPoolTaskExecutor.setThreadNamePrefix("cloud-async-");
 
         // don't forget to initialize the thread pool
         threadPoolTaskExecutor.initialize();

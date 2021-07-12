@@ -110,13 +110,13 @@ public class ApiController {
 
         // 调试日志
         if (ApiUtils.DEBUG) {
-            System.out.println("API DEBUG ACTION \n[from=" + form + "]" //
-                    + "\n[resp=" + JSON.toJSONString(resp) + "]" //
+            System.out.println("API DEBUG ACTION \n[from=" + form + "]"
+                    + "\n[resp=" + JSON.toJSONString(resp) + "]"
                     + "\n[time=" + (System.currentTimeMillis() - start) + "ms]");
         }
 
-        String clientIP = ServletUtil.getClientIP(request);
-        apiService.addLog(form, clientIP, logType, resp.getMsg(), stackTrace, System.currentTimeMillis() - start);
+        String clientIp = ServletUtil.getClientIP(request);
+        apiService.addLog(form, clientIp, logType, resp.getMsg(), stackTrace, System.currentTimeMillis() - start);
         return resp;
     }
 

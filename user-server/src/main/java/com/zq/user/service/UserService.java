@@ -46,7 +46,6 @@ public class UserService {
         String code = RandomUtil.randomNumbers(6);
         String content = "您的验证码为：" + code + "（5分钟内有效）。为了保障信息安全，如非本人操作请忽略本短信。";
         // TODO 发送验证码
-
         log.info(">> phone: {}, sendCode: {}, success: ", phone, code);
         redisUtils.setStr(UserCacheKeys.authCodeKey(phone), code, 5);
     }
