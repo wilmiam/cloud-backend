@@ -139,16 +139,16 @@
 
         <!-- 解析客户端操作系统、浏览器信息 -->
         <dependency>
-            <groupId>eu.bitwalker</groupId>
-            <artifactId>UserAgentUtils</artifactId>
-            <version>1.21</version>
+            <groupId>nl.basjes.parse.useragent</groupId>
+            <artifactId>yauaa</artifactId>
+            <version>5.23</version>
         </dependency>
 
         <!-- 获取系统信息 -->
         <dependency>
             <groupId>com.github.oshi</groupId>
             <artifactId>oshi-core</artifactId>
-            <version>5.3.6</version>
+            <version>5.7.1</version>
         </dependency>
 
         <!-- excel工具 -->
