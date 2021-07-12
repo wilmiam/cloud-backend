@@ -28,7 +28,7 @@ public class UserController {
 
     /**
      * 发送手机验证码
-     * 使用第一个参数值作为限流key, 30秒只能访问一次
+     * 使用第一个参数值作为限流key, 30秒只能访问1次
      *
      * @param phone
      * @return
