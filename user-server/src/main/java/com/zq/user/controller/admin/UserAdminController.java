@@ -2,7 +2,7 @@ package com.zq.user.controller.admin;
 
 import com.zq.common.vo.ResultVo;
 import com.zq.user.service.UserService;
-import com.zq.user.vo.AppUserPageReqVo;
+import com.zq.user.vo.FindAppUserVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class UserAdminController {
 
     @ApiOperation("获取用户列表")
     @PostMapping(value = "/getUserList")
-    public ResultVo getUserList(@RequestBody AppUserPageReqVo vo) {
+    public ResultVo getUserList(@RequestBody FindAppUserVo vo) {
         return ResultVo.success(userService.getUserList(vo));
     }
 

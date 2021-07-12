@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AppUserPageReqVo extends PageReqVo {
+public class FindAppUserVo extends PageReqVo {
 
     /**
      * id
