@@ -283,19 +283,19 @@ public class RedisUtils {
         if (keys != null && keys.length > 0) {
             if (keys.length == 1) {
                 boolean result = redisTemplate.delete(keys[0]);
-                log.info("--------------------------------------------");
-                log.info("删除缓存：{}，结果：{}", keys[0], result);
-                log.info("--------------------------------------------");
+                log.debug("--------------------------------------------");
+                log.debug("删除缓存：{}，结果：{}", keys[0], result);
+                log.debug("--------------------------------------------");
             } else {
                 Set<String> keySet = new HashSet<>();
                 for (String key : keys) {
                     keySet.addAll(redisTemplate.keys(key));
                 }
                 long count = redisTemplate.delete(keySet);
-                log.info("--------------------------------------------");
-                log.info("成功删除缓存：{}", keySet.toString());
-                log.info("缓存删除数量：{}个", count);
-                log.info("--------------------------------------------");
+                log.debug("--------------------------------------------");
+                log.debug("成功删除缓存：{}", keySet.toString());
+                log.debug("缓存删除数量：{}个", count);
+                log.debug("--------------------------------------------");
             }
         }
     }
@@ -806,9 +806,9 @@ public class RedisUtils {
         }
         long count = redisTemplate.delete(keys);
         // 此处提示可自行删除
-        log.info("--------------------------------------------");
-        log.info("成功删除缓存：{}", keys.toString());
-        log.info("缓存删除数量：{}个", count);
-        log.info("--------------------------------------------");
+        log.debug("--------------------------------------------");
+        log.debug("成功删除缓存：{}", keys.toString());
+        log.debug("缓存删除数量：{}个", count);
+        log.debug("--------------------------------------------");
     }
 }
