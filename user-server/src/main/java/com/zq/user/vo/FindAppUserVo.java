@@ -2,10 +2,7 @@ package com.zq.user.vo;
 
 import com.zq.common.vo.PageReqVo;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * 用户表(TAppUser)实体类
@@ -14,9 +11,6 @@ import lombok.NoArgsConstructor;
  * @since 2021-07-05 10:21:25
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 public class FindAppUserVo extends PageReqVo {
 
     /**
