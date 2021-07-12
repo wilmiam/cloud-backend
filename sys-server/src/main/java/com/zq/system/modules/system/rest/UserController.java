@@ -16,22 +16,23 @@
 package com.zq.system.modules.system.rest;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.zq.common.annotation.Log;
+import com.zq.system.config.RsaProperties;
+import com.zq.system.exception.BadRequestException;
+import com.zq.system.modules.system.domain.Dept;
 import com.zq.system.modules.system.domain.User;
+import com.zq.system.modules.system.domain.vo.UserPassVo;
 import com.zq.system.modules.system.service.*;
 import com.zq.system.modules.system.service.dto.RoleSmallDto;
+import com.zq.system.modules.system.service.dto.UserDto;
 import com.zq.system.modules.system.service.dto.UserQueryCriteria;
 import com.zq.system.utils.PageUtil;
 import com.zq.system.utils.RsaUtils;
 import com.zq.system.utils.SecurityUtils;
+import com.zq.system.utils.enums.CodeEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import com.zq.common.annotation.Log;
-import com.zq.system.config.RsaProperties;
-import com.zq.system.exception.BadRequestException;
-import com.zq.system.modules.system.domain.vo.UserPassVo;
-import com.zq.system.modules.system.service.dto.UserDto;
-import com.zq.system.utils.enums.CodeEnum;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -80,7 +81,10 @@ public class UserController {
     public ResponseEntity<Object> query(UserQueryCriteria criteria, Pageable pageable){
         if (!ObjectUtils.isEmpty(criteria.getDeptId())) {
             criteria.getDeptIds().add(criteria.getDeptId());
-            criteria.getDeptIds().addAll(deptService.getDeptChildren(deptService.findByPid(criteria.getDeptId())));
+            // 先查找是否存在子节点
+            List<Dept> data = deptService.findByPid(criteria.getDeptId());
+            // 然后把子节点的ID都加入到集合中
+            criteria.getDeptIds().addAll(deptService.getDeptChildren(data));
         }
         // 数据权限
         List<Long> dataScopes = dataService.getDeptIds(userService.findByName(SecurityUtils.getCurrentUsername()));

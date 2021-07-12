@@ -120,6 +120,8 @@ public class DeptServiceImpl implements DeptService {
         resources.setSubCount(0);
         // 清理缓存
         updateSubCnt(resources.getPid());
+        // 清理自定义角色权限的datascope缓存
+        delCaches(resources.getPid());
     }
 
     @Override
@@ -184,7 +186,7 @@ public class DeptServiceImpl implements DeptService {
         deptList.forEach(dept -> {
                     if (dept != null && dept.getEnabled()) {
                         List<Dept> depts = deptRepository.findByPid(dept.getId());
-                        if (deptList.size() != 0) {
+                        if (depts.size() != 0) {
                             list.addAll(getDeptChildren(depts));
                         }
                         list.add(dept.getId());

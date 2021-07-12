@@ -5,8 +5,8 @@ import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.zq.common.constant.CloudConstant;
-import eu.bitwalker.useragentutils.Browser;
-import eu.bitwalker.useragentutils.UserAgent;
+import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,10 +29,10 @@ import java.util.Objects;
  * @since 2021-07-10 16:30
  */
 public class HttpRequestUtils {
-    private static boolean ipLocal = false;
 
     private static final Logger log = LoggerFactory.getLogger(HttpRequestUtils.class);
 
+    private static boolean ipLocal = false;
     private static final String MICROSOFT_IE = "MSIE";
     private static final int IE_URL_LIMIT = 150;
 
@@ -45,7 +45,6 @@ public class HttpRequestUtils {
      * localhost的IP地址(ipv6)
      */
     private static final String LOCALHOST_IP_V6 = "0:0:0:0:0:0:0:1";
-
     private static final String UNKNOWN = "unknown";
     private static final String COMMA = ",";
     private static final String[] HEADERS_TO_TRY = {
@@ -61,6 +60,13 @@ public class HttpRequestUtils {
             "HTTP_VIA",
             "REMOTE_ADDR",
             "X-Real-IP"};
+
+    private static final UserAgentAnalyzer userAgentAnalyzer = UserAgentAnalyzer
+            .newBuilder()
+            .hideMatcherLoadStats()
+            .withCache(10000)
+            .withField(UserAgent.AGENT_NAME_VERSION)
+            .build();
 
     public static HttpServletRequest getRequest() {
         return ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
@@ -277,9 +283,8 @@ public class HttpRequestUtils {
      * @return
      */
     public static String getBrowser(HttpServletRequest request) {
-        UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
-        Browser browser = userAgent.getBrowser();
-        return browser.getName();
+        UserAgent.ImmutableUserAgent userAgent = userAgentAnalyzer.parse(request.getHeader("User-Agent"));
+        return userAgent.get(UserAgent.AGENT_NAME_VERSION).getValue();
     }
 
     /**

@@ -16,6 +16,7 @@
 package com.zq.system.modules.system.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.zq.common.config.redis.RedisUtils;
 import com.zq.system.modules.system.domain.Dict;
 import com.zq.system.modules.system.repository.DictRepository;
 import com.zq.system.modules.system.service.DictService;
@@ -23,7 +24,6 @@ import com.zq.system.modules.system.service.dto.DictDetailDto;
 import com.zq.system.modules.system.service.dto.DictDto;
 import com.zq.system.modules.system.service.dto.DictQueryCriteria;
 import com.zq.system.modules.system.service.mapstruct.DictMapper;
-import com.zq.common.config.redis.RedisUtils;
 import com.zq.system.utils.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
@@ -74,8 +74,9 @@ public class DictServiceImpl implements DictService {
         delCaches(resources);
         Dict dict = dictRepository.findById(resources.getId()).orElseGet(Dict::new);
         ValidationUtil.isNull(dict.getId(), "Dict", "id", resources.getId());
-        resources.setId(dict.getId());
-        dictRepository.save(resources);
+        dict.setName(resources.getName());
+        dict.setDescription(resources.getDescription());
+        dictRepository.save(dict);
     }
 
     @Override

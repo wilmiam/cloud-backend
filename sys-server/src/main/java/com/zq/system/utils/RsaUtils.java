@@ -3,6 +3,7 @@ package com.zq.system.utils;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.Cipher;
+import java.io.ByteArrayOutputStream;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -50,6 +51,7 @@ public class RsaUtils {
 
     /**
      * 私钥加密公钥解密
+     *
      * @throws Exception /
      */
     private static void test2(RsaKeyPair keyPair) throws Exception {
@@ -71,7 +73,7 @@ public class RsaUtils {
      * 公钥解密
      *
      * @param publicKeyText 公钥
-     * @param text 待解密的信息
+     * @param text          待解密的信息
      * @return /
      * @throws Exception /
      */
@@ -81,7 +83,7 @@ public class RsaUtils {
         PublicKey publicKey = keyFactory.generatePublic(x509EncodedKeySpec);
         Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.DECRYPT_MODE, publicKey);
-        byte[] result = cipher.doFinal(Base64.decodeBase64(text));
+        byte[] result = doLongerCipherFinal(Cipher.DECRYPT_MODE, cipher, Base64.decodeBase64(text));
         return new String(result);
     }
 
@@ -89,7 +91,7 @@ public class RsaUtils {
      * 私钥加密
      *
      * @param privateKeyText 私钥
-     * @param text 待加密的信息
+     * @param text           待加密的信息
      * @return /
      * @throws Exception /
      */
@@ -99,7 +101,7 @@ public class RsaUtils {
         PrivateKey privateKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
         Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.ENCRYPT_MODE, privateKey);
-        byte[] result = cipher.doFinal(text.getBytes());
+        byte[] result = doLongerCipherFinal(Cipher.ENCRYPT_MODE, cipher, text.getBytes());
         return Base64.encodeBase64String(result);
     }
 
@@ -107,7 +109,7 @@ public class RsaUtils {
      * 私钥解密
      *
      * @param privateKeyText 私钥
-     * @param text 待解密的文本
+     * @param text           待解密的文本
      * @return /
      * @throws Exception /
      */
@@ -117,7 +119,7 @@ public class RsaUtils {
         PrivateKey privateKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec5);
         Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
-        byte[] result = cipher.doFinal(Base64.decodeBase64(text));
+        byte[] result = doLongerCipherFinal(Cipher.DECRYPT_MODE, cipher, Base64.decodeBase64(text));
         return new String(result);
     }
 
@@ -125,7 +127,7 @@ public class RsaUtils {
      * 公钥加密
      *
      * @param publicKeyText 公钥
-     * @param text 待加密的文本
+     * @param text          待加密的文本
      * @return /
      */
     public static String encryptByPublicKey(String publicKeyText, String text) throws Exception {
@@ -134,8 +136,25 @@ public class RsaUtils {
         PublicKey publicKey = keyFactory.generatePublic(x509EncodedKeySpec2);
         Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-        byte[] result = cipher.doFinal(text.getBytes());
+        byte[] result = doLongerCipherFinal(Cipher.ENCRYPT_MODE, cipher, text.getBytes());
         return Base64.encodeBase64String(result);
+    }
+
+    private static byte[] doLongerCipherFinal(int opMode, Cipher cipher, byte[] source) throws Exception {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        if (opMode == Cipher.DECRYPT_MODE) {
+            out.write(cipher.doFinal(source));
+        } else {
+            int offset = 0;
+            int totalSize = source.length;
+            while (totalSize - offset > 0) {
+                int size = Math.min(cipher.getOutputSize(0) - 11, totalSize - offset);
+                out.write(cipher.doFinal(source, offset, size));
+                offset += size;
+            }
+        }
+        out.close();
+        return out.toByteArray();
     }
 
     /**

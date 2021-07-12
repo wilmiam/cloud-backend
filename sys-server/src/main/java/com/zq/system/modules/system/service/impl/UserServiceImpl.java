@@ -17,6 +17,7 @@ package com.zq.system.modules.system.service.impl;
 
 import com.zq.common.config.redis.RedisUtils;
 import com.zq.system.config.FileProperties;
+import com.zq.system.exception.BadRequestException;
 import com.zq.system.exception.EntityExistException;
 import com.zq.system.exception.EntityNotFoundException;
 import com.zq.system.modules.system.domain.User;
@@ -187,6 +188,14 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Map<String, String> updateAvatar(MultipartFile multipartFile) {
+        // 文件大小验证
+        FileUtil.checkSize(properties.getAvatarMaxSize(), multipartFile.getSize());
+        // 验证文件上传的格式
+        String image = "gif jpg png jpeg";
+        String fileType = FileUtil.getExtensionName(multipartFile.getOriginalFilename());
+        if (fileType != null && !image.contains(fileType)) {
+            throw new BadRequestException("文件格式错误！, 仅支持 " + image + " 格式");
+        }
         User user = userRepository.findByUsername(SecurityUtils.getCurrentUsername());
         String oldPath = user.getAvatarPath();
         File file = FileUtil.upload(multipartFile, properties.getPath().getAvatar());

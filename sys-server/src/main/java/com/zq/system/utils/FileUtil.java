@@ -154,20 +154,26 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     /**
      * inputStream 转 File
      */
-    static File inputStreamToFile(InputStream ins, String name) throws Exception {
+    static File inputStreamToFile(InputStream ins, String name) {
         File file = new File(SYS_TEM_DIR + name);
         if (file.exists()) {
             return file;
         }
-        OutputStream os = new FileOutputStream(file);
-        int bytesRead;
-        int len = 8192;
-        byte[] buffer = new byte[len];
-        while ((bytesRead = ins.read(buffer, 0, len)) != -1) {
-            os.write(buffer, 0, bytesRead);
+        OutputStream os = null;
+        try {
+            os = new FileOutputStream(file);
+            int bytesRead;
+            int len = 8192;
+            byte[] buffer = new byte[len];
+            while ((bytesRead = ins.read(buffer, 0, len)) != -1) {
+                os.write(buffer, 0, bytesRead);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            CloseUtil.close(os);
+            CloseUtil.close(ins);
         }
-        os.close();
-        ins.close();
         return file;
     }
 
@@ -209,7 +215,7 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
         BigExcelWriter writer = ExcelUtil.getBigWriter(file);
         // 一次性写出内容，使用默认样式，强制输出标题
         writer.write(list, true);
-        SXSSFSheet sheet = (SXSSFSheet)writer.getSheet();
+        SXSSFSheet sheet = (SXSSFSheet) writer.getSheet();
         //上面需要强转SXSSFSheet  不然没有trackAllColumnsForAutoSizing方法
         sheet.trackAllColumnsForAutoSizing();
         //列宽自适应
@@ -258,7 +264,10 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     public static boolean check(File file1, File file2) {
         String img1Md5 = getMd5(file1);
         String img2Md5 = getMd5(file2);
-        return img1Md5.equals(img2Md5);
+        if (img1Md5 != null) {
+            return img1Md5.equals(img2Md5);
+        }
+        return false;
     }
 
     /**
@@ -271,16 +280,19 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     private static byte[] getByte(File file) {
         // 得到文件长度
         byte[] b = new byte[(int) file.length()];
+        InputStream in = null;
         try {
-            InputStream in = new FileInputStream(file);
+            in = new FileInputStream(file);
             try {
                 System.out.println(in.read(b));
             } catch (IOException e) {
                 log.error(e.getMessage(), e);
             }
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             log.error(e.getMessage(), e);
             return null;
+        } finally {
+            CloseUtil.close(in);
         }
         return b;
     }
@@ -342,5 +354,4 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     public static String getMd5(File file) {
         return getMd5(getByte(file));
     }
-
 }
