@@ -35,7 +35,7 @@ public class ApiController {
     /**
      * 允许用户未登录状态下执行的方法名
      */
-    private String[] allowMethod = {"sendCode"};
+    private final String[] allowMethod = {"sendCode"};
 
     /**
      * 获取信息入口
