@@ -15,13 +15,14 @@ import java.util.Map;
 
 /**
  * 配置管理缓存
- * <p>
- * 2016年12月17日 下午11:26:25
+ *
+ * @author wilmiam
+ * @since 2021-07-14 10:42
  */
 @Slf4j
 public class ConfigCache {
 
-    private final static String cacheName = "ConfigCache";
+    private final static String CACHE_NAME = "ConfigCache";
     private static Cache cache;
 
     private ConfigCache() {
@@ -29,9 +30,8 @@ public class ConfigCache {
 
     public static void init() {
         if (cache == null) {
-            cache = CacheManager.get(cacheName);
+            cache = CacheManager.get(CACHE_NAME);
         }
-        log.info("####参数配置Cache初始化......");
         Map<String, SysConfig> cacheMap = new HashMap<>();
         SysConfigDao configDao = SpringContextHolder.getBean(SysConfigDao.class);
         List<SysConfig> sysConfigList = configDao.selectList(Wrappers.lambdaQuery(null));

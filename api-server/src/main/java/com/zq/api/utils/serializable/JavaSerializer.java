@@ -16,14 +16,24 @@
 
 package com.zq.api.utils.serializable;
 
+import cn.hutool.core.io.IoUtil;
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.*;
 
+/**
+ * @author wilmiam
+ * @since 2021-07-14 10:06
+ */
+@Slf4j
 public class JavaSerializer implements Serializer {
 
+    @Override
     public String name() {
         return "java";
     }
 
+    @Override
     public byte[] serialize(Object obj) throws IOException {
         ObjectOutputStream oos = null;
         try {
@@ -32,33 +42,27 @@ public class JavaSerializer implements Serializer {
             oos.writeObject(obj);
             return baos.toByteArray();
         } finally {
-            if (oos != null)
-                try {
-                    oos.close();
-                } catch (IOException e) {
-                }
+            IoUtil.close(oos);
         }
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public <T> T deserialize(byte[] bits) throws IOException {
-        if (bits == null || bits.length == 0)
+        if (bits == null || bits.length == 0) {
             return null;
+        }
         ObjectInputStream ois = null;
         try {
             ByteArrayInputStream bais = new ByteArrayInputStream(bits);
             ois = new ObjectInputStream(bais);
             return (T) ois.readObject();
         } catch (ClassNotFoundException e) {
-            throw new IOException("没有找到类型", e);
+            log.error("内存反序列化没有找到类型");
         } finally {
-            try {
-                if (ois != null)
-                    ois.close();
-            } catch (IOException e) {
-                throw new IOException("deserialize关闭失败", e);
-            }
+            IoUtil.close(ois);
         }
+        return null;
     }
 
 }

@@ -21,23 +21,20 @@ import com.zq.api.utils.serializable.Serializer;
 import com.zq.api.utils.serializable.SerializerManage;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 内存序列化
- * <p>
- * 2015年4月26日 下午8:24:23
+ *
+ * @author wilmiam
+ * @since 2021-07-14 10:00
  */
 public class MemorySerializeCache implements Cache {
 
-    protected Serializer serializer;
     protected String name;
-    protected Map<String, byte[]> map = new ConcurrentHashMap<String, byte[]>();
+    protected Serializer serializer;
+    protected Map<String, byte[]> map = new ConcurrentHashMap<>();
 
     public MemorySerializeCache() {
         this.serializer = SerializerManage.getDefault();
@@ -51,70 +48,69 @@ public class MemorySerializeCache implements Cache {
         return name;
     }
 
+    @Override
     public MemorySerializeCache name(String name) {
         this.name = name;
         return this;
     }
 
+    @Override
     public MemorySerializeCache add(String key, Object value) {
         try {
             map.put(key, serializer.serialize(value));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return this;
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
     public <T> T get(String key) {
         try {
-            return (T) serializer.deserialize(map.get(key));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            return serializer.deserialize(map.get(key));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
 
+    @Override
     public Object remove(String key) {
         return map.remove(key);
     }
 
+    @Override
     public void clear() {
         map.clear();
     }
 
+    @Override
     public int size() {
         return map.size();
     }
 
+    @Override
     public Set<String> keys() {
         if (map.size() == 0) {
-            return null;
+            return new HashSet<>();
         }
         return map.keySet();
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
     public <T> Collection<T> values() {
+        Collection<T> list = new ArrayList<>();
         if (map.size() == 0) {
-            return null;
+            return list;
         }
 
-        Collection<T> list = new ArrayList<T>();
         for (byte[] obj : map.values()) {
             try {
-                list.add((T) serializer.deserialize(obj));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+                list.add(serializer.deserialize(obj));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
         return list;
     }
 

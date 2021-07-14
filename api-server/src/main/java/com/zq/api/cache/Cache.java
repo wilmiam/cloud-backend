@@ -19,11 +19,17 @@ package com.zq.api.cache;
 import java.util.Collection;
 import java.util.Set;
 
+/**
+ * 内存缓存接口
+ *
+ * @author wilmiam
+ * @since 2021-07-14 10:00
+ */
 public interface Cache {
 
     /**
      * 设置缓存名称
-     *
+     * <p>
      * 2015年4月26日 下午8:31:14
      *
      * @param name
@@ -33,7 +39,7 @@ public interface Cache {
 
     /**
      * 根据key获取缓存数据
-     *
+     * <p>
      * 2015年4月26日 下午8:31:25
      *
      * @param key
@@ -43,7 +49,7 @@ public interface Cache {
 
     /**
      * 添加缓存获取
-     *
+     * <p>
      * 2015年4月26日 下午8:31:46
      *
      * @param key
@@ -54,7 +60,7 @@ public interface Cache {
 
     /**
      * 移除缓存数据
-     *
+     * <p>
      * 2015年4月26日 下午8:31:52
      *
      * @param key
@@ -64,7 +70,7 @@ public interface Cache {
 
     /**
      * 清楚所有数据
-     *
+     * <p>
      * 2015年4月26日 下午8:31:52
      *
      * @return
@@ -73,7 +79,7 @@ public interface Cache {
 
     /**
      * 获取缓存数量
-     *
+     * <p>
      * 2015年4月26日 下午8:31:59
      *
      * @return
@@ -82,7 +88,7 @@ public interface Cache {
 
     /**
      * 返回数据key列表
-     *
+     * <p>
      * 2017年1月18日 下午4:24:01
      *
      * @return
@@ -91,7 +97,7 @@ public interface Cache {
 
     /**
      * 返回数据缓存列表
-     *
+     * <p>
      * 2015年4月26日 下午8:33:11
      *
      * @return

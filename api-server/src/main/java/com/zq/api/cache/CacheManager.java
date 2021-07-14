@@ -27,38 +27,35 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 缓存管理接口
- * <p>
- * 2015年4月26日 下午8:47:45
+ *
+ * @author wilmiam
+ * @since 2021-07-14 10:00
  */
 public class CacheManager {
 
-    private static ConcurrentHashMap<String, Cache> cacheManager = new ConcurrentHashMap<>();
-    static ICacheManager _CreateCache;
+    private static final ConcurrentHashMap<String, Cache> CACHE_MANAGER = new ConcurrentHashMap<>();
+    static ICacheManager createCache;
 
     protected CacheManager() {
     }
 
     static {
-        _CreateCache = new ICacheManager() {
-            public Cache getCache() {
-                return new MemorySerializeCache(SerializerManage.getDefault());
-            }
-        };
+        createCache = () -> new MemorySerializeCache(SerializerManage.getDefault());
     }
 
     public static void setCache(ICacheManager thisCache) {
-        _CreateCache = thisCache;
+        createCache = thisCache;
     }
 
     public static Cache get(String name) {
-        Cache cache = cacheManager.get(name);
+        Cache cache = CACHE_MANAGER.get(name);
         if (cache == null) {
-            synchronized (cacheManager) {
-                cache = cacheManager.get(name);
+            synchronized (CACHE_MANAGER) {
+                cache = CACHE_MANAGER.get(name);
                 if (cache == null) {
-                    cache = _CreateCache.getCache();
+                    cache = createCache.getCache();
                     cache.name(name);
-                    cacheManager.put(name, cache);
+                    CACHE_MANAGER.put(name, cache);
                 }
             }
         }
@@ -66,15 +63,15 @@ public class CacheManager {
     }
 
     public static int size() {
-        return cacheManager.size();
+        return CACHE_MANAGER.size();
     }
 
     public static Collection<Cache> values() {
-        return cacheManager.values();
+        return CACHE_MANAGER.values();
     }
 
     public static Set<String> keys() {
-        return cacheManager.keySet();
+        return CACHE_MANAGER.keySet();
     }
 
 }

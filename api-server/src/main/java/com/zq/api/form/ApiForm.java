@@ -17,8 +17,9 @@ import java.util.TreeMap;
 
 /**
  * api 基础form
- * <p>
- * 2016年9月29日 上午10:29:27
+ *
+ * @author wilmiam
+ * @since 2021-07-13 09:59
  */
 @Slf4j
 @Data
@@ -42,7 +43,8 @@ public class ApiForm {
 
     public boolean parseBizContent() {
         try {
-            boolean flag = ConfigCache.getValueToBoolean("API.PARAM.ENCRYPT"); // API参数是否加密
+            // API参数是否加密
+            boolean flag = ConfigCache.getValueToBoolean("API.PARAM.ENCRYPT");
             if (StrUtil.isNotBlank(bizContent) && flag) {
                 bizContent = ApiUtils.decode(bizContent);
             }

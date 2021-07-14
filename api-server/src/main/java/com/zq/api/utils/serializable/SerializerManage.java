@@ -16,12 +16,17 @@
 
 package com.zq.api.utils.serializable;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author wilmiam
+ * @since 2021-07-14 10:03
+ */
 public class SerializerManage {
 
-    private static final Map<String, Serializer> map = new HashMap<>();
+    private static final Map<String, Serializer> MAP = new HashMap<>();
     private static String DEFAULT_KEY;
 
     static {
@@ -43,26 +48,26 @@ public class SerializerManage {
      * @param serializer
      */
     public static void add(String key, Serializer serializer) {
-        map.put(key, serializer);
+        MAP.put(key, serializer);
     }
 
     public static void add(Serializer serializer) {
-        map.put(serializer.name(), serializer);
+        MAP.put(serializer.name(), serializer);
     }
 
     public static Serializer get(String key) {
-        return map.get(key);
+        return MAP.get(key);
     }
 
     public static Serializer getDefault() {
-        return map.get(DEFAULT_KEY);
+        return MAP.get(DEFAULT_KEY);
     }
 
-    public static byte[] serialize(Object obj) throws Exception {
+    public static byte[] serialize(Object obj) throws IOException {
         return getDefault().serialize(obj);
     }
 
-    public static Object deserialize(byte[] bytes) throws Exception {
+    public static Object deserialize(byte[] bytes) throws IOException {
         return getDefault().deserialize(bytes);
     }
 }

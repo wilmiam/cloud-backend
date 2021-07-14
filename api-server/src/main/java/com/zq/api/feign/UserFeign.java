@@ -7,10 +7,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "USER-SERVER", configuration = FeignConfig.class)  //指定调用哪个微服务
+/**
+ * @author wilmiam
+ * @since 2021-07-13 09:56
+ */
+@FeignClient(name = "USER-SERVER", configuration = FeignConfig.class)
 @RequestMapping("/user/app")
 public interface UserFeign {
 
+    /**
+     * 发送手机验证码
+     *
+     * @param phone
+     * @return
+     */
     @GetMapping(value = "/sendCode")
     ResultVo sendCode(@RequestParam String phone);
 

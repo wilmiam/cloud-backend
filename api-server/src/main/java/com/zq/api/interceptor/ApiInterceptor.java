@@ -16,6 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author wilmiam
+ * @since 2021-07-14 10:46
+ */
 @Slf4j
 @Component
 public class ApiInterceptor extends HandlerInterceptorAdapter {
@@ -69,12 +73,10 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
 
         // 调试日志
         if (ApiUtils.DEBUG) {
-            log.info("API DEBUG INTERCEPTOR \n[path=" + uri + "/" + queryString + "]" //
-                    + "[from:" + form.toString() + "]" //
+            log.info("API DEBUG INTERCEPTOR \n[path=" + uri + "/" + queryString + "]"
+                    + "[from:" + form + "]"
                     + "\n[time=" + (System.currentTimeMillis() - start) + "ms]");
         }
-
-
 
         return true;
     }

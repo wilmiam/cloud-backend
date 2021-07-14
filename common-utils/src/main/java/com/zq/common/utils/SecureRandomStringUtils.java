@@ -37,7 +37,7 @@ public class SecureRandomStringUtils {
     /**
      * 随机对象帮助类
      * Get strong enough SecureRandom instance and of the checked exception.
-     * TODO Try {@code NativePRNGNonBlocking} and failover to default SHA1PRNG until Java 9.
+     * Try {@code NativePRNGNonBlocking} and failover to default SHA1PRNG until Java 9.
      *
      * @return the strong instance
      */

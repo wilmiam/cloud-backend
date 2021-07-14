@@ -16,8 +16,17 @@
 
 package com.zq.api.cache;
 
+/**
+ * @author wilmiam
+ * @since 2021-07-14 10:03
+ */
 public interface ICacheManager {
 
+    /**
+     * 获取缓存
+     *
+     * @return
+     */
     Cache getCache();
 
 }
