@@ -1,10 +1,10 @@
 package com.zq.api.config;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.zq.api.cache.Cache;
-import com.zq.api.cache.CacheManager;
 import com.zq.api.dao.SysConfigDao;
 import com.zq.api.utils.NumberUtils;
+import com.zq.common.cache.Cache;
+import com.zq.common.cache.CacheManager;
 import com.zq.common.config.base.SpringContextHolder;
 import com.zq.common.entity.SysConfig;
 import lombok.extern.slf4j.Slf4j;

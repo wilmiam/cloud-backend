@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zq.api.utils.serializable;
+package com.zq.common.cache.serializable;
 
 import java.io.IOException;
 import java.util.HashMap;

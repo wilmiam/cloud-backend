@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.zq.api.cache.impl;
+package com.zq.common.cache.impl;
 
-import com.zq.api.cache.Cache;
-import com.zq.api.utils.serializable.Serializer;
-import com.zq.api.utils.serializable.SerializerManage;
+import com.zq.common.cache.Cache;
+import com.zq.common.cache.serializable.Serializer;
+import com.zq.common.cache.serializable.SerializerManage;
 
 import java.io.IOException;
 import java.util.*;
@@ -49,7 +49,7 @@ public class MemorySerializeCache implements Cache {
     }
 
     @Override
-    public MemorySerializeCache name(String name) {
+    public MemorySerializeCache setName(String name) {
         this.name = name;
         return this;
     }

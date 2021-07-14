@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.zq.api.cache;
+package com.zq.common.cache;
 
 
-import com.zq.api.cache.impl.MemorySerializeCache;
-import com.zq.api.utils.serializable.SerializerManage;
+import com.zq.common.cache.impl.MemorySerializeCache;
+import com.zq.common.cache.serializable.SerializerManage;
 
 import java.util.Collection;
 import java.util.Set;
@@ -54,7 +54,7 @@ public class CacheManager {
                 cache = CACHE_MANAGER.get(name);
                 if (cache == null) {
                     cache = createCache.getCache();
-                    cache.name(name);
+                    cache.setName(name);
                     CACHE_MANAGER.put(name, cache);
                 }
             }

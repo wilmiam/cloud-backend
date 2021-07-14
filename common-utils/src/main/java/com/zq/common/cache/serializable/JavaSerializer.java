@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package com.zq.api.utils.serializable;
+package com.zq.common.cache.serializable;
 
 import cn.hutool.core.io.IoUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -58,7 +57,7 @@ public class JavaSerializer implements Serializer {
             ois = new ObjectInputStream(bais);
             return (T) ois.readObject();
         } catch (ClassNotFoundException e) {
-            log.error("内存反序列化没有找到类型");
+            log.error("内存反序列化没有找到类型", e);
         } finally {
             IoUtil.close(ois);
         }

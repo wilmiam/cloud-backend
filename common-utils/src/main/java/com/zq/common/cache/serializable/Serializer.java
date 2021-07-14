@@ -14,19 +14,40 @@
  * limitations under the License.
  */
 
-package com.zq.api.cache;
+package com.zq.common.cache.serializable;
+
+import java.io.IOException;
 
 /**
  * @author wilmiam
- * @since 2021-07-14 10:03
+ * @since 2021-07-14 10:04
  */
-public interface ICacheManager {
+public interface Serializer {
 
     /**
-     * 获取缓存
+     * 获取序列化名称
      *
      * @return
      */
-    Cache getCache();
+    String name();
+
+    /**
+     * 序列化
+     *
+     * @param obj
+     * @return
+     * @throws IOException
+     */
+    byte[] serialize(Object obj) throws IOException;
+
+    /**
+     * 反序列化
+     *
+     * @param bytes
+     * @param <T>
+     * @return
+     * @throws IOException
+     */
+    <T> T deserialize(byte[] bytes) throws IOException;
 
 }

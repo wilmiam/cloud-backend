@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zq.api.cache;
+package com.zq.common.cache;
 
 import java.util.Collection;
 import java.util.Set;
@@ -35,7 +35,7 @@ public interface Cache {
      * @param name
      * @return
      */
-    Cache name(String name);
+    Cache setName(String name);
 
     /**
      * 根据key获取缓存数据
