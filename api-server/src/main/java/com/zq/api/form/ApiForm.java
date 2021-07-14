@@ -48,6 +48,9 @@ public class ApiForm {
             if (StrUtil.isNotBlank(bizContent) && flag) {
                 bizContent = ApiUtils.decode(bizContent);
             }
+            if (StrUtil.isBlank(bizContent)) {
+                bizContent = "";
+            }
             bizContentJson = JSON.parseObject(bizContent);
             if (bizContentJson == null) {
                 bizContentJson = new JSONObject();
