@@ -32,7 +32,9 @@ public class ApiController {
 
     private final ApiService apiService;
 
-    // 允许用户未登录状态下执行的方法名
+    /**
+     * 允许用户未登录状态下执行的方法名
+     */
     private String[] allowMethod = {"sendCode"};
 
     /**
@@ -47,7 +49,7 @@ public class ApiController {
         ApiForm form = ServletUtil.toBean(request, ApiForm.class, true);
 
         // 不处理Request Method:OPTIONS的请求
-        if (request.getMethod().equals("OPTIONS")) {
+        if ("OPTIONS".equals(request.getMethod())) {
             return ApiUtils.getSuccessResp(form);
         }
 
