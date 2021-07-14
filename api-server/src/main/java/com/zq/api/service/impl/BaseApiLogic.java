@@ -5,8 +5,6 @@ import com.zq.api.form.ApiResp;
 import com.zq.api.service.IApiLogic;
 import com.zq.api.utils.ApiUtils;
 
-import java.util.TreeMap;
-
 /**
  * API基础类
  * <p>
@@ -20,12 +18,7 @@ public abstract class BaseApiLogic implements IApiLogic {
     }
 
     @Override
-    public ApiResp valid(ApiForm form) {
-        // 不需要验证的方法
-        if (notValid(form)) {
-            return ApiUtils.getSuccessResp(form);
-        }
-
+    public ApiResp signValid(ApiForm form) {
         String timestamp = form.getTimestamp();
         // 一分钟内的数据有效
         if (Long.parseLong(timestamp) + (60 * 1000) > System.currentTimeMillis()) {

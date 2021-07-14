@@ -52,12 +52,12 @@ public class ApiService {
         if (!methodList.contains(form.getMethod())) {
             return ApiUtils.getMethodError(form);
         }
-        // 登陆验证标识
-        boolean validFlag = ConfigCache.getValueToBoolean("API.LOGIN.VALID");
+        // 签名验证标识
+        boolean validFlag = ConfigCache.getValueToBoolean("API.SIGN.VALID");
         IApiLogic apiLogic = getApiLogic(form);
         if (validFlag) {
-            // 先进行登陆验证。如果验证失败，直接返回错误
-            ApiResp validResp = apiLogic.valid(form);
+            // 验证签名
+            ApiResp validResp = apiLogic.signValid(form);
             if (!validResp.getCode().equals(ApiCodeEnum.SUCCESS.code())) {
                 return validResp;
             }

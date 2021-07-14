@@ -21,14 +21,14 @@ public interface IApiCommon {
     ApiResp login(ApiForm form);
 
     /**
-     * 登陆后，验证接口
+     * 签名验证
      * <p>
      * 2016年10月1日 下午9:20:12
      *
      * @param form
      * @return
      */
-    ApiResp valid(ApiForm form);
+    ApiResp signValid(ApiForm form);
 
     /**
      * 登出接口
