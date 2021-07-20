@@ -114,7 +114,8 @@ public class WeixinUtils {
             JSONObject resultJsonObject = JSONObject.parseObject(result);
 
             String errcode = resultJsonObject.getString("errcode");
-            if (errcode.equals("87014")) {//当content内含有敏感信息，则返回87014
+            // 当content内含有敏感信息，则返回87014
+            if ("87014".equals(errcode)) {
                 log.warn("包含敏感词，请重新输入！");
                 return true;
             }
@@ -146,7 +147,7 @@ public class WeixinUtils {
 
             CloseableHttpResponse response = httpclient.execute(request);
             HttpEntity httpEntity = response.getEntity();
-            String result = EntityUtils.toString(httpEntity, "UTF-8");// 转成string
+            String result = EntityUtils.toString(httpEntity, "UTF-8");
 
             //打印检测结果
             log.debug("检测结果: {}", result);
@@ -154,7 +155,8 @@ public class WeixinUtils {
             JSONObject jso = JSONObject.parseObject(result);
 
             String errcode = jso.getString("errcode");
-            if (errcode.equals("87014")) {//当content内含有敏感信息，则返回87014
+            // 当content内含有敏感信息，则返回87014
+            if ("87014".equals(errcode)) {
                 log.warn("图片内容违规，请重新上传！");
                 return true;
             }
@@ -192,7 +194,7 @@ public class WeixinUtils {
      * @param payMchId 商户号id
      * @return
      */
-    public static String postSSL(String requestUrl, Map<String, String> params, byte[] certFile, String payMchId) {
+    public static String postSsl(String requestUrl, Map<String, String> params, byte[] certFile, String payMchId) {
         StringBuilder message = new StringBuilder();
         try {
             KeyStore keyStore = KeyStore.getInstance("PKCS12");
