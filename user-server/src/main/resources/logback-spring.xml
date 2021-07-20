@@ -68,12 +68,7 @@
         <!-- 添加附加的appender,最多只能添加一个 -->
         <appender-ref ref="RATELIMIT_FILE"/>
     </appender>
-    <!-- 配置指定日志输出到指定文件 name => LoggerFactory.getLogger("ratelimit") -->
-    <logger name="ratelimit" additivity="false" level="DEBUG">
-        <appender-ref ref="ratelimit-appender"/>
-    </logger>
     <!--限流日志配置 结束-->
-
 
     <!-- 多环境配置 按照active profile选择分支 -->
     <springProfile name="dev">
@@ -83,7 +78,12 @@
         </root>
     </springProfile>
     <springProfile name="product">
+        <!--生产环境日志分开输出方便查找-->
         <logger name="com.zq" level="INFO"/>
+        <!-- 配置指定日志输出到指定文件 name => LoggerFactory.getLogger("ratelimit") -->
+        <logger name="com.zq.common.config.limit.LimitAspect" additivity="false" level="DEBUG">
+            <appender-ref ref="ratelimit-appender"/>
+        </logger>
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="main-logger-appender"/>

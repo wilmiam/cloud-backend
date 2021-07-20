@@ -36,7 +36,7 @@ import java.util.List;
 public class LimitAspect {
 
     private final StringRedisTemplate stringRedisTemplate;
-    private static final Logger log = LoggerFactory.getLogger("ratelimit");
+    private static final Logger log = LoggerFactory.getLogger(LimitAspect.class);
 
     public LimitAspect(StringRedisTemplate stringRedisTemplate) {
         this.stringRedisTemplate = stringRedisTemplate;
