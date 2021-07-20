@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: @profiles.active@
   cloud:
     config:
       name: config

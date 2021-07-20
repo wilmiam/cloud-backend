@@ -33,7 +33,7 @@ public class UserController {
      * @param phone
      * @return
      */
-    @Limit(limitType = LimitType.PARAM, keyParamIndex = 0, period = 30, count = 1, name = "发送手机验证码", errMsg = "请稍后再试!")
+    @Limit(limitType = LimitType.PARAM, keyParamIndex = 0, period = 1, count = 1, name = "发送手机验证码", errMsg = "请稍后再试!")
     @ApiOperation("发送验证码")
     @GetMapping(value = "/sendCode")
     public ResultVo sendCode(String phone) {

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <!--<include resource="org/springframework/boot/logging/logback/base.xml"/>-->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <property name="default_log_path" value="logs"/>
+    <property name="default_log_file" value="user"/>
+    <property name="LOG_PATH" value="${LOG_PATH:-${default_log_path}}"/>
+    <property name="LOG_FILE" value="${LOG_FILE:-${default_log_file}}"/>
+
+    <!-- the name of the application's logging context -->
+    <!-- by default each JMXConfigurator instance will be registered under the same name in the same JVM -->
+    <!-- we need to set the contextName for different apps, so that the jmxconfigurator won't collide -->
+    <contextName>user</contextName>
+    <jmxConfigurator/>
+
+    <!--主要日志配置 开始-->
+    <appender name="SIZED_ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>%d %-5p [%t] %logger : %m%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <file>${LOG_FILE}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- 日志文档保留天数 -->
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <!-- 异步输出 -->
+    <appender name="main-logger-appender" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
+        <queueSize>512</queueSize>
+        <!-- 添加附加的appender,最多只能添加一个 -->
+        <appender-ref ref="SIZED_ROLLING_FILE"/>
+    </appender>
+    <!--主要日志配置 结束-->
+
+    <!--限流日志配置 开始-->
+    <appender name="RATELIMIT_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>%d %-5p [%t] %logger : %m%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <file>ratelimit.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/ratelimit.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- 日志文档保留天数 -->
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <!-- 异步输出 -->
+    <appender name="ratelimit-appender" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
+        <queueSize>512</queueSize>
+        <!-- 添加附加的appender,最多只能添加一个 -->
+        <appender-ref ref="RATELIMIT_FILE"/>
+    </appender>
+    <!-- 配置指定日志输出到指定文件 name => LoggerFactory.getLogger("ratelimit") -->
+    <logger name="ratelimit" additivity="false" level="DEBUG">
+        <appender-ref ref="ratelimit-appender"/>
+    </logger>
+    <!--限流日志配置 结束-->
+
+
+    <!-- 多环境配置 按照active profile选择分支 -->
+    <springProfile name="dev">
+        <logger name="com.zq" level="DEBUG"/>
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+    <springProfile name="product">
+        <logger name="com.zq" level="INFO"/>
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="main-logger-appender"/>
+        </root>
+    </springProfile>
+
+</configuration>

@@ -57,5 +57,3 @@ task:
     # 活跃时间
     keep-alive-seconds: 30
 
-#日志等级
-logging.level.com.zq.*: debug

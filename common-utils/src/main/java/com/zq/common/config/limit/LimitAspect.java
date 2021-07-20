@@ -8,7 +8,6 @@ import com.zq.common.context.ContextUtils;
 import com.zq.common.http.HttpRequestUtils;
 import com.zq.common.utils.AssertUtils;
 import com.zq.common.vo.ApiTokenVo;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -32,13 +31,12 @@ import java.util.List;
  * @author wilmiam
  * @since 2021-07-09 17:51
  */
-@Slf4j
 @Aspect
 @Component
 public class LimitAspect {
 
     private final StringRedisTemplate stringRedisTemplate;
-    private static final Logger logger = LoggerFactory.getLogger(LimitAspect.class);
+    private static final Logger log = LoggerFactory.getLogger("ratelimit");
 
     public LimitAspect(StringRedisTemplate stringRedisTemplate) {
         this.stringRedisTemplate = stringRedisTemplate;
@@ -69,7 +67,7 @@ public class LimitAspect {
 
         String name = limit.name();
         name = StringUtils.isNotBlank(name) ? name : signatureMethod.getName();
-        logger.debug("第{}次访问，KEY为 {}，描述为 [{}] 的接口", count, keys, name);
+        log.debug("第{}次访问，KEY为 {}，描述为 [{}] 的接口", count, keys, name);
     }
 
     /**

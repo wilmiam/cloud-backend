@@ -20,7 +20,6 @@ import com.zq.user.vo.LoginVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -152,7 +151,7 @@ public class UserService {
         userDao.updateById(appUser);
     }
 
-    @Cacheable
+    // @Cacheable
     public AppUser getUserInfo(String userId) {
         return userDao.selectById(userId);
     }
