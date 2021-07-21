@@ -68,7 +68,7 @@ public class UnifiedExceptionHandler {
             detail = MediaType.toString(ex.getSupportedMediaTypes());
             detail = "支持的content-type: " + detail;
         }
-        log.info(">> http media type not supported error: {} {}, expected: {}",
+        log.warn(">> http media type not supported error: {} {}, expected: {}",
                 request.getContentType(), request.getRequestURI(), detail);
         return ResultVo.fail(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value(), "不支持的Content-Type: " + request.getContentType());
     }
