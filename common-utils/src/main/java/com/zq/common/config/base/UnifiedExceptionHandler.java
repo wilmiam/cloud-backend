@@ -38,7 +38,7 @@ public class UnifiedExceptionHandler {
 
     @ExceptionHandler(BusinessException.class)
     public ResultVo handleBusinessException(BusinessException ex, HttpServletRequest request) {
-        log.info(">> business exception: {}, {}, {}", request.getRequestURI(), ex.getCode(), ex.getMessage());
+        log.warn(">> business exception: {}, {}, {}", request.getRequestURI(), ex.getCode(), ex.getMessage());
         String errMessage = ex.getMessage();
         // 防止空的错误信息
         if (StringUtils.isBlank(errMessage)) {
@@ -50,13 +50,13 @@ public class UnifiedExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResultVo handleArgumentNotValidException(MethodArgumentNotValidException ex, HttpServletRequest request) {
-        log.info(">> argument not valid error: {} {}", request.getRequestURI(), ex.getMessage());
+        log.warn(">> argument not valid error: {} {}", request.getRequestURI(), ex.getMessage());
         return ResultVo.fail(HttpStatus.BAD_REQUEST.value(), "无效的请求参数" + ex.getParameter().getParameterName());
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResultVo handleMethodNotSupportedException(HttpRequestMethodNotSupportedException ex, HttpServletRequest request) {
-        log.info(">> method not supported error: {} {}, expected: {}",
+        log.warn(">> method not supported error: {} {}, expected: {}",
                 ex.getMethod(), request.getRequestURI(), ex.getSupportedHttpMethods());
         return ResultVo.fail(HttpStatus.METHOD_NOT_ALLOWED.value(), "不支持此" + ex.getMethod() + "请求");
     }
@@ -75,13 +75,13 @@ public class UnifiedExceptionHandler {
 
     @ExceptionHandler(HttpMessageConversionException.class)
     public ResultVo handleMessageConversionException(HttpMessageConversionException ex, HttpServletRequest request) {
-        log.info(">> message conversion error: {} {}", request.getRequestURI(), ex.getMessage());
+        log.warn(">> message conversion error: {} {}", request.getRequestURI(), ex.getMessage());
         return ResultVo.fail(HttpStatus.BAD_REQUEST.value(), "无法解析请求消息");
     }
 
     @ExceptionHandler({MissingServletRequestPartException.class, MissingServletRequestParameterException.class})
     public ResultVo handleMissingServletRequestPartException(Exception ex, HttpServletRequest request) {
-        log.info(">> missing servlet request part/param error: {} {}", request.getRequestURI(), ex.getMessage());
+        log.warn(">> missing servlet request part/param error: {} {}", request.getRequestURI(), ex.getMessage());
         String paranmName = "";
         if (ex instanceof MissingServletRequestPartException) {
             paranmName = ((MissingServletRequestPartException) ex).getRequestPartName();
