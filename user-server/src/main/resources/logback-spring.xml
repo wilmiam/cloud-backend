@@ -6,7 +6,7 @@
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
     <property name="default_log_path" value="logs"/>
-    <property name="default_log_file" value="user"/>
+    <property name="default_log_file" value="user"/><!--主要日志文件名-->
     <property name="LOG_PATH" value="${LOG_PATH:-${default_log_path}}"/>
     <property name="LOG_FILE" value="${LOG_FILE:-${default_log_file}}"/>
 

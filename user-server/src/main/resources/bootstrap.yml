@@ -4,11 +4,11 @@ spring:
   cloud:
     config:
       name: config
-      profile: @profiles.active@
+      profile: ${spring.profiles.active}
       discovery:
         enabled: true
         service-id: CONFIG-SERVER
-      uri: http://127.0.0.1:8300/
+      uri: http://127.0.0.1:8500/
 
 eureka:
   client:

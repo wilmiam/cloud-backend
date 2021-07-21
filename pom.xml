@@ -35,7 +35,6 @@
         <module>config-server</module>
         <module>common-utils</module>
         <module>sys-server</module>
-        <module>USER-SERVER</module>
         <module>file-server</module>
         <module>api-server</module>
         <module>user-server</module>
