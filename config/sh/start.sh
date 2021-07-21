@@ -83,7 +83,7 @@ fi
 
 sleep 2s
 cd /home/cloud/file
-echo "--------portal start--------"
+echo "--------file start--------"
 
 PID=$(ps -ef|grep file-server-1.0.0.jar  |grep -v grep|awk '{print $2}')
 if [ ! $PID ]; then
