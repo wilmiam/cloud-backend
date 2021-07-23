@@ -20,10 +20,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * @author wilmiam
+ * @since 2021-07-22 10:18
+ */
 @Component
 public class ApiUtils {
 
-    private static final Map<String, IApiLogic> map = new HashMap<>();
+    private static final Map<String, IApiLogic> MAP = new HashMap<>();
     /**
      * 调试日志
      */
@@ -35,11 +39,11 @@ public class ApiUtils {
     }
 
     public static void addApi(String version, IApiLogic apiLogic) {
-        map.put(version, apiLogic);
+        MAP.put(version, apiLogic);
     }
 
     public static IApiLogic getApiLogic(ApiForm form) {
-        return map.get(form.getVersion());
+        return MAP.get(form.getVersion());
     }
 
     /**

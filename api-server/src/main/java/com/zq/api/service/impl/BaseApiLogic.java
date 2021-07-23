@@ -9,6 +9,8 @@ import com.zq.api.utils.ApiUtils;
  * API基础类
  * <p>
  * 2016年11月15日 下午9:48:27
+ *
+ * @author wilmiam
  */
 public abstract class BaseApiLogic implements IApiLogic {
 
@@ -41,7 +43,7 @@ public abstract class BaseApiLogic implements IApiLogic {
      * @return
      */
     protected boolean notValid(ApiForm form) {
-        return form.getMethod().equals("login");
+        return "login".equals(form.getMethod());
     }
 
     @Override

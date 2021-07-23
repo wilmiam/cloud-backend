@@ -25,10 +25,10 @@ public class ApiService {
 
     private final ApiLogDao apiLogDao;
 
-    private static List<String> methodList;
+    private static final List<String> METHOD_LIST;
 
     static {
-        methodList = methodList();
+        METHOD_LIST = methodList();
     }
 
     public IApiLogic getApiLogic(ApiForm form) {
@@ -49,7 +49,7 @@ public class ApiService {
     }
 
     public ApiResp action(ApiForm form) throws Exception {
-        if (!methodList.contains(form.getMethod())) {
+        if (!METHOD_LIST.contains(form.getMethod())) {
             return ApiUtils.getMethodError(form);
         }
         // 签名验证标识
