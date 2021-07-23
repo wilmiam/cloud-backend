@@ -26,9 +26,9 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String uri = request.getRequestURI();
-        String queryString = request.getQueryString();
-        log.debug("请求URI: {}", request.getRequestURL());
+        String ip = ServletUtil.getClientIP(request);
+
+        log.debug("{}请求URI: {}", ip, request.getRequestURL());
 
         long start = System.currentTimeMillis();
 
@@ -42,7 +42,6 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
         }
 
         // 黑名单
-        String ip = ServletUtil.getClientIP(request);
         String blackIps = ConfigCache.getValue("API.IP.BLACK");
         if (StrUtil.isNotBlank(ip) && StrUtil.isNotBlank(blackIps)) {
             List<String> ipList = Arrays.asList(blackIps.split(","));
@@ -72,7 +71,7 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
 
         // 调试日志
         if (ApiUtils.DEBUG) {
-            log.info("API DEBUG INTERCEPTOR \n[path=" + uri + "/" + queryString + "]"
+            log.info("API DEBUG INTERCEPTOR \n[path=" + request.getRequestURI() + "/" + request.getQueryString() + "]"
                     + "[from:" + form + "]"
                     + "\n[time=" + (System.currentTimeMillis() - start) + "ms]");
         }
