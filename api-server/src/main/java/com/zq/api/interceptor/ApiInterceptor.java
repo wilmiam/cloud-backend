@@ -28,8 +28,7 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String uri = request.getRequestURI();
         String queryString = request.getQueryString();
-        System.out.println("get URI = " + request.getRequestURL());
-        System.out.println("get queryString = " + queryString);
+        log.debug("请求URI: {}", request.getRequestURL());
 
         long start = System.currentTimeMillis();
 
