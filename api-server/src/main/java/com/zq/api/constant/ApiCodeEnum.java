@@ -19,54 +19,54 @@ public enum ApiCodeEnum {
     UNKNOWN_ERROR("100", "未知错误"),
 
     /**
-     * 登陆验证失败
-     */
-    LOGIN_VALID_ERROR("101", "登陆验证失败"),
-
-    /**
      * 版本号错误
      */
-    VERSION_ERROR("102", "版本号错误"),
+    VERSION_ERROR("101", "版本号错误"),
 
     /**
      * 调用方法不存在
      */
-    METHOD_ERROR("103", "调用方法不存在"),
+    METHOD_ERROR("102", "调用方法不存在"),
 
     /**
      * 调用方法异常
      */
-    METHOD_HANDLER_ERROR("104", "调用方法异常"),
+    METHOD_HANDLER_ERROR("103", "调用方法异常"),
 
     /**
      * 传递参数异常
      */
-    PARAM_ERROR("105", "传递参数异常"),
+    PARAM_ERROR("104", "传递参数异常"),
 
     /**
      * IP黑名单拦截
      */
-    IP_BLACK("106", "IP黑名单拦截"),
+    IP_BLACK("105", "IP黑名单拦截"),
 
     /**
      * API服务维护中
      */
-    SERVER_MAINTAIN("107", "API服务维护中"),
+    SERVER_MAINTAIN("106", "API服务维护中"),
 
     /**
      * 签名校验失败
      */
-    CHECK_SIGN_VALID_ERROR("108", "签名校验失败"),
+    CHECK_SIGN_VALID_ERROR("107", "签名校验失败"),
 
     /**
      * 服务不可用
      */
-    SERVICE_NOT_AVAILABLE("109", "服务不可用"),
+    SERVICE_NOT_AVAILABLE("108", "服务不可用"),
 
     /**
      * 业务处理失败
      */
     BUSINESS_ERROR("400", "业务处理失败"),
+
+    /**
+     * 登陆验证失败
+     */
+    LOGIN_VALID_ERROR("401", "登陆验证失败"),
 
     /**
      * 服务器繁忙
