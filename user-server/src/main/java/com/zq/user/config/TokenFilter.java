@@ -40,8 +40,8 @@ import java.util.Objects;
  * @author /
  */
 public class TokenFilter extends GenericFilterBean {
-    private static final Logger log = LoggerFactory.getLogger(TokenFilter.class);
 
+    private static final Logger log = LoggerFactory.getLogger(TokenFilter.class);
 
     private final TokenProvider tokenProvider;
     private final SecurityProperties properties;
