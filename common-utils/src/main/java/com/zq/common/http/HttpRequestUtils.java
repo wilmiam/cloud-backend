@@ -61,7 +61,7 @@ public class HttpRequestUtils {
             "REMOTE_ADDR",
             "X-Real-IP"};
 
-    private static final UserAgentAnalyzer userAgentAnalyzer = UserAgentAnalyzer
+    private static final UserAgentAnalyzer USER_AGENT_ANALYZER = UserAgentAnalyzer
             .newBuilder()
             .hideMatcherLoadStats()
             .withCache(10000)
@@ -283,7 +283,7 @@ public class HttpRequestUtils {
      * @return
      */
     public static String getBrowser(HttpServletRequest request) {
-        UserAgent.ImmutableUserAgent userAgent = userAgentAnalyzer.parse(request.getHeader("User-Agent"));
+        UserAgent.ImmutableUserAgent userAgent = USER_AGENT_ANALYZER.parse(request.getHeader("User-Agent"));
         return userAgent.get(UserAgent.AGENT_NAME_VERSION).getValue();
     }
 
