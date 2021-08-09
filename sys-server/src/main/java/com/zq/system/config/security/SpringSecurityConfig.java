@@ -15,11 +15,11 @@
  */
 package com.zq.system.config.security;
 
-import com.zq.system.modules.system.service.OnlineUserService;
-import com.zq.system.modules.system.service.UserCacheClean;
-import com.zq.common.utils.RequestMethodEnum;
 import com.zq.common.annotation.AnonymousAccess;
 import com.zq.common.config.security.SecurityProperties;
+import com.zq.common.utils.RequestMethodEnum;
+import com.zq.system.modules.system.service.OnlineUserService;
+import com.zq.system.modules.system.service.UserCacheClean;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -50,7 +50,6 @@ import java.util.*;
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final TokenProvider tokenProvider;
-    // private final CorsFilter corsFilter;
     private final JwtAuthenticationEntryPoint authenticationErrorHandler;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final ApplicationContext applicationContext;
