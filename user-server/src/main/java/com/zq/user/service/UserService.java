@@ -13,6 +13,7 @@ import com.zq.common.http.HttpRequestUtils;
 import com.zq.common.utils.AssertUtils;
 import com.zq.common.utils.PagingUtils;
 import com.zq.common.vo.ApiTokenVo;
+import com.zq.common.vo.PageVo;
 import com.zq.user.dao.AppUserDao;
 import com.zq.user.manager.UserCacheKeys;
 import com.zq.user.vo.FindAppUserVo;
@@ -162,7 +163,7 @@ public class UserService {
      * @param vo
      * @return
      */
-    public Object getUserList(FindAppUserVo vo) {
+    public PageVo<AppUser> getUserList(FindAppUserVo vo) {
         LambdaQueryWrapper<AppUser> lambdaQuery = Wrappers.lambdaQuery(AppUser.class);
         lambdaQuery.orderByAsc(AppUser::getId);
 

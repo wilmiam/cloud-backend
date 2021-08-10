@@ -3,9 +3,11 @@ package com.zq.user.controller.app;
 
 import com.zq.common.annotation.Limit;
 import com.zq.common.config.limit.LimitType;
+import com.zq.common.entity.AppUser;
 import com.zq.common.utils.AssertUtils;
 import com.zq.common.utils.ValidateUtil;
 import com.zq.common.vo.ApiTokenVo;
+import com.zq.common.vo.PageVo;
 import com.zq.common.vo.ResultVo;
 import com.zq.user.service.UserService;
 import com.zq.user.vo.FindAppUserVo;
@@ -89,7 +91,7 @@ public class UserController {
 
     @ApiOperation("获取用户列表")
     @PostMapping(value = "/getUserList")
-    public ResultVo getUserList(@RequestBody FindAppUserVo vo) {
+    public ResultVo<PageVo<AppUser>> getUserList(@RequestBody FindAppUserVo vo) {
         return ResultVo.success(userService.getUserList(vo));
     }
 
