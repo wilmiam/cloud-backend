@@ -43,10 +43,8 @@ public class ApiController {
      * 2016年10月3日 下午1:38:27
      */
     @RequestMapping("/action")
-    public ApiResp action(HttpServletRequest request) {
+    public ApiResp action(HttpServletRequest request, ApiForm form) {
         long start = System.currentTimeMillis();
-
-        ApiForm form = ServletUtil.toBean(request, ApiForm.class, true);
 
         // 不处理Request Method:OPTIONS的请求
         if ("OPTIONS".equals(request.getMethod())) {

@@ -6,11 +6,11 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.zq.api.config.ConfigCache;
 import com.zq.api.utils.ApiUtils;
-import com.zq.api.utils.NumberUtils;
 import com.zq.common.vo.ApiTokenVo;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -39,6 +39,7 @@ public class ApiForm {
     private String apiNo; // 接口码
     private String bizContent; // 请求业务参数
     private JSONObject bizContentJson; // 请求业务的json对象
+    private MultipartFile file; // 上传文件用
     private ApiTokenVo apiTokenVo;
 
     public boolean parseBizContent() {
@@ -79,59 +80,9 @@ public class ApiForm {
      * @param key
      * @return
      */
-    public double getDouble(String key) {
-        return NumberUtils.parseDbl(getString(key));
-    }
-
-    /**
-     * 获取参数
-     * <p>
-     * 2016年10月3日 下午9:02:45
-     *
-     * @param key
-     * @return
-     */
-    public long getLong(String key) {
-        return NumberUtils.parseLong(getString(key));
-    }
-
-    public float getFloat(String key) {
-        return NumberUtils.parseFloat(getString(key));
-    }
-
-    /**
-     * 获取参数
-     * <p>
-     * 2016年10月3日 下午9:02:45
-     *
-     * @param key
-     * @return
-     */
-    public int getInt(String key) {
-        return NumberUtils.parseInt(getString(key));
-    }
-
-    /**
-     * 获取参数
-     * <p>
-     * 2016年10月3日 下午9:02:45
-     *
-     * @param key
-     * @return
-     */
     public String getString(String key) {
         String value = getContentJson().getString(key);
         return value == null ? "" : value;
-    }
-
-    /**
-     * 获取参数
-     *
-     * @param key
-     * @return
-     */
-    public Boolean getBoolean(String key) {
-        return getContentJson().getBoolean(key);
     }
 
     /**
