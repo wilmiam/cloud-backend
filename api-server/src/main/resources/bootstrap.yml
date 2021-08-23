@@ -8,11 +8,12 @@ spring:
       discovery:
         enabled: true
         service-id: CONFIG-SERVER
-      uri: http://127.0.0.1:8500/
 
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
-    serviceUrl:
+    service-url:
       defaultZone: http://admin:123456@127.0.0.1:9900/eureka/
 #  instance:
 #    lease-renewal-interval-in-seconds: 2 #每间隔1s，向服务端发送一次心跳，证明自己依然"存活"

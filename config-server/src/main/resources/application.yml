@@ -16,9 +16,11 @@ spring:
 #          password: Dk2019123456
 #          search-paths: config-files  #配置git仓库下的相对地址，可以配置多个，用 , 分割
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
-    serviceUrl:
-      defaultZone: http://admin:123456@localhost:9900/eureka/
+    service-url:
+      defaultZone: http://admin:123456@127.0.0.1:9900/eureka/
 
 management:
   endpoints:
