@@ -193,12 +193,12 @@ public class WeixinUtils {
     /**
      * 商户支付请求方法
      *
-     * @param params   传入参数
-     * @param certFile 证书
      * @param payMchId 商户号id
+     * @param certFile 证书
+     * @param params   传入参数
      * @return
      */
-    public static String postSsl(String requestUrl, Map<String, String> params, byte[] certFile, String payMchId) {
+    public static String postSsl(String requestUrl, String payMchId, byte[] certFile, Map<String, String> params) {
         StringBuilder message = new StringBuilder();
         try {
             KeyStore keyStore = KeyStore.getInstance("PKCS12");
