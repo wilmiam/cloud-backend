@@ -1,5 +1,6 @@
 package com.zq.common.utils;
 
+import cn.hutool.core.util.StrUtil;
 import com.zq.common.exception.BusinessException;
 
 import java.util.Arrays;
@@ -40,7 +41,7 @@ public final class AssertUtils {
      * @param errMsg  错误信息
      */
     public static void isImgExt(String ext, int errCode, String errMsg) {
-        if (ValidateUtil.isBlank(ext) || Arrays.stream(IMG_EXTS).noneMatch(img -> img.equalsIgnoreCase(ext))) {
+        if (StrUtil.isBlank(ext) || Arrays.stream(IMG_EXTS).noneMatch(img -> img.equalsIgnoreCase(ext))) {
             throw new BusinessException(errCode, errMsg);
         }
     }
@@ -161,7 +162,7 @@ public final class AssertUtils {
      * @throws BusinessException
      */
     public static void hasText(String text, int errCode, String errMsg) throws BusinessException {
-        if (ValidateUtil.isBlank(text)) {
+        if (StrUtil.isBlank(text)) {
             throw new BusinessException(errCode, errMsg);
         }
     }
