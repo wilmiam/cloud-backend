@@ -1,6 +1,9 @@
 package com.zq.common.utils;
 
 import cn.hutool.core.codec.Base64;
+import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.http.HttpRequest;
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.weixin.sdk.kit.PaymentKit;
@@ -52,11 +55,11 @@ public class WeixinUtils {
     private String transfers = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
 
     /**
-     * 获取不限量小程序二维码
+     * 获取小程序码，适用于需要的码数量极多的业务场景。通过该接口生成的小程序码，永久有效，数量暂无限制。
      *
-     * @param scene
-     * @param accessToken
-     * @param width
+     * @param scene       最长32位
+     * @param accessToken 认证token
+     * @param width       单位px
      * @return
      */
     public static String getwxacodeunlimit(String scene, String accessToken, Integer width) {
@@ -68,14 +71,15 @@ public class WeixinUtils {
         param.put("width", width);
         param.put("auto_color", false);
 
-        Map<String, String> header = new HashMap<>();
+        Map<String, String> header = new HashMap<>(2);
         header.put("Content-type", "application/json; charset=utf-8");
         header.put("Accept", "application/json");
 
         byte[] bytes = HttpRequest.post(url)
                 .body(param.toString())
                 .headerMap(header, true)
-                .execute().bodyBytes();
+                .execute()
+                .bodyBytes();
         return "data:image/png;base64," + Base64.encode(bytes);
     }
 
@@ -234,5 +238,95 @@ public class WeixinUtils {
         }
         return message.toString();
     }
+
+    /**
+     * 商户支付零钱参数
+     *
+     * @param appId        APPID
+     * @param mchId        商户ID
+     * @param paySecretKey 商户支付密钥
+     * @param openId       收款用户微信openId
+     * @param tradeNo      商户交易编号
+     * @param amount       商户支付金额, 单位: 分
+     * @param desc         付款备注
+     * @return
+     */
+    public Map<String, String> getMchPayParams(String appId, String mchId, String paySecretKey, String openId, String tradeNo, String amount, String desc) {
+        Map<String, String> packageParams = new HashMap<>();
+        // 商户账号appId
+        packageParams.put("mch_appid", appId);
+        // 商户号
+        packageParams.put("mchid", mchId);
+        // 用户openId
+        packageParams.put("openid", openId);
+        // 商户订单号
+        packageParams.put("partner_trade_no", tradeNo);
+        // 企业付款金额，单位为分
+        packageParams.put("amount", amount);
+        // 企业付款备注
+        packageParams.put("desc", desc);
+        // 随机32位字符串
+        packageParams.put("nonce_str", IdUtil.simpleUUID());
+        // 校验用户姓名选项 (NO_CHECK：不校验真实姓名 FORCE_CHECK：强校验真实姓名)
+        packageParams.put("check_name", "NO_CHECK");
+        // 收款用户姓名 校验姓名
+        // packageParams.put("re_user_name", "收款人姓名");
+
+        // 获取签名
+        String sign = PaymentKit.createSign(packageParams, paySecretKey);
+        packageParams.put("sign", sign);
+        return packageParams;
+    }
+
+    /**
+     * 普通小程序或服务商小程序发红包参数
+     *
+     * @param appId        APPID
+     * @param mchId        商户ID
+     * @param mchName      商户名称
+     * @param paySecretKey 商户支付秘钥
+     * @param openId       收款用户微信openId
+     * @param amount       商户支付金额
+     * @param actName      活动名称
+     * @param wishing      祝福语
+     * @param remark       备注
+     * @return
+     */
+    public Map<String, String> getSendRedPacketParams(String appId, String mchId, String mchName, String paySecretKey, String openId, String amount, String actName, String wishing, String remark) {
+        Map<String, String> params = new HashMap<>();
+        //公众账号appid
+        params.put("wxappid", appId);
+        //商户号
+        params.put("mch_id", mchId);
+        //商户名称
+        params.put("send_name", mchName);
+        //商户订单号
+        // 组成： mch_id + yyyymmdd + 10位一天内不能重复的数字。
+        params.put("mch_billno", mchId + DateUtil.format(DateUtil.date(), DatePattern.PURE_DATE_PATTERN) + (System.currentTimeMillis() / 1000 + "").substring(0, 9));
+        //用户openid
+        params.put("re_openid", openId);
+        //付款金额
+        params.put("total_amount", amount);
+        // 随机32位字符串
+        params.put("nonce_str", IdUtil.simpleUUID());
+        //活动名称
+        params.put("act_name", actName);
+        //通知用户形式
+        params.put("notify_way", "MINI_PROGRAM_JSAPI");
+        //备注
+        params.put("remark", remark);
+        //红包发放总人数
+        params.put("total_num", "1");
+        //红包祝福语
+        params.put("wishing", wishing);
+
+        //签名
+        String sign = PaymentKit.createSign(params, paySecretKey);
+        params.put("sign", sign);
+
+        return params;
+
+    }
+
 
 }
