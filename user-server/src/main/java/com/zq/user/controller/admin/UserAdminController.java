@@ -1,8 +1,8 @@
 package com.zq.user.controller.admin;
 
-import com.zq.common.entity.AppUser;
 import com.zq.common.vo.PageVo;
 import com.zq.common.vo.ResultVo;
+import com.zq.user.entity.AppUser;
 import com.zq.user.service.UserService;
 import com.zq.user.vo.FindAppUserVo;
 import io.swagger.annotations.Api;

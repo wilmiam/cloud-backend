@@ -1,7 +1,7 @@
 package com.zq.api.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zq.common.entity.SysConfig;
+import com.zq.api.entity.SysConfig;
 import org.springframework.stereotype.Repository;
 
 /**

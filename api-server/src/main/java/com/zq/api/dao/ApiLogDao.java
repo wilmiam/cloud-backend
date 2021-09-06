@@ -1,7 +1,7 @@
 package com.zq.api.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zq.common.entity.ApiLog;
+import com.zq.api.entity.ApiLog;
 import org.springframework.stereotype.Repository;
 
 /**
