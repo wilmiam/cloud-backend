@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.zq</groupId>
-            <artifactId>common-utils</artifactId>
+            <artifactId>xxx-common-utils</artifactId>
             <version>1.0.0</version>
         </dependency>
 
