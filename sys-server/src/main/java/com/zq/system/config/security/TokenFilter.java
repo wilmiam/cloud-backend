@@ -21,11 +21,11 @@ import com.zq.common.vo.OnlineUserDto;
 import com.zq.system.modules.system.service.OnlineUserService;
 import com.zq.system.modules.system.service.UserCacheClean;
 import io.jsonwebtoken.ExpiredJwtException;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -80,7 +80,7 @@ public class TokenFilter extends GenericFilterBean {
                     userCacheClean.cleanUserCache(String.valueOf(tokenProvider.getClaims(token).get(TokenProvider.AUTHORITIES_KEY)));
                 }
             }
-            if (onlineUserDto != null && StringUtils.hasText(token)) {
+            if (onlineUserDto != null && StringUtils.isNotBlank(token)) {
                 Authentication authentication = tokenProvider.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 // Token 续期
@@ -98,7 +98,7 @@ public class TokenFilter extends GenericFilterBean {
      */
     private String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(properties.getHeader());
-        if (StringUtils.hasText(bearerToken)) {
+        if (StringUtils.isBlank(bearerToken)) {
             return null;
         }
         if (bearerToken.startsWith(properties.getTokenStartWith())) {
