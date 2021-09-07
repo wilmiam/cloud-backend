@@ -1,6 +1,7 @@
 package com.zq.common.utils;
 
 import cn.hutool.core.codec.Base64;
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
@@ -55,31 +56,32 @@ public class WeixinUtils {
     private String transfers = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
 
     /**
-     * 获取小程序码，适用于需要的码数量极多的业务场景。通过该接口生成的小程序码，永久有效，数量暂无限制。
+     * 获取小程序码，适用于需要的码数量极多的业务场景。通过该接口生成的小程序码，永久有效，数量暂无限制。 更多用法详见 获取二维码。
+     * https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/qr-code/wxacode.getUnlimited.html
      *
-     * @param scene       最长32位
-     * @param accessToken 认证token
-     * @param width       单位px
+     * @param accessToken
+     * @param scene
+     * @param params
      * @return
      */
-    public static String getwxacodeunlimit(String scene, String accessToken, Integer width) {
+    public static String getwxacodeunlimit(String accessToken, String scene, Map<String, Object> params) {
         String url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + accessToken;
 
         JSONObject param = new JSONObject();
         param.put("scene", scene);
         param.put("page", "pages/index/index");
-        param.put("width", width);
-        param.put("auto_color", false);
+        if (CollUtil.isNotEmpty(params)) {
+            param.putAll(params);
+        }
 
-        Map<String, String> header = new HashMap<>(2);
+        Map<String, String> header = new HashMap<>();
         header.put("Content-type", "application/json; charset=utf-8");
         header.put("Accept", "application/json");
 
         byte[] bytes = HttpRequest.post(url)
                 .body(param.toString())
                 .headerMap(header, true)
-                .execute()
-                .bodyBytes();
+                .execute().bodyBytes();
         return "data:image/png;base64," + Base64.encode(bytes);
     }
 
