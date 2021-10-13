@@ -76,7 +76,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         Map<String, Set<String>> anonymousUrls = getAnonymousUrl(handlerMethodMap);
         Set<String> allType = anonymousUrls.get(RequestMethodEnum.ALL.getType());
         //不使用注解的时候在这添加url放行
-        allType.add("/resource/app/**");
+        allType.add("/user/app/**");
 
         httpSecurity
                 // 禁用 CSRF
