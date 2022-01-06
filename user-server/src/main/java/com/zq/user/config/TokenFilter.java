@@ -62,7 +62,7 @@ public class TokenFilter extends GenericFilterBean {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        String token = resolveToken(httpServletRequest);
+        String token = tokenProvider.getToken(httpServletRequest);
         // 对于 Token 为空的不需要去查 Redis
         if (StrUtil.isNotBlank(token)) {
             OnlineUserDto onlineUserDto = null;
@@ -90,23 +90,4 @@ public class TokenFilter extends GenericFilterBean {
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    /**
-     * 初步检测Token
-     *
-     * @param request /
-     * @return /
-     */
-    private String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader(properties.getHeader());
-        if (StringUtils.isBlank(bearerToken)) {
-            return null;
-        }
-        if (bearerToken.startsWith(properties.getTokenStartWith())) {
-            // 去掉令牌前缀
-            return bearerToken.replace(properties.getTokenStartWith(), "");
-        } else {
-            log.debug("非法Token：{}", bearerToken);
-        }
-        return null;
-    }
 }
