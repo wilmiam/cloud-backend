@@ -91,6 +91,8 @@ public class ApiController {
             // 判断指定异常是否来自或者包含指定异常
             if (ExceptionUtil.isFromOrSuppressedThrowable(e, FeignException.Unauthorized.class)) {
                 resp = ApiUtils.toApiResp(form, ResultVo.fail(401, "Unauthorized"));
+            } else if (ExceptionUtil.isFromOrSuppressedThrowable(e, FeignException.NotFound.class)) {
+                resp = ApiUtils.toApiResp(form, ResultVo.fail(404, "NotFound"));
             } else if (stackTrace.contains("Load balancer does not have available server for client")) {
                 resp = ApiUtils.getServiceNotAvailableError(form);
             } else {

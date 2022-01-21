@@ -123,6 +123,12 @@
             <groupId>com.jfinal</groupId>
             <artifactId>jfinal-ext3</artifactId>
             <version>4.0.3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>
