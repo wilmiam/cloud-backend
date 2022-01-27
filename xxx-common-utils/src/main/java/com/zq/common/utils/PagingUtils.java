@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.pagehelper.PageHelper;
-import com.zq.common.exception.BusinessException;
 import com.zq.common.vo.PageReqVo;
 import com.zq.common.vo.PageVo;
 
@@ -49,13 +48,8 @@ public class PagingUtils {
      * @return
      */
     public static <R, Q extends PageReqVo> PageVo<R> paging(Q reqVo, BaseMapper<R> mapper, Class<R> clazz) {
-        R instance;
-        try {
-            instance = clazz.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new BusinessException("分页类型转换错误");
-        }
-        BeanUtil.copyProperties(reqVo, instance);
+        R instance = BeanUtil.copyProperties(reqVo, clazz);
+
         IPage<R> page = new Page<>(reqVo.getPage(), reqVo.getSize());
         page = mapper.selectPage(page, Wrappers.lambdaQuery(instance));
         return PageVo.ofReqVo(reqVo, page.getRecords(), Long.valueOf(page.getTotal()).intValue());
@@ -90,13 +84,8 @@ public class PagingUtils {
      */
     @SuppressWarnings("all")
     public static <R, Q extends PageReqVo> PageVo<R> paging(Q reqVo, BaseMapper<R> mapper, Class<R> clazz, LambdaQueryWrapper<R> lambdaQuery) {
-        R instance;
-        try {
-            instance = clazz.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new BusinessException("分页类型转换错误");
-        }
-        BeanUtil.copyProperties(reqVo, instance);
+        R instance = BeanUtil.copyProperties(reqVo, clazz);
+
         IPage<R> page = new Page<>(reqVo.getPage(), reqVo.getSize());
         page = mapper.selectPage(page, lambdaQuery.setEntity(instance));
         return PageVo.ofReqVo(reqVo, page.getRecords(), Long.valueOf(page.getTotal()).intValue());

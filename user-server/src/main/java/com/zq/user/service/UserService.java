@@ -109,7 +109,7 @@ public class UserService {
 
     private ApiTokenVo getApiToken(AppUser appUser) {
         ApiTokenVo tokenVo = ApiTokenVo.builder()
-                .userId(appUser.getId())
+                .userId(appUser.getId().toString())
                 .account(appUser.getAccount())
                 .phone(appUser.getPhone())
                 .realname(appUser.getRealname())

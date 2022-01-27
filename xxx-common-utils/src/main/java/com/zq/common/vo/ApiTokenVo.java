@@ -5,13 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author wilmiam
+ * @since 2022-01-27 11:13
+ */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class ApiTokenVo {
 
-    private Long userId;
+    private String userId;
 
     private String account;
 

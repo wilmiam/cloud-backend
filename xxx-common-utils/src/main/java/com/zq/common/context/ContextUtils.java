@@ -27,7 +27,7 @@ public class ContextUtils {
         return ThreadContext.get(APP_TOKEN_CONTEXT_KEY);
     }
 
-    public static Long getUserUserId() {
+    public static String getUserUserId() {
         ApiTokenVo apiTokenVo = ThreadContext.get(APP_TOKEN_CONTEXT_KEY);
         return apiTokenVo == null ? null : apiTokenVo.getUserId();
     }
