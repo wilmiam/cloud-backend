@@ -1,5 +1,6 @@
 package com.zq.api.service;
 
+import com.zq.api.constant.ApiMethod;
 import com.zq.api.form.ApiForm;
 import com.zq.api.form.ApiResp;
 
@@ -10,12 +11,7 @@ import com.zq.api.form.ApiResp;
  */
 public interface IApiLogic extends IApiCommon {
 
-    /**
-     * 发送验证码
-     *
-     * @param form
-     * @return
-     */
+    @ApiMethod(name = "发送验证码", service = "USER-SERVER")
     ApiResp sendCode(ApiForm form);
 
 }

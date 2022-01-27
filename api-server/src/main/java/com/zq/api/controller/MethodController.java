@@ -53,7 +53,7 @@ public class MethodController {
 
                 Map<String, Object> data = new HashMap<>();
                 data.put("value", method.getName());
-                data.put("name", apiMethod == null ? "" : apiMethod.value());
+                data.put("name", apiMethod == null ? "" : apiMethod.name());
                 data.put("service", apiMethod == null ? "" : apiMethod.service());
                 methodList.add(data);
             }
