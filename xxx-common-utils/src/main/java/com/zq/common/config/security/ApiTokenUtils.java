@@ -61,7 +61,7 @@ public class ApiTokenUtils implements InitializingBean {
                 .claim(APP_TOKEN_KEY, tokenVo)
                 .signWith(signatureAlgorithm, key)
                 // 加入ID确保生成的 Token 都不一致
-                .setId(tokenVo.getUserId().toString());
+                .setId(tokenVo.getUserId());
 
         if (minutes >= 0) {
             long expMillis = nowMillis + (minutes * 60 * 1000);
@@ -73,17 +73,13 @@ public class ApiTokenUtils implements InitializingBean {
     }
 
     public static ApiTokenVo getAppTokenVo(String token) {
-        try {
-            Claims claims = Jwts.parser()
-                    .setSigningKey(DatatypeConverter.parseBase64Binary(properties.getBase64Secret()))
-                    .parseClaimsJws(token)
-                    .getBody();
-
-            // fix bug: 当前用户如果没有任何权限时，在输入用户名后，刷新验证码会抛IllegalArgumentException
-            return JSON.parseObject(JSON.toJSONString(claims.get(APP_TOKEN_KEY)), ApiTokenVo.class);
-        } catch (Exception e) {
+        Claims claims = getClaims(token);
+        if (claims == null) {
             return null;
         }
+
+        // fix bug: 当前用户如果没有任何权限时，在输入用户名后，刷新验证码会抛IllegalArgumentException
+        return JSON.parseObject(JSON.toJSONString(claims.get(APP_TOKEN_KEY)), ApiTokenVo.class);
     }
 
     public static Claims getClaims(String token) {
@@ -98,6 +94,7 @@ public class ApiTokenUtils implements InitializingBean {
         //在解析JWT字符串时，如果密钥不正确，将会解析失败，抛出SignatureException异常，说明该JWT字符串是伪造的
         //在解析JWT字符串时，如果‘过期时间字段’已经早于当前时间，将会抛出ExpiredJwtException异常，说明本次请求已经失效
         catch (SignatureException | ExpiredJwtException e) {
+            log.error("解析JWT TOKEN错误", e);
             return null;
         }
     }
