@@ -176,6 +176,6 @@ public class UserService {
             vo.setPhone(null);
         }
 
-        return PagingUtils.paging(vo, userDao, AppUser.class, lambdaQuery);
+        return PagingUtils.paging(vo, userDao, lambdaQuery);
     }
 }

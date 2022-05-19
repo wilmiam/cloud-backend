@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.pagehelper.PageHelper;
+import com.zq.common.exception.BusinessException;
 import com.zq.common.vo.PageReqVo;
 import com.zq.common.vo.PageVo;
 
@@ -14,12 +15,10 @@ import java.util.List;
 import java.util.function.Function;
 
 /**
- * Mybatis 分页工具
- *
- * @author wilmiam
- * @since 2021-07-09 17:59
+ * @author
+ * @since 2019-04-02
  */
-public class PagingUtils {
+public abstract class PagingUtils {
 
     /**
      * pagehelper分页插件
@@ -48,8 +47,13 @@ public class PagingUtils {
      * @return
      */
     public static <R, Q extends PageReqVo> PageVo<R> paging(Q reqVo, BaseMapper<R> mapper, Class<R> clazz) {
-        R instance = BeanUtil.copyProperties(reqVo, clazz);
-
+        R instance;
+        try {
+            instance = clazz.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new BusinessException("分页类型转换错误");
+        }
+        BeanUtil.copyProperties(reqVo, instance);
         IPage<R> page = new Page<>(reqVo.getPage(), reqVo.getSize());
         page = mapper.selectPage(page, Wrappers.lambdaQuery(instance));
         return PageVo.ofReqVo(reqVo, page.getRecords(), Long.valueOf(page.getTotal()).intValue());
@@ -60,34 +64,18 @@ public class PagingUtils {
      *
      * @param reqVo
      * @param mapper
-     * @param clazz
      * @param <R>
      * @param <Q>
      * @return
      */
     @SuppressWarnings("all")
     public static <R, Q extends PageReqVo> PageVo<R> paging(Q reqVo, BaseMapper<R> mapper, LambdaQueryWrapper<R> lambdaQuery) {
+        R entity = lambdaQuery.getEntity();
+        BeanUtil.copyProperties(reqVo, entity);
+        lambdaQuery.setEntity(entity);
+
         IPage<R> page = new Page<>(reqVo.getPage(), reqVo.getSize());
         page = mapper.selectPage(page, lambdaQuery);
-        return PageVo.ofReqVo(reqVo, page.getRecords(), Long.valueOf(page.getTotal()).intValue());
-    }
-
-    /**
-     * mybatis-plus自带分页插件
-     *
-     * @param reqVo
-     * @param mapper
-     * @param clazz
-     * @param <R>
-     * @param <Q>
-     * @return
-     */
-    @SuppressWarnings("all")
-    public static <R, Q extends PageReqVo> PageVo<R> paging(Q reqVo, BaseMapper<R> mapper, Class<R> clazz, LambdaQueryWrapper<R> lambdaQuery) {
-        R instance = BeanUtil.copyProperties(reqVo, clazz);
-
-        IPage<R> page = new Page<>(reqVo.getPage(), reqVo.getSize());
-        page = mapper.selectPage(page, lambdaQuery.setEntity(instance));
         return PageVo.ofReqVo(reqVo, page.getRecords(), Long.valueOf(page.getTotal()).intValue());
     }
 
