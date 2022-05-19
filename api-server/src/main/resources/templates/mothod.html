@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>方法列表</title>
+</head>
+<body>
+<div>
+    <table border="1" cellspacing="0" style="margin: auto;text-align: center;">
+        <tr>
+            <th class="row">方法名</th>
+            <th class="row">所属服务</th>
+            <th class="row">调用方法名</th>
+        </tr>
+        <tr th:each="method : ${methodList}">
+            <td class="row" th:text="${method.name}"></td>
+            <td class="row" th:text="${method.service}"></td>
+            <td class="row" th:text="${method.value}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+<style>
+    .row {
+        padding: 3px 20px;
+    }
+</style>
+<script>
+</script>
+</html>

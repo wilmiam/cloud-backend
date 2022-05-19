@@ -3,38 +3,37 @@ package com.zq.api.controller;
 import cn.hutool.core.util.StrUtil;
 import com.zq.api.constant.ApiMethod;
 import com.zq.api.form.ApiForm;
-import com.zq.api.form.ApiResp;
 import com.zq.api.service.IApiLogic;
-import com.zq.api.utils.ApiUtils;
-import com.zq.common.vo.ResultVo;
+import com.zq.api.vo.MethodVo;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author wilmiam
- * @since 2022/1/21 17:00
+ * @since 2022/1/21 16:44
  */
 @Api(tags = "方法接口")
 @Slf4j
-@RestController
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class MethodController {
 
     @RequestMapping("/method")
-    public ApiResp getAllMethod(@RequestParam(required = false) String service, @RequestParam(required = false) String name) {
-        List<Map<String, Object>> methodList = new ArrayList<>();
+    public String getAllMethod(Model model, @RequestParam(required = false) String service, @RequestParam(required = false) String name) {
+        List<MethodVo> methodList = new ArrayList<>();
         Method[] methods = IApiLogic.class.getMethods();
         for (Method method : methods) {
             Class<?>[] params = method.getParameterTypes();
@@ -51,14 +50,17 @@ public class MethodController {
                     }
                 }
 
-                Map<String, Object> data = new HashMap<>();
-                data.put("value", method.getName());
-                data.put("name", apiMethod == null ? "" : apiMethod.name());
-                data.put("service", apiMethod == null ? "" : apiMethod.service());
-                methodList.add(data);
+                methodList.add(MethodVo.builder()
+                        .name(apiMethod == null ? "" : apiMethod.value())
+                        .service(apiMethod == null ? "" : apiMethod.service())
+                        .value(method.getName())
+                        .build());
             }
         }
-        return ApiUtils.toApiResp(new ApiForm(), ResultVo.success(methodList));
+
+        methodList = methodList.stream().sorted(Comparator.comparing(MethodVo::getService).reversed()).collect(Collectors.toList());
+        model.addAttribute("methodList", methodList);
+        return "mothod";
     }
 
 }
