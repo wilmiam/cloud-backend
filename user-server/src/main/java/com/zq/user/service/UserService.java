@@ -169,13 +169,12 @@ public class UserService {
 
         if (StrUtil.isNotBlank(vo.getAccount())) {
             lambdaQuery.like(AppUser::getAccount, vo.getAccount());
-            vo.setAccount(null);
         }
         if (StrUtil.isNotBlank(vo.getPhone())) {
             lambdaQuery.like(AppUser::getPhone, vo.getPhone());
-            vo.setPhone(null);
         }
 
-        return PagingUtils.paging(vo, userDao, lambdaQuery);
+        return PagingUtils.paging(vo, userDao, lambdaQuery, AppUser.class);
     }
+
 }
