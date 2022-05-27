@@ -6,12 +6,15 @@ import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.http.HttpRequest;
+import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.weixin.sdk.kit.PaymentKit;
 import com.jfinal.wxaapp.WxaConfig;
 import com.jfinal.wxaapp.WxaConfigKit;
 import com.jfinal.wxaapp.api.WxaAccessToken;
 import com.jfinal.wxaapp.api.WxaAccessTokenApi;
+import com.zq.common.vo.weixin.GenerateSchemeVo;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
@@ -327,8 +330,38 @@ public class WeixinUtils {
         params.put("sign", sign);
 
         return params;
-
     }
 
+    /**
+     * 获取跳转微信小程序的链接
+     *
+     * @return
+     */
+    public static String generateScheme(String accessToken, GenerateSchemeVo vo) {
+        String url = "https://api.weixin.qq.com/wxa/generatescheme?access_token=" + accessToken;
+        Map<String, Object> params = new HashMap<>();
+        params.put("jump_wxa", vo.getJumpWxa());
+        params.put("expire_type", vo.getExpireType());
+        params.put("expire_time", vo.getExpireTime());
+        params.put("expire_interval", vo.getExpireInterval());
+
+        HttpRequest request = HttpUtil.createPost(url)
+                .body(JSONUtil.toJsonStr(params));
+
+        log.info("获取跳转微信小程序的链接请求：{}", request.toString());
+
+        cn.hutool.http.HttpResponse response = request.execute();
+
+        String body = response.body();
+        log.debug("获取跳转微信小程序的链接响应 {} => {}", response.getStatus(), body);
+
+        cn.hutool.json.JSONObject object = JSONUtil.parseObj(body);
+        Integer errcode = object.getInt("errcode");
+        if (errcode == null || errcode != 0) {
+            log.error("获取跳转连接失败：{}", object.getStr("errmsg"));
+        }
+
+        return object.getStr("openlink");
+    }
 
 }

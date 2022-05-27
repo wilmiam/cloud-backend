@@ -41,40 +41,8 @@
         <module>file-server</module>
         <module>api-server</module>
         <module>user-server</module>
+        <module>admin-server</module>
     </modules>
-
-    <profiles>
-        <profile>
-            <!--本地开发环境-->
-            <id>dev</id>
-            <properties>
-                <profiles.active>dev</profiles.active>
-                <logging.level>debug</logging.level>
-                <eureka.server.url>http://admin:123456@127.0.0.1:8800/eureka/</eureka.server.url>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            <!--测试环境-->
-            <id>test</id>
-            <properties>
-                <profiles.active>test</profiles.active>
-                <logging.level>debug</logging.level>
-                <eureka.server.url>http://admin:123456@127.0.0.1:8800/eureka/</eureka.server.url>
-            </properties>
-        </profile>
-        <profile>
-            <!--生产环境-->
-            <id>product</id>
-            <properties>
-                <profiles.active>product</profiles.active>
-                <logging.level>info</logging.level>
-                <eureka.server.url>http://admin:123456@127.0.0.1:8800/eureka/</eureka.server.url>
-            </properties>
-        </profile>
-    </profiles>
 
     <dependencies>
         <dependency>
@@ -122,5 +90,38 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <!--本地开发环境-->
+            <id>dev</id>
+            <properties>
+                <profiles.active>dev</profiles.active>
+                <logging.level>debug</logging.level>
+                <eureka.server.url>http://admin:123456@127.0.0.1:8800/eureka/</eureka.server.url>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <!--测试环境-->
+            <id>test</id>
+            <properties>
+                <profiles.active>test</profiles.active>
+                <logging.level>debug</logging.level>
+                <eureka.server.url>http://admin:123456@127.0.0.1:8800/eureka/</eureka.server.url>
+            </properties>
+        </profile>
+        <profile>
+            <!--生产环境-->
+            <id>product</id>
+            <properties>
+                <profiles.active>product</profiles.active>
+                <logging.level>info</logging.level>
+                <eureka.server.url>http://admin:123456@127.0.0.1:8800/eureka/</eureka.server.url>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>
