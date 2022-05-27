@@ -22,6 +22,6 @@ eureka:
     register-with-eureka: false
     # 表示是否从Eureka Server获取注册信息，默认为true。
     fetch-registry: false
-    # 设置与Eureka Server交互的地址，查询服务和注册服务都需要依赖这个地址。默认是http://localhost:8000/eureka ；多个地址可使用,分隔
+    # 设置与Eureka Server交互的地址，查询服务和注册服务都需要依赖这个地址。默认是http://localhost:8761/eureka/；多个地址可使用,分隔
     service-url:
       defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${spring.cloud.client.ip-address}:${server.port}/eureka/

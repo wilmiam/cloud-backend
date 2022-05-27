@@ -50,7 +50,7 @@
             <properties>
                 <profiles.active>dev</profiles.active>
                 <logging.level>debug</logging.level>
-                <eureka.server.url>http://admin:123456@127.0.0.1:8800/eureka</eureka.server.url>
+                <eureka.server.url>http://admin:123456@127.0.0.1:8800/eureka/</eureka.server.url>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -62,7 +62,7 @@
             <properties>
                 <profiles.active>test</profiles.active>
                 <logging.level>debug</logging.level>
-                <eureka.server.url>http://admin:123456@127.0.0.1:8800/eureka</eureka.server.url>
+                <eureka.server.url>http://admin:123456@127.0.0.1:8800/eureka/</eureka.server.url>
             </properties>
         </profile>
         <profile>
@@ -71,7 +71,7 @@
             <properties>
                 <profiles.active>product</profiles.active>
                 <logging.level>info</logging.level>
-                <eureka.server.url>http://admin:123456@127.0.0.1:8800/eureka</eureka.server.url>
+                <eureka.server.url>http://admin:123456@127.0.0.1:8800/eureka/</eureka.server.url>
             </properties>
         </profile>
     </profiles>
