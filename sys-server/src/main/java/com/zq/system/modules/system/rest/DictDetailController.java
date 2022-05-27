@@ -18,7 +18,7 @@ package com.zq.system.modules.system.rest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import com.zq.common.annotation.Log;
+import com.zq.logging.annotation.Log;
 import com.zq.system.exception.BadRequestException;
 import com.zq.system.modules.system.domain.DictDetail;
 import com.zq.system.modules.system.service.DictDetailService;

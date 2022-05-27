@@ -55,6 +55,7 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class LogServiceImpl implements LogService {
+
     private static final Logger log = LoggerFactory.getLogger(LogServiceImpl.class);
     private final LogRepository logRepository;
     private final LogErrorMapper logErrorMapper;
@@ -87,7 +88,7 @@ public class LogServiceImpl implements LogService {
 
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
-        com.zq.common.annotation.Log aopLog = method.getAnnotation(com.zq.common.annotation.Log.class);
+        com.zq.logging.annotation.Log aopLog = method.getAnnotation(com.zq.logging.annotation.Log.class);
 
         // 方法路径
         String methodName = joinPoint.getTarget().getClass().getName() + "." + signature.getName() + "()";
@@ -174,4 +175,5 @@ public class LogServiceImpl implements LogService {
     public void delAllByInfo() {
         logRepository.deleteByLogType("INFO");
     }
+
 }

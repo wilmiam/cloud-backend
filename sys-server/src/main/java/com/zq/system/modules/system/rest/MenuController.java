@@ -19,7 +19,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import com.zq.common.annotation.Log;
+import com.zq.logging.annotation.Log;
 import com.zq.system.exception.BadRequestException;
 import com.zq.system.modules.system.domain.Menu;
 import com.zq.system.modules.system.service.MenuService;

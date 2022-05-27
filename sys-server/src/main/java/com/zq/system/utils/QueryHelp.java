@@ -18,8 +18,8 @@ package com.zq.system.utils;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
-import com.zq.common.annotation.DataPermission;
-import com.zq.common.annotation.Query;
+import com.zq.system.annotation.DataPermission;
+import com.zq.system.annotation.Query;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 

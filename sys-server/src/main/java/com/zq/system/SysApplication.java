@@ -17,6 +17,7 @@ package com.zq.system;
 
 import com.zq.common.annotation.rest.AnonymousGetMapping;
 import io.swagger.annotations.Api;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
@@ -36,6 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableAsync
 @RestController
 @Api(hidden = true)
+@MapperScan({"com.zq.logging.mapper"})
 @SpringBootApplication(scanBasePackages = {"com.zq.system", "com.zq.common.config"})
 @EnableTransactionManagement
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
@@ -61,4 +63,5 @@ public class SysApplication {
     public String index() {
         return "Backend service started successfully";
     }
+
 }

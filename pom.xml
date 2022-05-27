@@ -42,6 +42,7 @@
         <module>api-server</module>
         <module>user-server</module>
         <module>admin-server</module>
+        <module>logging-server</module>
     </modules>
 
     <dependencies>

@@ -18,7 +18,7 @@ package com.zq.system.modules.mnt.rest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import com.zq.common.annotation.Log;
+import com.zq.logging.annotation.Log;
 import com.zq.system.modules.mnt.service.DeployHistoryService;
 import com.zq.system.modules.mnt.service.dto.DeployHistoryQueryCriteria;
 import org.springframework.data.domain.Pageable;

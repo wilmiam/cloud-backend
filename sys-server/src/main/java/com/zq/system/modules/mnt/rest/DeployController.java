@@ -21,7 +21,7 @@ import com.zq.system.modules.mnt.service.DeployService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import com.zq.common.annotation.Log;
+import com.zq.logging.annotation.Log;
 import com.zq.system.modules.mnt.service.dto.DeployQueryCriteria;
 import com.zq.system.utils.FileUtil;
 import org.springframework.data.domain.Pageable;

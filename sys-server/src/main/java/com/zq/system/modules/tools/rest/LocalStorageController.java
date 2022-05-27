@@ -20,7 +20,7 @@ import com.zq.system.modules.tools.domain.LocalStorage;
 import com.zq.system.modules.tools.service.LocalStorageService;
 import com.zq.system.modules.tools.service.dto.LocalStorageQueryCriteria;
 import com.zq.system.utils.FileUtil;
-import com.zq.common.annotation.Log;
+import com.zq.logging.annotation.Log;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

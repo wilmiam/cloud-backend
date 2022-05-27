@@ -16,7 +16,7 @@
 package com.zq.system.modules.system.service.dto;
 
 import lombok.Data;
-import com.zq.common.annotation.Query;
+import com.zq.system.annotation.Query;
 
 /**
 * @author Zheng Jie

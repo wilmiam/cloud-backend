@@ -16,7 +16,7 @@
 package com.zq.system.modules.system.rest;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.zq.common.annotation.Log;
+import com.zq.logging.annotation.Log;
 import com.zq.system.config.RsaProperties;
 import com.zq.system.exception.BadRequestException;
 import com.zq.system.modules.system.domain.Dept;

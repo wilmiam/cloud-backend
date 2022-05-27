@@ -19,7 +19,7 @@ import com.zq.system.modules.tools.domain.QiniuConfig;
 import com.zq.system.modules.tools.domain.QiniuContent;
 import com.zq.system.modules.tools.service.QiNiuService;
 import com.zq.system.modules.tools.service.dto.QiniuQueryCriteria;
-import com.zq.common.annotation.Log;
+import com.zq.logging.annotation.Log;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

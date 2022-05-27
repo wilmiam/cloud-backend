@@ -23,7 +23,7 @@ import com.zq.system.modules.system.service.dto.DeptQueryCriteria;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import com.zq.common.annotation.Log;
+import com.zq.logging.annotation.Log;
 import com.zq.system.exception.BadRequestException;
 import com.zq.system.utils.PageUtil;
 import org.springframework.http.HttpStatus;

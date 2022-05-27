@@ -15,7 +15,7 @@
  */
 package com.zq.system.modules.tools.service.dto;
 
-import com.zq.common.annotation.Query;
+import com.zq.system.annotation.Query;
 import lombok.Data;
 
 import java.sql.Timestamp;

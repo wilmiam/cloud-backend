@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.zq.common.annotation;
+package com.zq.system.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

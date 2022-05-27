@@ -18,7 +18,7 @@ package com.zq.system.modules.mnt.rest;
 import com.zq.system.modules.mnt.domain.App;
 import com.zq.system.modules.mnt.service.AppService;
 import com.zq.system.modules.mnt.service.dto.AppQueryCriteria;
-import com.zq.common.annotation.Log;
+import com.zq.logging.annotation.Log;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

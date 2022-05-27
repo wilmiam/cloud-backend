@@ -6,7 +6,7 @@ HELP.md
 **/out/
 **/logs/
 !gradle/wrapper/gradle-wrapper.jar
-*.log
+*.sysLog
 
 ### STS ###
 .apt_generated

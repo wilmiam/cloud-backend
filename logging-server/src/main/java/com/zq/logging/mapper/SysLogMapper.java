@@ -13,21 +13,17 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.zq.common.annotation;
+package com.zq.logging.mapper;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zq.logging.entity.SysLog;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author Zheng Jie
  * @date 2018-11-24
  */
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Log {
-
-    String value() default "";
+@Repository
+public interface SysLogMapper extends BaseMapper<SysLog> {
 
 }

@@ -18,7 +18,7 @@ package com.zq.system.modules.system.rest;
 import com.zq.system.modules.system.service.LogService;
 import com.zq.system.modules.system.service.dto.LogQueryCriteria;
 import com.zq.system.utils.SecurityUtils;
-import com.zq.common.annotation.Log;
+import com.zq.logging.annotation.Log;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
