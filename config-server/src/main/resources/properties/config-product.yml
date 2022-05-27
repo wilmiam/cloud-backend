@@ -18,12 +18,16 @@ gateway.name: GATEWAY-SERVER
 
 redis.url: 127.0.0.1
 redis.port: 6379
+redis.password:
 
 #数据库源配置
-jdbc.driver-class-name: com.mysql.cj.jdbc.Driver
-jdbc.username: root
-jdbc.password: Dk2019!23456
-jdbc.url: jdbc:mysql://47.107.148.253:3306/cloud?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+db:
+  cloud:
+    username: root
+    password: Dk2019!23456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url:
+      cloud: jdbc:mysql://47.107.148.253:3306/cloud?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
 
 #jwt
 jwt:
@@ -56,3 +60,4 @@ task:
     queue-capacity: 20
     # 活跃时间
     keep-alive-seconds: 30
+

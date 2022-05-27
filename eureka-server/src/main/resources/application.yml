@@ -1,5 +1,5 @@
 server:
-  port: 9900
+  port: 8800
 spring:
   application:
     name: EUREKA-SERVER
@@ -8,7 +8,16 @@ spring:
       name: admin
       password: 123456
 eureka:
+  server:
+    # 关闭自我保护机制（程序停掉了还注册的问题）
+    enable-self-preservation: false
+    # 主动失效检测间隔,配置成5秒
+    eviction-interval-timer-in-ms: 2000
+    # 禁用readOnlyCacheMap
+    use-read-only-response-cache: false
   client:
+    # 客户端拉取readOnly缓存的时间间隔，默认是30s
+    registry-fetch-interval-seconds: 10
     # 表示是否将自己注册到Eureka Server，默认为true。
     register-with-eureka: false
     # 表示是否从Eureka Server获取注册信息，默认为true。

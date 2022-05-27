@@ -17,10 +17,10 @@ spring:
   datasource:
     druid:
       db-type: com.alibaba.druid.pool.DruidDataSource
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      username: ${jdbc.username}
-      password: ${jdbc.password}
-      url: ${jdbc.url}
+      driver-class-name: ${db.cloud.driver-class-name}
+      username: ${db.cloud.username}
+      password: ${db.cloud.password}
+      url: ${db.cloud.url.cloud}
       # 初始连接数
       initial-size: 5
       # 最小连接数
