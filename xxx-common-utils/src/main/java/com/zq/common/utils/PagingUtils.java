@@ -108,7 +108,8 @@ public abstract class PagingUtils {
         int index = 0;
         for (ISqlSegment iSqlSegment : normal) {
             if (index % 4 == 0) {
-                fields.add(StrUtil.toCamelCase(iSqlSegment.getSqlSegment()));
+                String field = StrUtil.toCamelCase(iSqlSegment.getSqlSegment());
+                fields.add(field);
             }
             index++;
         }
