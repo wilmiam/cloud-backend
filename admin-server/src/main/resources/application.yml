@@ -53,8 +53,9 @@ spring:
         enabled: true
       stat-view-servlet:
         enabled: true
-        url-pattern: /druid/*
+        url-pattern: /admin/druid/*
         reset-enable: false
+        allow: ""
       filter:
         stat:
           enabled: true
@@ -142,11 +143,11 @@ file:
     path: ~/file/
     avatar: ~/avatar/
   linux:
-    path: /home/eladmin/file/
-    avatar: /home/eladmin/avatar/
+    path: /data/file/
+    avatar: /data/avatar/
   windows:
-    path: C:\eladmin\file\
-    avatar: C:\eladmin\avatar\
+    path: D:\data\file\
+    avatar: D:\data\avatar\
   # 文件大小 /M
   maxSize: 100
   avatarMaxSize: 5

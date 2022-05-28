@@ -47,7 +47,7 @@ import java.util.Set;
 @Api(tags = "运维：数据库管理")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/database")
+@RequestMapping("/admin/database")
 public class DatabaseController {
 
     private final String fileSavePath = FileUtil.getTmpDirPath() + "/";

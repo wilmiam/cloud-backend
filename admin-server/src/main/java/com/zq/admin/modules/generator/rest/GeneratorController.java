@@ -38,7 +38,7 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/generator")
+@RequestMapping("/admin/generator")
 @Api(tags = "系统：代码生成管理")
 public class GeneratorController {
 

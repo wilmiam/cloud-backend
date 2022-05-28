@@ -42,7 +42,7 @@ import java.io.IOException;
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "工具：本地存储管理")
-@RequestMapping("/api/localStorage")
+@RequestMapping("/admin/localStorage")
 public class LocalStorageController {
 
     private final LocalStorageService localStorageService;

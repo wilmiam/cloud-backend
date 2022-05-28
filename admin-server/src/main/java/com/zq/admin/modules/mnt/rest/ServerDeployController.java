@@ -40,7 +40,7 @@ import java.util.Set;
 @RestController
 @Api(tags = "运维：服务器管理")
 @RequiredArgsConstructor
-@RequestMapping("/api/serverDeploy")
+@RequestMapping("/admin/serverDeploy")
 public class ServerDeployController {
 
     private final ServerDeployService serverDeployService;

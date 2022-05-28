@@ -38,7 +38,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "${apiAlias}管理")
-@RequestMapping("/api/${changeClassName}")
+@RequestMapping("/admin/${changeClassName}")
 public class ${className}Controller {
 
 private final ${className}Service ${changeClassName}Service;

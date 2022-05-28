@@ -48,7 +48,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "系统：角色管理")
-@RequestMapping("/api/roles")
+@RequestMapping("/admin/roles")
 public class RoleController {
 
     private final RoleService roleService;

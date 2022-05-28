@@ -135,7 +135,7 @@
     cruds() {
       return CRUD({
         title: '${apiAlias}',
-        url: 'api/${changeClassName}',
+        url: 'admin/${changeClassName}',
         idField: '${pkChangeColName}',
         sort: '${pkChangeColName},desc',
         crudMethod: {...crud${className}}

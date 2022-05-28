@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function add(data) {
 return request({
-url: 'api/${changeClassName}',
+url: 'admin/${changeClassName}',
 method: 'post',
 data
 })
@@ -10,7 +10,7 @@ data
 
 export function del(ids) {
 return request({
-url: 'api/${changeClassName}/',
+url: 'admin/${changeClassName}/',
 method: 'delete',
 data: ids
 })
@@ -18,7 +18,7 @@ data: ids
 
 export function edit(data) {
 return request({
-url: 'api/${changeClassName}',
+url: 'admin/${changeClassName}',
 method: 'put',
 data
 })

@@ -15,6 +15,7 @@
  */
 package com.zq.admin.utils;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.poi.excel.BigExcelWriter;
@@ -188,7 +189,7 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
         String nowStr = "-" + format.format(date);
         try {
             String fileName = name + nowStr + "." + suffix;
-            String path = filePath + fileName;
+            String path = filePath + (DateUtil.format(new Date(), "yyyyMM/dd/")) + fileName;
             // getCanonicalFile 可解析正确各种路径
             File dest = new File(path).getCanonicalFile();
             // 检测是否存在目录

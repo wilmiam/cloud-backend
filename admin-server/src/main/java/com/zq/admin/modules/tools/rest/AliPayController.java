@@ -45,7 +45,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/aliPay")
+@RequestMapping("/admin/aliPay")
 @Api(tags = "工具：支付宝管理")
 public class AliPayController {
 

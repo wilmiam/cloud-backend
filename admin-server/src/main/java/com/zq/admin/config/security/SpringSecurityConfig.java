@@ -105,15 +105,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/webSocket/**"
                 ).permitAll()
                 // swagger 文档
-                .antMatchers("/swagger-ui.html").permitAll()
-                .antMatchers("/swagger-resources/**").permitAll()
+                .antMatchers("/admin/swagger-ui.html").permitAll()
+                .antMatchers("/admin/swagger-resources/**").permitAll()
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/*/api-docs").permitAll()
                 // 文件
-                .antMatchers("/avatar/**").permitAll()
-                .antMatchers("/file/**").permitAll()
+                .antMatchers("/admin/avatar/**").permitAll()
+                .antMatchers("/admin/file/**").permitAll()
                 // 阿里巴巴 druid
-                .antMatchers("/druid/**").permitAll()
+                .antMatchers("/admin/druid/**").permitAll()
                 // 放行OPTIONS请求
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // 自定义匿名访问所有url放行：允许匿名和带Token访问，细腻化到每个 Request 类型

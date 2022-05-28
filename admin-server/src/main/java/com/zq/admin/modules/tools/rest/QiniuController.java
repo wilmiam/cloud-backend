@@ -45,7 +45,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/qiNiuContent")
+@RequestMapping("/admin/qiNiuContent")
 @Api(tags = "工具：七牛云存储管理")
 public class QiniuController {
 

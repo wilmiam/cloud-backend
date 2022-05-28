@@ -44,7 +44,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "系统：字典详情管理")
-@RequestMapping("/api/dictDetail")
+@RequestMapping("/admin/dictDetail")
 public class DictDetailController {
 
     private final DictDetailService dictDetailService;

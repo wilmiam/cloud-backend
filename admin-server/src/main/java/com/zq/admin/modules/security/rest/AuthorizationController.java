@@ -62,7 +62,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/admin/auth")
 @RequiredArgsConstructor
 @Api(tags = "系统：系统授权接口")
 public class AuthorizationController {

@@ -30,7 +30,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @author ZhangHouYing
  * @date 2019-08-10 15:46
  */
-@ServerEndpoint("/webSocket/{sid}")
+@ServerEndpoint("/admin/webSocket/{sid}")
 @Slf4j
 @Component
 public class WebSocketServer {
@@ -57,11 +57,7 @@ public class WebSocketServer {
     public void onOpen(Session session, @PathParam("sid") String sid) {
         this.session = session;
         //如果存在就先删除一个，防止重复推送消息
-        for (WebSocketServer webSocket : webSocketSet) {
-            if (webSocket.sid.equals(sid)) {
-                webSocketSet.remove(webSocket);
-            }
-        }
+        webSocketSet.removeIf(webSocket -> webSocket.sid.equals(sid));
         webSocketSet.add(this);
         this.sid = sid;
     }

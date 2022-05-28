@@ -35,7 +35,7 @@ import java.util.Objects;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/code")
+@RequestMapping("/admin/code")
 @Api(tags = "系统：验证码管理")
 public class VerifyController {
 

@@ -41,7 +41,7 @@ import java.util.Set;
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "系统：字典管理")
-@RequestMapping("/api/dict")
+@RequestMapping("/admin/dict")
 public class DictController {
 
     private final DictService dictService;

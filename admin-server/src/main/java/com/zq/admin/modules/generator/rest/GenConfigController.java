@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/genConfig")
+@RequestMapping("/admin/genConfig")
 @Api(tags = "系统：代码生成器配置管理")
 public class GenConfigController {
 

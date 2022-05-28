@@ -48,7 +48,7 @@ import java.util.Set;
 @RestController
 @Api(tags = "运维：部署管理")
 @RequiredArgsConstructor
-@RequestMapping("/api/deploy")
+@RequestMapping("/admin/deploy")
 public class DeployController {
 
     private final String fileSavePath = FileUtil.getTmpDirPath() + "/";

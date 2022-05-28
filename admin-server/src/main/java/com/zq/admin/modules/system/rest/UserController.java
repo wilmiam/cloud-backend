@@ -57,7 +57,7 @@ import java.util.stream.Collectors;
  */
 @Api(tags = "系统：用户管理")
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/admin/users")
 @RequiredArgsConstructor
 public class UserController {
 

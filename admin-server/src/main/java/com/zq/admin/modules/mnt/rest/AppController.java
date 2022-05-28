@@ -40,7 +40,7 @@ import java.util.Set;
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "运维：应用管理")
-@RequestMapping("/api/app")
+@RequestMapping("/admin/app")
 public class AppController {
 
     private final AppService appService;

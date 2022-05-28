@@ -42,7 +42,7 @@ import java.util.*;
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "系统：部门管理")
-@RequestMapping("/api/dept")
+@RequestMapping("/admin/dept")
 public class DeptController {
 
     private final DeptService deptService;

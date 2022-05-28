@@ -42,7 +42,7 @@ import java.util.Set;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/jobs")
+@RequestMapping("/admin/jobs")
 @Api(tags = "系统:定时任务管理")
 public class QuartzJobController {
 
