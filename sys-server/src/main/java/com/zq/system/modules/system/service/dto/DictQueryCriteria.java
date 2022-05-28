@@ -15,8 +15,8 @@
  */
 package com.zq.system.modules.system.service.dto;
 
-import lombok.Data;
 import com.zq.system.annotation.Query;
+import lombok.Data;
 
 /**
  * @author Zheng Jie
@@ -27,4 +27,5 @@ public class DictQueryCriteria {
 
     @Query(blurry = "name,description")
     private String blurry;
+
 }

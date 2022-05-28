@@ -30,12 +30,13 @@ public class BadRequestException extends RuntimeException {
 
     private Integer status = BAD_REQUEST.value();
 
-    public BadRequestException(String msg){
+    public BadRequestException(String msg) {
         super(msg);
     }
 
-    public BadRequestException(HttpStatus status, String msg){
+    public BadRequestException(HttpStatus status, String msg) {
         super(msg);
         this.status = status.value();
     }
+
 }

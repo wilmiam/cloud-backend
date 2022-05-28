@@ -35,6 +35,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequiredArgsConstructor
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
+
     private final UserService userService;
     private final RoleService roleService;
     private final DataService dataService;
@@ -87,4 +88,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         return jwtUserDto;
     }
+
 }

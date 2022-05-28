@@ -27,6 +27,7 @@ package com.zq.system.utils;
  */
 
 public interface CallBack {
+
     /**
      * 回调执行方法
      */
@@ -34,10 +35,12 @@ public interface CallBack {
 
     /**
      * 本回调任务名称
+     *
      * @return /
      */
     default String getCallBackName() {
         return Thread.currentThread().getId() + ":" + this.getClass().getName();
     }
+
 }
 

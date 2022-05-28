@@ -15,11 +15,12 @@
  */
 package com.zq.system.aspect;
 
+import com.zq.common.http.HttpRequestUtils;
+import com.zq.common.utils.ThrowableUtil;
+import com.zq.logging.utils.RequestUtils;
 import com.zq.system.modules.system.domain.Log;
 import com.zq.system.modules.system.service.LogService;
 import com.zq.system.utils.SecurityUtils;
-import com.zq.common.http.HttpRequestUtils;
-import com.zq.common.utils.ThrowableUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -51,7 +52,7 @@ public class LogAspect {
     /**
      * 配置切入点
      */
-    @Pointcut("@annotation(com.zq.common.annotation.Log)")
+    @Pointcut("@annotation(com.zq.logging.annotation.Log)")
     public void logPointcut() {
         // 该方法无方法体,主要为了让同类中其他方法使用此切入点
     }
@@ -69,7 +70,7 @@ public class LogAspect {
         Log log = new Log("INFO", System.currentTimeMillis() - currentTime.get());
         currentTime.remove();
         HttpServletRequest request = HttpRequestUtils.getRequest();
-        logService.save(getUsername(), HttpRequestUtils.getBrowser(request), HttpRequestUtils.getClientIp(request), joinPoint, log);
+        logService.save(getUsername(), RequestUtils.getBrowser(request), HttpRequestUtils.getClientIp(request), joinPoint, log);
         return result;
     }
 
@@ -85,7 +86,7 @@ public class LogAspect {
         currentTime.remove();
         log.setExceptionDetail(ThrowableUtil.getStackTrace(e).getBytes());
         HttpServletRequest request = HttpRequestUtils.getRequest();
-        logService.save(getUsername(), HttpRequestUtils.getBrowser(request), HttpRequestUtils.getClientIp(request), (ProceedingJoinPoint) joinPoint, log);
+        logService.save(getUsername(), RequestUtils.getBrowser(request), HttpRequestUtils.getClientIp(request), (ProceedingJoinPoint) joinPoint, log);
     }
 
     public String getUsername() {
@@ -95,4 +96,5 @@ public class LogAspect {
             return "";
         }
     }
+
 }

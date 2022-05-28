@@ -16,10 +16,10 @@
 package com.zq.system.modules.system.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.zq.system.base.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import com.zq.system.base.BaseEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -107,4 +107,5 @@ public class Menu extends BaseEntity implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

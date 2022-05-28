@@ -35,4 +35,5 @@ public class RsaProperties {
     public void setPrivateKey(String privateKey) {
         RsaProperties.privateKey = privateKey;
     }
+
 }

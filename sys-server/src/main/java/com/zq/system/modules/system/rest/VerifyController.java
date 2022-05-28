@@ -74,4 +74,5 @@ public class VerifyController {
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

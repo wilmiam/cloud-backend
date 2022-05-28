@@ -16,6 +16,7 @@
 package com.zq.common.vo;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -29,6 +30,7 @@ import java.util.Date;
  * @since 2021-07-09 18:13
  */
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class OnlineUserDto implements Serializable {

@@ -21,10 +21,10 @@ import cn.hutool.extra.template.Template;
 import cn.hutool.extra.template.TemplateConfig;
 import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.TemplateUtil;
+import com.zq.common.config.redis.RedisUtils;
 import com.zq.system.exception.BadRequestException;
 import com.zq.system.modules.system.service.VerifyService;
 import com.zq.system.modules.tools.domain.vo.EmailVo;
-import com.zq.common.config.redis.RedisUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -79,4 +79,5 @@ public class VerifyServiceImpl implements VerifyService {
             redisUtils.del(key);
         }
     }
+
 }

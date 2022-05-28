@@ -16,10 +16,10 @@
 package com.zq.system.modules.system.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.zq.system.base.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import com.zq.system.base.BaseEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -29,13 +29,13 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
-* @author Zheng Jie
-* @date 2019-03-25
-*/
+ * @author Zheng Jie
+ * @date 2019-03-25
+ */
 @Entity
 @Getter
 @Setter
-@Table(name="sys_dept")
+@Table(name = "sys_dept")
 public class Dept extends BaseEntity implements Serializable {
 
     @Id
@@ -84,4 +84,5 @@ public class Dept extends BaseEntity implements Serializable {
     public int hashCode() {
         return Objects.hash(id, name);
     }
+
 }

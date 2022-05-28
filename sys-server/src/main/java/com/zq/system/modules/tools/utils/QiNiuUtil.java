@@ -73,4 +73,5 @@ public class QiNiuUtil {
                 "." +
                 FileUtil.getExtensionName(file);
     }
+
 }

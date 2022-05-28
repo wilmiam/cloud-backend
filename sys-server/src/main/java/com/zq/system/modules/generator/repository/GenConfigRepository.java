@@ -31,4 +31,5 @@ public interface GenConfigRepository extends JpaRepository<GenConfig, Long> {
      * @return /
      */
     GenConfig findByTableName(String tableName);
+
 }

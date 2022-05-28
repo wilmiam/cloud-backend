@@ -35,4 +35,5 @@ public interface DataService {
      * @return /
      */
     List<Long> getDeptIds(UserDto user);
+
 }

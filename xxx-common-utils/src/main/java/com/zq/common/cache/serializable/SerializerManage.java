@@ -70,4 +70,5 @@ public class SerializerManage {
     public static Object deserialize(byte[] bytes) throws IOException {
         return getDefault().deserialize(bytes);
     }
+
 }

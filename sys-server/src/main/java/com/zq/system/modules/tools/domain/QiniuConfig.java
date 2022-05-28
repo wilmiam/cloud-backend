@@ -27,6 +27,7 @@ import java.io.Serializable;
 
 /**
  * 七牛云对象存储配置类
+ *
  * @author Zheng Jie
  * @date 2018-12-31
  */
@@ -70,4 +71,5 @@ public class QiniuConfig implements Serializable {
 
     @ApiModelProperty(value = "空间类型：公开/私有")
     private String type = "公开";
+
 }

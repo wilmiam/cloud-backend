@@ -4,6 +4,9 @@ oauth.name: AUTH-SERVER
 sys.port: 8666
 sys.name: SYS-SERVER
 
+admin.port: 9000
+admin.name: ADMIN-SERVER
+
 file.port: 8200
 file.name: FILE-SERVER
 

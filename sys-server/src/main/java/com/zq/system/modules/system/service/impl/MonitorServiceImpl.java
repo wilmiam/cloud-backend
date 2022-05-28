@@ -195,4 +195,5 @@ public class MonitorServiceImpl implements MonitorService {
         systemInfo.put("ip", HttpRequestUtils.getLocalIp());
         return systemInfo;
     }
+
 }

@@ -64,4 +64,5 @@ public class GenConfigServiceImpl implements GenConfigService {
         genConfig.setApiPath(api.toString());
         return genConfigRepository.save(genConfig);
     }
+
 }

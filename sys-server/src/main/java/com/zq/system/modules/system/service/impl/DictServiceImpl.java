@@ -120,4 +120,5 @@ public class DictServiceImpl implements DictService {
     public void delCaches(Dict dict) {
         redisUtils.del(CacheKey.DICT_NAME + dict.getName());
     }
+
 }

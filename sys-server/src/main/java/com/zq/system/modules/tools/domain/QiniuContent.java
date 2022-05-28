@@ -25,6 +25,7 @@ import java.sql.Timestamp;
 
 /**
  * 上传成功后，存储结果
+ *
  * @author Zheng Jie
  * @date 2018-12-31
  */
@@ -62,4 +63,5 @@ public class QiniuContent implements Serializable {
     @ApiModelProperty(value = "创建或更新时间")
     @Column(name = "update_time")
     private Timestamp updateTime;
+
 }

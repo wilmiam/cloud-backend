@@ -65,4 +65,5 @@ public class QuartzLog implements Serializable {
     @CreationTimestamp
     @ApiModelProperty(value = "创建时间", hidden = true)
     private Timestamp createTime;
+
 }

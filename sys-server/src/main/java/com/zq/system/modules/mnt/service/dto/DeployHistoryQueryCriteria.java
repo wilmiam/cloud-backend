@@ -15,28 +15,29 @@
  */
 package com.zq.system.modules.mnt.service.dto;
 
-import lombok.Data;
 import com.zq.system.annotation.Query;
+import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.List;
 
 /**
-* @author zhanghouying
-* @date 2019-08-24
-*/
+ * @author zhanghouying
+ * @date 2019-08-24
+ */
 @Data
-public class DeployHistoryQueryCriteria{
+public class DeployHistoryQueryCriteria {
 
-	/**
-	 * 精确
-	 */
-	@Query(blurry = "appName,ip,deployUser")
-	private String blurry;
+    /**
+     * 精确
+     */
+    @Query(blurry = "appName,ip,deployUser")
+    private String blurry;
 
-	@Query
-	private Long deployId;
+    @Query
+    private Long deployId;
 
-	@Query(type = Query.Type.BETWEEN)
-	private List<Timestamp> deployDate;
+    @Query(type = Query.Type.BETWEEN)
+    private List<Timestamp> deployDate;
+
 }

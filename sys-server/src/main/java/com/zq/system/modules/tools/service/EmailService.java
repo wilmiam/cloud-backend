@@ -49,4 +49,5 @@ public interface EmailService {
      * @throws Exception /
      */
     void send(EmailVo emailVo, EmailConfig emailConfig);
+
 }

@@ -95,4 +95,5 @@ public interface LogService {
      * 删除所有INFO日志
      */
     void delAllByInfo();
+
 }

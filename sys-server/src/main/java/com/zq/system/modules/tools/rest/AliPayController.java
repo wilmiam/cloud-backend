@@ -15,14 +15,14 @@
  */
 package com.zq.system.modules.tools.rest;
 
+import com.zq.common.annotation.AnonymousAccess;
+import com.zq.common.annotation.rest.AnonymousGetMapping;
+import com.zq.logging.annotation.Log;
 import com.zq.system.modules.tools.domain.AlipayConfig;
 import com.zq.system.modules.tools.domain.vo.TradeVo;
 import com.zq.system.modules.tools.service.AliPayService;
 import com.zq.system.modules.tools.utils.AliPayStatusEnum;
 import com.zq.system.modules.tools.utils.AlipayUtils;
-import com.zq.common.annotation.AnonymousAccess;
-import com.zq.logging.annotation.Log;
-import com.zq.common.annotation.rest.AnonymousGetMapping;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -132,4 +132,5 @@ public class AliPayController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
 }

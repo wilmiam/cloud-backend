@@ -38,4 +38,5 @@ public class LogSmallDTO implements Serializable {
     private String browser;
 
     private Timestamp createTime;
+
 }

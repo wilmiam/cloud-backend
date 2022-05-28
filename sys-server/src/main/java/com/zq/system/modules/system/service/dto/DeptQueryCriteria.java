@@ -15,20 +15,20 @@
  */
 package com.zq.system.modules.system.service.dto;
 
-import lombok.Data;
 import com.zq.system.annotation.DataPermission;
 import com.zq.system.annotation.Query;
+import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.List;
 
 /**
-* @author Zheng Jie
-* @date 2019-03-25
-*/
+ * @author Zheng Jie
+ * @date 2019-03-25
+ */
 @Data
 @DataPermission(fieldName = "id")
-public class DeptQueryCriteria{
+public class DeptQueryCriteria {
 
     @Query(type = Query.Type.INNER_LIKE)
     private String name;
@@ -44,4 +44,5 @@ public class DeptQueryCriteria{
 
     @Query(type = Query.Type.BETWEEN)
     private List<Timestamp> createTime;
+
 }

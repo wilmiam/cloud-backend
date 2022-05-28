@@ -22,4 +22,5 @@ public class AuthorizationException extends RuntimeException {
     public AuthorizationException(Throwable cause) {
         super(cause);
     }
+
 }

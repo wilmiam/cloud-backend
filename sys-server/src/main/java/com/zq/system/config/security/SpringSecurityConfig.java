@@ -182,4 +182,5 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         anonymousUrls.put(RequestMethodEnum.ALL.getType(), all);
         return anonymousUrls;
     }
+
 }

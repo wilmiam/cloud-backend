@@ -501,7 +501,7 @@ public final class HttpClientUtils {
 
             if (log.isDebugEnabled()) {
                 long spent = TimeUnit.NANOSECONDS.toMillis(end - start);
-               log.debug(">> HTTP {} response {} in {}ms, url: {}", httpRequest.getMethod(), response.getStatusLine().getStatusCode(), spent, url);
+                log.debug(">> HTTP {} response {} in {}ms, url: {}", httpRequest.getMethod(), response.getStatusLine().getStatusCode(), spent, url);
             }
             return response;
         } catch (IOException e) {

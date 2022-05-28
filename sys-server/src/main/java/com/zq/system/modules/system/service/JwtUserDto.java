@@ -80,4 +80,5 @@ public class JwtUserDto implements UserDetails {
     public boolean isEnabled() {
         return user.getEnabled();
     }
+
 }

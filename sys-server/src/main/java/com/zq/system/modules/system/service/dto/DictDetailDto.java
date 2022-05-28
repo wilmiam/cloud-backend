@@ -15,16 +15,16 @@
  */
 package com.zq.system.modules.system.service.dto;
 
+import com.zq.system.base.BaseDTO;
 import lombok.Getter;
 import lombok.Setter;
-import com.zq.system.base.BaseDTO;
 
 import java.io.Serializable;
 
 /**
-* @author Zheng Jie
-* @date 2019-04-10
-*/
+ * @author Zheng Jie
+ * @date 2019-04-10
+ */
 @Getter
 @Setter
 public class DictDetailDto extends BaseDTO implements Serializable {
@@ -38,4 +38,5 @@ public class DictDetailDto extends BaseDTO implements Serializable {
     private String value;
 
     private Integer dictSort;
+
 }

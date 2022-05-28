@@ -37,4 +37,5 @@ public class AuthUserDto {
     private String code;
 
     private String uuid = "";
+
 }

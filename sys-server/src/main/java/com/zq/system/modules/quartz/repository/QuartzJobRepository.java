@@ -33,4 +33,5 @@ public interface QuartzJobRepository extends JpaRepository<QuartzJob, Long>, Jpa
      * @return List
      */
     List<QuartzJob> findByIsPauseIsFalse();
+
 }

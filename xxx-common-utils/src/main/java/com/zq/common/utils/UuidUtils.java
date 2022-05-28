@@ -56,4 +56,5 @@ public class UuidUtils {
     public static boolean isNoDashUuid(String str) {
         return ValidateUtil.isNotBlank(str) && str.matches(NODASH_UUID_REGEX);
     }
+
 }

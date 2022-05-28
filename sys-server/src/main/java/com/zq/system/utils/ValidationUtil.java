@@ -43,4 +43,5 @@ public class ValidationUtil {
     public static boolean isEmail(String email) {
         return new EmailValidator().isValid(email, null);
     }
+
 }

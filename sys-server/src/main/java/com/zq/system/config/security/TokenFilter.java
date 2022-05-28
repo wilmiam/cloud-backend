@@ -17,6 +17,7 @@ package com.zq.system.config.security;
 
 import cn.hutool.core.util.StrUtil;
 import com.zq.common.config.security.SecurityProperties;
+import com.zq.common.context.ContextUtils;
 import com.zq.common.vo.OnlineUserDto;
 import com.zq.system.modules.system.service.OnlineUserService;
 import com.zq.system.modules.system.service.UserCacheClean;
@@ -40,6 +41,7 @@ import java.util.Objects;
  * @author /
  */
 public class TokenFilter extends GenericFilterBean {
+
     private static final Logger log = LoggerFactory.getLogger(TokenFilter.class);
 
 
@@ -85,6 +87,8 @@ public class TokenFilter extends GenericFilterBean {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 // Token 续期
                 tokenProvider.checkRenewal(token);
+
+                ContextUtils.setAdminContext(onlineUserDto);
             }
         }
         filterChain.doFilter(servletRequest, servletResponse);

@@ -99,4 +99,5 @@ public class SecurityUtils {
         }
         return DataScopeEnum.ALL.getValue();
     }
+
 }

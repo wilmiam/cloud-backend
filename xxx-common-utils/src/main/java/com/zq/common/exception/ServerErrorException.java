@@ -22,4 +22,5 @@ public class ServerErrorException extends RuntimeException {
     public ServerErrorException(Throwable cause) {
         super(cause);
     }
+
 }

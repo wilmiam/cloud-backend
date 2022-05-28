@@ -33,4 +33,5 @@ public class QiniuQueryCriteria {
 
     @Query(type = Query.Type.BETWEEN)
     private List<Timestamp> createTime;
+
 }

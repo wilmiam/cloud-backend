@@ -66,6 +66,7 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 @Api(tags = "系统：系统授权接口")
 public class AuthorizationController {
+
     private final SecurityProperties properties;
     private final RedisUtils redisUtils;
     private final OnlineUserService onlineUserService;
@@ -143,4 +144,5 @@ public class AuthorizationController {
         onlineUserService.logout(tokenProvider.getToken(request));
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

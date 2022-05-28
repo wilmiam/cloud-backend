@@ -195,4 +195,5 @@ public class QuartzJobServiceImpl implements QuartzJobService {
         }
         FileUtil.downloadExcel(list, response);
     }
+
 }

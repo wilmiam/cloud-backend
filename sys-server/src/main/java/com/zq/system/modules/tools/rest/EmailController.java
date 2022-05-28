@@ -15,10 +15,10 @@
  */
 package com.zq.system.modules.tools.rest;
 
+import com.zq.logging.annotation.Log;
 import com.zq.system.modules.tools.domain.EmailConfig;
 import com.zq.system.modules.tools.domain.vo.EmailVo;
 import com.zq.system.modules.tools.service.EmailService;
-import com.zq.logging.annotation.Log;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -61,4 +61,5 @@ public class EmailController {
         emailService.send(emailVo, emailService.find());
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

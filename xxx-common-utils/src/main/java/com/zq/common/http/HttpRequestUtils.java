@@ -1,12 +1,7 @@
 package com.zq.common.http;
 
-import cn.hutool.http.HttpUtil;
-import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.zq.common.constant.CloudConstant;
-import nl.basjes.parse.useragent.UserAgent;
-import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,13 +55,6 @@ public class HttpRequestUtils {
             "HTTP_VIA",
             "REMOTE_ADDR",
             "X-Real-IP"};
-
-    private static final UserAgentAnalyzer USER_AGENT_ANALYZER = UserAgentAnalyzer
-            .newBuilder()
-            .hideMatcherLoadStats()
-            .withCache(10000)
-            .withField(UserAgent.AGENT_NAME_VERSION)
-            .build();
 
     public static HttpServletRequest getRequest() {
         return ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
@@ -236,58 +224,6 @@ public class HttpRequestUtils {
     }
 
     /**
-     * 根据ip获取详细地址
-     */
-    public static String getCityInfo(String ip) {
-        if (ipLocal) {
-            return "";
-            //     return getLocalCityInfo(ip);
-        } else {
-            return getHttpCityInfo(ip);
-        }
-    }
-
-    /**
-     * 根据ip获取详细地址
-     */
-    public static String getHttpCityInfo(String ip) {
-        String api = String.format(CloudConstant.Url.IP_URL, ip);
-        cn.hutool.json.JSONObject object = JSONUtil.parseObj(HttpUtil.get(api));
-        return object.get("addr", String.class);
-    }
-
-    /**
-     * 根据ip获取详细地址uu
-     */
-    // public static String getLocalCityInfo(String ip) {
-    //     try {
-    //         DataBlock dataBlock = new DbSearcher(config, file.getPath())
-    //                 .binarySearch(ip);
-    //         String region = dataBlock.getRegion();
-    //         String address = region.replace("0|", "");
-    //         char symbol = '|';
-    //         if (address.charAt(address.length() - 1) == symbol) {
-    //             address = address.substring(0, address.length() - 1);
-    //         }
-    //         return address.equals(ElAdminConstant.REGION) ? "内网IP" : address;
-    //     } catch (Exception e) {
-    //         log.error(e.getMessage(), e);
-    //     }
-    //     return "";
-    // }
-
-    /**
-     * 获取浏览器
-     *
-     * @param request
-     * @return
-     */
-    public static String getBrowser(HttpServletRequest request) {
-        UserAgent.ImmutableUserAgent userAgent = USER_AGENT_ANALYZER.parse(request.getHeader("User-Agent"));
-        return userAgent.get(UserAgent.AGENT_NAME_VERSION).getValue();
-    }
-
-    /**
      * 获取当前机器的IP
      *
      * @return /
@@ -326,4 +262,5 @@ public class HttpRequestUtils {
             return "";
         }
     }
+
 }

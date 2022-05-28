@@ -102,4 +102,5 @@ public interface GeneratorService {
      * @return /
      */
     List<ColumnInfo> query(String table);
+
 }

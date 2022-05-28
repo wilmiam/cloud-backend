@@ -18,7 +18,7 @@ package com.zq.system.modules.system.service.impl;
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
-import com.zq.common.http.HttpRequestUtils;
+import com.zq.logging.utils.RequestUtils;
 import com.zq.system.modules.system.domain.Log;
 import com.zq.system.modules.system.repository.LogRepository;
 import com.zq.system.modules.system.service.LogService;
@@ -100,7 +100,7 @@ public class LogServiceImpl implements LogService {
         assert log != null;
         log.setRequestIp(ip);
 
-        log.setAddress(HttpRequestUtils.getCityInfo(log.getRequestIp()));
+        log.setAddress(RequestUtils.getCityInfo(log.getRequestIp()));
         log.setMethod(methodName);
         log.setUsername(username);
         log.setParams(getParameter(method, joinPoint.getArgs()));

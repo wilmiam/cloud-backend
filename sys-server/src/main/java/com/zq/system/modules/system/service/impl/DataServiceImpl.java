@@ -18,11 +18,11 @@ package com.zq.system.modules.system.service.impl;
 import com.zq.system.modules.system.domain.Dept;
 import com.zq.system.modules.system.service.DataService;
 import com.zq.system.modules.system.service.DeptService;
-import com.zq.system.modules.system.service.dto.RoleSmallDto;
-import lombok.RequiredArgsConstructor;
 import com.zq.system.modules.system.service.RoleService;
+import com.zq.system.modules.system.service.dto.RoleSmallDto;
 import com.zq.system.modules.system.service.dto.UserDto;
 import com.zq.system.utils.enums.DataScopeEnum;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -45,6 +45,7 @@ public class DataServiceImpl implements DataService {
 
     /**
      * 用户角色改变时需清理缓存
+     *
      * @param user /
      * @return /
      */
@@ -74,11 +75,12 @@ public class DataServiceImpl implements DataService {
 
     /**
      * 获取自定义的数据权限
+     *
      * @param deptIds 部门ID
-     * @param role 角色
+     * @param role    角色
      * @return 数据权限ID
      */
-    public Set<Long> getCustomize(Set<Long> deptIds, RoleSmallDto role){
+    public Set<Long> getCustomize(Set<Long> deptIds, RoleSmallDto role) {
         Set<Dept> depts = deptService.findByRoleId(role.getId());
         for (Dept dept : depts) {
             deptIds.add(dept.getId());
@@ -89,4 +91,5 @@ public class DataServiceImpl implements DataService {
         }
         return deptIds;
     }
+
 }

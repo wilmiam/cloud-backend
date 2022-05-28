@@ -23,6 +23,7 @@ import java.util.List;
 
 /**
  * 构建前端路由时用到
+ *
  * @author Zheng Jie
  * @date 2018-12-20
  */
@@ -45,4 +46,5 @@ public class MenuVo implements Serializable {
     private MenuMetaVo meta;
 
     private List<MenuVo> children;
+
 }

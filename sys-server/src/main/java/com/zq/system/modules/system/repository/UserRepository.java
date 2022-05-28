@@ -33,6 +33,7 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 
     /**
      * 根据用户名查询
+     *
      * @param username 用户名
      * @return /
      */
@@ -40,6 +41,7 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 
     /**
      * 根据邮箱查询
+     *
      * @param email 邮箱
      * @return /
      */
@@ -47,6 +49,7 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 
     /**
      * 根据手机号查询
+     *
      * @param phone 手机号
      * @return /
      */
@@ -54,25 +57,28 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 
     /**
      * 修改密码
-     * @param username 用户名
-     * @param pass 密码
+     *
+     * @param username              用户名
+     * @param pass                  密码
      * @param lastPasswordResetTime /
      */
     @Modifying
-    @Query(value = "update sys_user set password = ?2 , pwd_reset_time = ?3 where username = ?1",nativeQuery = true)
+    @Query(value = "update sys_user set password = ?2 , pwd_reset_time = ?3 where username = ?1", nativeQuery = true)
     void updatePass(String username, String pass, Date lastPasswordResetTime);
 
     /**
      * 修改邮箱
+     *
      * @param username 用户名
-     * @param email 邮箱
+     * @param email    邮箱
      */
     @Modifying
-    @Query(value = "update sys_user set email = ?2 where username = ?1",nativeQuery = true)
+    @Query(value = "update sys_user set email = ?2 where username = ?1", nativeQuery = true)
     void updateEmail(String username, String email);
 
     /**
      * 根据角色查询用户
+     *
      * @param roleId /
      * @return /
      */
@@ -82,6 +88,7 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 
     /**
      * 根据角色中的部门查询
+     *
      * @param deptId /
      * @return /
      */
@@ -91,6 +98,7 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 
     /**
      * 根据菜单查询
+     *
      * @param id 菜单ID
      * @return /
      */
@@ -100,12 +108,14 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 
     /**
      * 根据Id删除
+     *
      * @param ids /
      */
     void deleteAllByIdIn(Set<Long> ids);
 
     /**
      * 根据岗位查询
+     *
      * @param ids /
      * @return /
      */
@@ -114,6 +124,7 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 
     /**
      * 根据部门查询
+     *
      * @param deptIds /
      * @return /
      */
@@ -122,10 +133,12 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 
     /**
      * 根据角色查询
+     *
      * @param ids /
      * @return /
      */
     @Query(value = "SELECT count(1) FROM sys_user u, sys_users_roles r WHERE " +
             "u.user_id = r.user_id AND r.role_id in ?1", nativeQuery = true)
     int countByRoles(Set<Long> ids);
+
 }

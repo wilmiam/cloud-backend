@@ -60,5 +60,7 @@ public class FileProperties {
         private String path;
 
         private String avatar;
+
     }
+
 }

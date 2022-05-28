@@ -15,11 +15,11 @@
  */
 package com.zq.system.modules.tools.rest;
 
+import com.zq.logging.annotation.Log;
 import com.zq.system.modules.tools.domain.QiniuConfig;
 import com.zq.system.modules.tools.domain.QiniuContent;
 import com.zq.system.modules.tools.service.QiNiuService;
 import com.zq.system.modules.tools.service.dto.QiniuQueryCriteria;
-import com.zq.logging.annotation.Log;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -121,4 +121,5 @@ public class QiniuController {
         qiNiuService.deleteAll(ids, qiNiuService.find());
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

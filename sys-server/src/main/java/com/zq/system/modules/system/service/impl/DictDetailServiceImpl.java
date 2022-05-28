@@ -15,6 +15,7 @@
  */
 package com.zq.system.modules.system.service.impl;
 
+import com.zq.common.config.redis.RedisUtils;
 import com.zq.system.modules.system.domain.Dict;
 import com.zq.system.modules.system.domain.DictDetail;
 import com.zq.system.modules.system.repository.DictDetailRepository;
@@ -27,7 +28,6 @@ import com.zq.system.utils.CacheKey;
 import com.zq.system.utils.PageUtil;
 import com.zq.system.utils.QueryHelp;
 import com.zq.system.utils.ValidationUtil;
-import com.zq.common.config.redis.RedisUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -97,4 +97,5 @@ public class DictDetailServiceImpl implements DictDetailService {
         Dict dict = dictRepository.findById(dictDetail.getDict().getId()).orElseGet(Dict::new);
         redisUtils.del(CacheKey.DICT_NAME + dict.getName());
     }
+
 }

@@ -15,8 +15,8 @@
  */
 package com.zq.system.modules.system.service.dto;
 
-import lombok.Data;
 import com.zq.system.annotation.Query;
+import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -33,4 +33,5 @@ public class RoleQueryCriteria {
 
     @Query(type = Query.Type.BETWEEN)
     private List<Timestamp> createTime;
+
 }

@@ -16,10 +16,10 @@
 package com.zq.system.modules.system.rest;
 
 import com.zq.system.modules.system.service.OnlineUserService;
+import com.zq.system.utils.EncryptUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import com.zq.system.utils.EncryptUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +44,7 @@ public class OnlineController {
     @ApiOperation("查询在线用户")
     @GetMapping
     @PreAuthorize("@el.check()")
-    public ResponseEntity<Object> query(String filter, Pageable pageable){
+    public ResponseEntity<Object> query(String filter, Pageable pageable) {
         return new ResponseEntity<>(onlineUserService.getAll(filter, pageable), HttpStatus.OK);
     }
 
@@ -66,4 +66,5 @@ public class OnlineController {
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

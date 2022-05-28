@@ -212,4 +212,5 @@ public class QueryHelp {
         }
         return fields;
     }
+
 }

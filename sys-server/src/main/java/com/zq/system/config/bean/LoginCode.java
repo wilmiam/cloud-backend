@@ -58,4 +58,5 @@ public class LoginCode {
     public LoginCodeEnum getCodeType() {
         return codeType;
     }
+
 }

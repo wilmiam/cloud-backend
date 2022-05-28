@@ -38,4 +38,5 @@ public class TokenConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFi
         TokenFilter customFilter = new TokenFilter(tokenProvider, properties, redisUtils);
         http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
 }

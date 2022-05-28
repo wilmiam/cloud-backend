@@ -15,8 +15,8 @@
  */
 package com.zq.system.modules.system.service.dto;
 
-import lombok.Data;
 import com.zq.system.annotation.Query;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -47,4 +47,5 @@ public class UserQueryCriteria implements Serializable {
 
     @Query(type = Query.Type.BETWEEN)
     private List<Timestamp> createTime;
+
 }

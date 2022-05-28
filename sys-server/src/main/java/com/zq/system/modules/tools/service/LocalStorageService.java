@@ -87,4 +87,5 @@ public interface LocalStorageService {
      * @throws IOException /
      */
     void download(List<LocalStorageDto> localStorageDtos, HttpServletResponse response) throws IOException;
+
 }

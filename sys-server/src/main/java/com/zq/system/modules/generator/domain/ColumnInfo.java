@@ -96,4 +96,5 @@ public class ColumnInfo implements Serializable {
         this.listShow = true;
         this.formShow = true;
     }
+
 }

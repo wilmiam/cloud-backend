@@ -16,18 +16,18 @@
 package com.zq.system.modules.system.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.zq.system.base.BaseDTO;
 import lombok.Getter;
 import lombok.Setter;
-import com.zq.system.base.BaseDTO;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 /**
-* @author Zheng Jie
-* @date 2019-03-25
-*/
+ * @author Zheng Jie
+ * @date 2019-03-25
+ */
 @Getter
 @Setter
 public class DeptDto extends BaseDTO implements Serializable {
@@ -76,4 +76,5 @@ public class DeptDto extends BaseDTO implements Serializable {
     public int hashCode() {
         return Objects.hash(id, name);
     }
+
 }

@@ -32,4 +32,5 @@ public interface QiniuContentRepository extends JpaRepository<QiniuContent, Long
      * @return QiniuContent
      */
     QiniuContent findByKey(String key);
+
 }

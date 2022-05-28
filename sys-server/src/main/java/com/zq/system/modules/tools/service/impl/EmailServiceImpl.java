@@ -101,4 +101,5 @@ public class EmailServiceImpl implements EmailService {
             throw new BadRequestException(e.getMessage());
         }
     }
+
 }

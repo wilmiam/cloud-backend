@@ -15,12 +15,12 @@
  */
 package com.zq.system.modules.tools.rest;
 
+import com.zq.logging.annotation.Log;
 import com.zq.system.exception.BadRequestException;
 import com.zq.system.modules.tools.domain.LocalStorage;
 import com.zq.system.modules.tools.service.LocalStorageService;
 import com.zq.system.modules.tools.service.dto.LocalStorageQueryCriteria;
 import com.zq.system.utils.FileUtil;
-import com.zq.logging.annotation.Log;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -97,4 +97,5 @@ public class LocalStorageController {
         localStorageService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

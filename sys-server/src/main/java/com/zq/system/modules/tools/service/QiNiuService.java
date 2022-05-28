@@ -127,4 +127,5 @@ public interface QiNiuService {
      * @throws IOException /
      */
     void downloadList(List<QiniuContent> queryAll, HttpServletResponse response) throws IOException;
+
 }

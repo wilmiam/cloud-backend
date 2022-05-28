@@ -37,4 +37,5 @@ public interface LogRepository extends JpaRepository<Log, Long>, JpaSpecificatio
     @Modifying
     @Query(value = "delete from sys_log where log_type = ?1", nativeQuery = true)
     void deleteByLogType(String logType);
+
 }

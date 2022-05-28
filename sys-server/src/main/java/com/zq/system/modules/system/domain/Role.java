@@ -16,11 +16,11 @@
 package com.zq.system.modules.system.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.zq.system.base.BaseEntity;
+import com.zq.system.utils.enums.DataScopeEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import com.zq.system.base.BaseEntity;
-import com.zq.system.utils.enums.DataScopeEnum;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -31,6 +31,7 @@ import java.util.Set;
 
 /**
  * 角色
+ *
  * @author Zheng Jie
  * @date 2018-11-22
  */
@@ -54,15 +55,15 @@ public class Role extends BaseEntity implements Serializable {
 
     @ManyToMany
     @JoinTable(name = "sys_roles_menus",
-            joinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "role_id")},
-            inverseJoinColumns = {@JoinColumn(name = "menu_id",referencedColumnName = "menu_id")})
+            joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "role_id")},
+            inverseJoinColumns = {@JoinColumn(name = "menu_id", referencedColumnName = "menu_id")})
     @ApiModelProperty(value = "菜单", hidden = true)
     private Set<Menu> menus;
 
     @ManyToMany
     @JoinTable(name = "sys_roles_depts",
-            joinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "role_id")},
-            inverseJoinColumns = {@JoinColumn(name = "dept_id",referencedColumnName = "dept_id")})
+            joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "role_id")},
+            inverseJoinColumns = {@JoinColumn(name = "dept_id", referencedColumnName = "dept_id")})
     @ApiModelProperty(value = "部门", hidden = true)
     private Set<Dept> depts;
 
@@ -96,4 +97,5 @@ public class Role extends BaseEntity implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

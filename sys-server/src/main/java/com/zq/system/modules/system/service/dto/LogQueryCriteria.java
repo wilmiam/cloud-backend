@@ -38,4 +38,5 @@ public class LogQueryCriteria {
 
     @Query(type = Query.Type.BETWEEN)
     private List<Timestamp> createTime;
+
 }

@@ -33,4 +33,5 @@ public interface ColumnInfoRepository extends JpaRepository<ColumnInfo, Long> {
      * @return 表信息
      */
     List<ColumnInfo> findByTableNameOrderByIdAsc(String tableName);
+
 }

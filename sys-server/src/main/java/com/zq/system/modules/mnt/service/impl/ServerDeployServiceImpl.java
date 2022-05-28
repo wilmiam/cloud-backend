@@ -15,7 +15,6 @@
  */
 package com.zq.system.modules.mnt.service.impl;
 
-import lombok.RequiredArgsConstructor;
 import com.zq.system.modules.mnt.domain.ServerDeploy;
 import com.zq.system.modules.mnt.repository.ServerDeployRepository;
 import com.zq.system.modules.mnt.service.ServerDeployService;
@@ -27,6 +26,7 @@ import com.zq.system.utils.FileUtil;
 import com.zq.system.utils.PageUtil;
 import com.zq.system.utils.QueryHelp;
 import com.zq.system.utils.ValidationUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -37,9 +37,9 @@ import java.io.IOException;
 import java.util.*;
 
 /**
-* @author zhanghouying
-* @date 2019-08-24
-*/
+ * @author zhanghouying
+ * @date 2019-08-24
+ */
 @Service
 @RequiredArgsConstructor
 public class ServerDeployServiceImpl implements ServerDeployService {
@@ -48,20 +48,20 @@ public class ServerDeployServiceImpl implements ServerDeployService {
     private final ServerDeployMapper serverDeployMapper;
 
     @Override
-    public Object queryAll(ServerDeployQueryCriteria criteria, Pageable pageable){
-        Page<ServerDeploy> page = serverDeployRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
+    public Object queryAll(ServerDeployQueryCriteria criteria, Pageable pageable) {
+        Page<ServerDeploy> page = serverDeployRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder), pageable);
         return PageUtil.toPage(page.map(serverDeployMapper::toDto));
     }
 
     @Override
-    public List<ServerDeployDto> queryAll(ServerDeployQueryCriteria criteria){
-        return serverDeployMapper.toDto(serverDeployRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
+    public List<ServerDeployDto> queryAll(ServerDeployQueryCriteria criteria) {
+        return serverDeployMapper.toDto(serverDeployRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder)));
     }
 
     @Override
     public ServerDeployDto findById(Long id) {
         ServerDeploy server = serverDeployRepository.findById(id).orElseGet(ServerDeploy::new);
-        ValidationUtil.isNull(server.getId(),"ServerDeploy","id",id);
+        ValidationUtil.isNull(server.getId(), "ServerDeploy", "id", id);
         return serverDeployMapper.toDto(server);
     }
 
@@ -71,33 +71,33 @@ public class ServerDeployServiceImpl implements ServerDeployService {
         return serverDeployMapper.toDto(deploy);
     }
 
-	@Override
-	public Boolean testConnect(ServerDeploy resources) {
-		ExecuteShellUtil executeShellUtil = null;
-		try {
-			executeShellUtil = new ExecuteShellUtil(resources.getIp(), resources.getAccount(), resources.getPassword(),resources.getPort());
-			return executeShellUtil.execute("ls")==0;
-		} catch (Exception e) {
-			return false;
-		}finally {
-			if (executeShellUtil != null) {
-				executeShellUtil.close();
-			}
-		}
-	}
+    @Override
+    public Boolean testConnect(ServerDeploy resources) {
+        ExecuteShellUtil executeShellUtil = null;
+        try {
+            executeShellUtil = new ExecuteShellUtil(resources.getIp(), resources.getAccount(), resources.getPassword(), resources.getPort());
+            return executeShellUtil.execute("ls") == 0;
+        } catch (Exception e) {
+            return false;
+        } finally {
+            if (executeShellUtil != null) {
+                executeShellUtil.close();
+            }
+        }
+    }
 
-	@Override
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void create(ServerDeploy resources) {
-		serverDeployRepository.save(resources);
+        serverDeployRepository.save(resources);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(ServerDeploy resources) {
         ServerDeploy serverDeploy = serverDeployRepository.findById(resources.getId()).orElseGet(ServerDeploy::new);
-        ValidationUtil.isNull( serverDeploy.getId(),"ServerDeploy","id",resources.getId());
-		serverDeploy.copy(resources);
+        ValidationUtil.isNull(serverDeploy.getId(), "ServerDeploy", "id", resources.getId());
+        serverDeploy.copy(resources);
         serverDeployRepository.save(serverDeploy);
     }
 
@@ -123,4 +123,5 @@ public class ServerDeployServiceImpl implements ServerDeployService {
         }
         FileUtil.downloadExcel(list, response);
     }
+
 }

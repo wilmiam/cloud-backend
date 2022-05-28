@@ -15,10 +15,10 @@
  */
 package com.zq.system.exception.handler;
 
+import com.zq.common.utils.ThrowableUtil;
 import com.zq.system.exception.BadRequestException;
 import com.zq.system.exception.EntityExistException;
 import com.zq.system.exception.EntityNotFoundException;
-import com.zq.common.utils.ThrowableUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -112,4 +112,5 @@ public class GlobalExceptionHandler {
     private ResponseEntity<ApiError> buildResponseEntity(ApiError apiError) {
         return new ResponseEntity<>(apiError, HttpStatus.valueOf(apiError.getStatus()));
     }
+
 }

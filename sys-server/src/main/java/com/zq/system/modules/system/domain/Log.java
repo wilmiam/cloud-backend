@@ -100,4 +100,5 @@ public class Log implements Serializable {
         this.logType = logType;
         this.time = time;
     }
+
 }

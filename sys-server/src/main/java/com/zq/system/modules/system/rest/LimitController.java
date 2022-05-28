@@ -15,10 +15,10 @@
  */
 package com.zq.system.modules.system.rest;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import com.zq.common.annotation.Limit;
 import com.zq.common.annotation.rest.AnonymousGetMapping;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,4 +44,5 @@ public class LimitController {
     public int test() {
         return ATOMIC_INTEGER.incrementAndGet();
     }
+
 }

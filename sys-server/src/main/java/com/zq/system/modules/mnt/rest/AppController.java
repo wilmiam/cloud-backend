@@ -15,10 +15,10 @@
  */
 package com.zq.system.modules.mnt.rest;
 
+import com.zq.logging.annotation.Log;
 import com.zq.system.modules.mnt.domain.App;
 import com.zq.system.modules.mnt.service.AppService;
 import com.zq.system.modules.mnt.service.dto.AppQueryCriteria;
-import com.zq.logging.annotation.Log;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -85,4 +85,5 @@ public class AppController {
         appService.delete(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

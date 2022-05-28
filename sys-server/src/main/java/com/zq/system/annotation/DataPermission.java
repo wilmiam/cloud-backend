@@ -45,4 +45,5 @@ public @interface DataPermission {
      * Entity 中与部门关联的字段名称
      */
     String joinName() default "";
+
 }

@@ -38,4 +38,5 @@ public class PictureQueryCriteria {
 
     @Query(type = Query.Type.BETWEEN)
     private List<Timestamp> createTime;
+
 }

@@ -17,23 +17,23 @@ package com.zq.system.modules.mnt.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import com.zq.system.base.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import com.zq.system.base.BaseEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
-* @author zhanghouying
-* @date 2019-08-24
-*/
+ * @author zhanghouying
+ * @date 2019-08-24
+ */
 @Entity
 @Getter
 @Setter
-@Table(name="mnt_server")
+@Table(name = "mnt_server")
 public class ServerDeploy extends BaseEntity implements Serializable {
 
     @Id
@@ -57,8 +57,8 @@ public class ServerDeploy extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "密码")
     private String password;
 
-    public void copy(ServerDeploy source){
-        BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
+    public void copy(ServerDeploy source) {
+        BeanUtil.copyProperties(source, this, CopyOptions.create().setIgnoreNullValue(true));
     }
 
     @Override
@@ -78,4 +78,5 @@ public class ServerDeploy extends BaseEntity implements Serializable {
     public int hashCode() {
         return Objects.hash(id, name);
     }
+
 }

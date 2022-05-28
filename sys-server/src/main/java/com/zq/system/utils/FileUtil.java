@@ -354,4 +354,5 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     public static String getMd5(File file) {
         return getMd5(getByte(file));
     }
+
 }

@@ -54,4 +54,5 @@ public class ImageUtils {
         return ext != null && FILE_EXTENSIONS.stream()
                 .anyMatch(item -> item.equals(ext.toLowerCase()));
     }
+
 }

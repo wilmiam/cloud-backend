@@ -58,4 +58,5 @@ public interface AliPayService {
      * @throws Exception 异常
      */
     String toPayAsWeb(AlipayConfig alipay, TradeVo trade) throws Exception;
+
 }

@@ -73,4 +73,5 @@ public class LocalStorage extends BaseEntity implements Serializable {
     public void copy(LocalStorage source) {
         BeanUtil.copyProperties(source, this, CopyOptions.create().setIgnoreNullValue(true));
     }
+
 }

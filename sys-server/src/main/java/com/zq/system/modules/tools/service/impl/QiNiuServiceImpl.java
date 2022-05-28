@@ -235,4 +235,5 @@ public class QiNiuServiceImpl implements QiNiuService {
         }
         FileUtil.downloadExcel(list, response);
     }
+
 }

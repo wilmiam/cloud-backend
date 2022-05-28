@@ -15,10 +15,10 @@
  */
 package com.zq.system.modules.system.domain;
 
+import com.zq.system.base.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import com.zq.system.base.BaseEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -27,13 +27,13 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
-* @author Zheng Jie
-* @date 2019-03-29
-*/
+ * @author Zheng Jie
+ * @date 2019-03-29
+ */
 @Entity
 @Getter
 @Setter
-@Table(name="sys_job")
+@Table(name = "sys_job")
 public class Job extends BaseEntity implements Serializable {
 
     @Id
@@ -71,4 +71,5 @@ public class Job extends BaseEntity implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

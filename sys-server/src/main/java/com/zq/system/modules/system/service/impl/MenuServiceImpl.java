@@ -360,4 +360,5 @@ public class MenuServiceImpl implements MenuService {
         }});
         redisUtils.delByKeys(CacheKey.ROLE_ID, roles.stream().map(Role::getId).collect(Collectors.toSet()));
     }
+
 }

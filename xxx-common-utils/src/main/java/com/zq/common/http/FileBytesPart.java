@@ -9,6 +9,7 @@ import java.io.ByteArrayInputStream;
  * @since 2019-03-14
  */
 public class FileBytesPart {
+
     private String filename;
     private byte[] data;
 
@@ -53,6 +54,7 @@ public class FileBytesPart {
     }
 
     public static class Builder {
+
         private String filename;
         private byte[] data;
 
@@ -72,5 +74,7 @@ public class FileBytesPart {
             part.setData(this.data);
             return part;
         }
+
     }
+
 }

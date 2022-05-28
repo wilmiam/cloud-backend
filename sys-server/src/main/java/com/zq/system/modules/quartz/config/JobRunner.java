@@ -34,6 +34,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class JobRunner implements ApplicationRunner {
+
     private static final Logger log = LoggerFactory.getLogger(JobRunner.class);
     private final QuartzJobRepository quartzJobRepository;
     private final QuartzManage quartzManage;
@@ -50,4 +51,5 @@ public class JobRunner implements ApplicationRunner {
         quartzJobs.forEach(quartzManage::addJob);
         log.info("--------------------定时任务注入完成---------------------");
     }
+
 }

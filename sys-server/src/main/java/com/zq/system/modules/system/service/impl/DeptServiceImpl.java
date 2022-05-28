@@ -287,4 +287,5 @@ public class DeptServiceImpl implements DeptService {
         redisUtils.delByKeys(CacheKey.DATA_USER, users.stream().map(User::getId).collect(Collectors.toSet()));
         redisUtils.del(CacheKey.DEPT_ID + id);
     }
+
 }

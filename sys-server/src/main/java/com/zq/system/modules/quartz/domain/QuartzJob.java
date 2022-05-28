@@ -15,10 +15,10 @@
  */
 package com.zq.system.modules.quartz.domain;
 
+import com.zq.system.base.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import com.zq.system.base.BaseEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -83,4 +83,5 @@ public class QuartzJob extends BaseEntity implements Serializable {
     @NotBlank
     @ApiModelProperty(value = "备注")
     private String description;
+
 }

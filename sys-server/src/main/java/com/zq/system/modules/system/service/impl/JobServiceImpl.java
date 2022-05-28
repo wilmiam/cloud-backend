@@ -124,4 +124,5 @@ public class JobServiceImpl implements JobService {
             throw new BadRequestException("所选的岗位中存在用户关联，请解除关联再试！");
         }
     }
+
 }

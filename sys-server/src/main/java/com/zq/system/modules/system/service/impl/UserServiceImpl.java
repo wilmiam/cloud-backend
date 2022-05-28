@@ -257,4 +257,5 @@ public class UserServiceImpl implements UserService {
     private void flushCache(String username) {
         userCacheClean.cleanUserCache(username);
     }
+
 }

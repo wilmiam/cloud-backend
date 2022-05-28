@@ -22,6 +22,7 @@ package com.zq.system.exception;
  * @date: 2020/6/10 18:06
  */
 public class BadConfigurationException extends RuntimeException {
+
     /**
      * Constructs a new runtime exception with {@code null} as its
      * detail message.  The cause is not initialized, and may subsequently be
@@ -95,4 +96,5 @@ public class BadConfigurationException extends RuntimeException {
     protected BadConfigurationException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
+
 }

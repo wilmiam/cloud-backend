@@ -20,7 +20,8 @@ import com.zq.common.http.HttpRequestUtils;
 import com.zq.common.utils.ThrowableUtil;
 import com.zq.common.vo.OnlineUserDto;
 import com.zq.logging.entity.SysLog;
-import com.zq.logging.service.LogService;
+import com.zq.logging.service.SysLogService;
+import com.zq.logging.utils.RequestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -41,12 +42,12 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class LogAspect {
 
-    private final LogService logService;
+    private final SysLogService sysLogService;
 
     ThreadLocal<Long> currentTime = new ThreadLocal<>();
 
-    public LogAspect(LogService logService) {
-        this.logService = logService;
+    public LogAspect(SysLogService sysLogService) {
+        this.sysLogService = sysLogService;
     }
 
     /**
@@ -70,7 +71,7 @@ public class LogAspect {
         SysLog sysLog = new SysLog("INFO", System.currentTimeMillis() - currentTime.get());
         currentTime.remove();
         HttpServletRequest request = HttpRequestUtils.getRequest();
-        logService.save(getUsername(), HttpRequestUtils.getBrowser(request), HttpRequestUtils.getClientIp(request), joinPoint, sysLog);
+        sysLogService.save(getUsername(), RequestUtils.getBrowser(request), HttpRequestUtils.getClientIp(request), joinPoint, sysLog);
         return result;
     }
 
@@ -86,7 +87,7 @@ public class LogAspect {
         currentTime.remove();
         sysLog.setExceptionDetail(ThrowableUtil.getStackTrace(e).getBytes());
         HttpServletRequest request = HttpRequestUtils.getRequest();
-        logService.save(getUsername(), HttpRequestUtils.getBrowser(request), HttpRequestUtils.getClientIp(request), (ProceedingJoinPoint) joinPoint, sysLog);
+        sysLogService.save(getUsername(), RequestUtils.getBrowser(request), HttpRequestUtils.getClientIp(request), (ProceedingJoinPoint) joinPoint, sysLog);
     }
 
     public String getUsername() {

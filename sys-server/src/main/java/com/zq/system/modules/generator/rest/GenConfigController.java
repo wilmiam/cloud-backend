@@ -48,4 +48,5 @@ public class GenConfigController {
     public ResponseEntity<Object> update(@Validated @RequestBody GenConfig genConfig) {
         return new ResponseEntity<>(genConfigService.update(genConfig.getTableName(), genConfig), HttpStatus.OK);
     }
+
 }

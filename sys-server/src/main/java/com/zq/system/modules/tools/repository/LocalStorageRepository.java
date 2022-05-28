@@ -24,4 +24,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * @date 2019-09-05
  */
 public interface LocalStorageRepository extends JpaRepository<LocalStorage, Long>, JpaSpecificationExecutor<LocalStorage> {
+
 }

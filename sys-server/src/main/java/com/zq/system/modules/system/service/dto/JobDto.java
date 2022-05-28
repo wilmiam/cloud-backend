@@ -43,4 +43,5 @@ public class JobDto extends BaseDTO implements Serializable {
         this.name = name;
         this.enabled = enabled;
     }
+
 }

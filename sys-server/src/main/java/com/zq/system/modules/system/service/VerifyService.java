@@ -40,4 +40,5 @@ public interface VerifyService {
      * @param key  /
      */
     void validated(String key, String code);
+
 }

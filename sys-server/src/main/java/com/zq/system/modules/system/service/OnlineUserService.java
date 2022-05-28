@@ -19,6 +19,7 @@ import com.zq.common.config.redis.RedisUtils;
 import com.zq.common.config.security.SecurityProperties;
 import com.zq.common.http.HttpRequestUtils;
 import com.zq.common.vo.OnlineUserDto;
+import com.zq.logging.utils.RequestUtils;
 import com.zq.system.modules.system.service.dto.DeptSmallDto;
 import com.zq.system.modules.system.service.dto.UserDto;
 import com.zq.system.utils.EncryptUtils;
@@ -62,11 +63,22 @@ public class OnlineUserService {
         UserDto userDto = jwtUserDto.getUser();
         DeptSmallDto dept = userDto.getDept();
         String ip = HttpRequestUtils.getClientIp(request);
-        String browser = HttpRequestUtils.getBrowser(request);
-        String address = HttpRequestUtils.getCityInfo(ip);
+        String browser = RequestUtils.getBrowser(request);
+        String address = RequestUtils.getCityInfo(ip);
         OnlineUserDto onlineUserDto = null;
         try {
-            onlineUserDto = new OnlineUserDto(userDto.getId(), jwtUserDto.getUsername(), userDto.getNickName(), dept.getId(), dept.getName(), browser, ip, address, EncryptUtils.desEncrypt(token), new Date());
+            onlineUserDto = OnlineUserDto.builder()
+                    .userId(userDto.getId())
+                    .userName(jwtUserDto.getUsername())
+                    .nickName(userDto.getNickName())
+                    .deptId(dept.getId())
+                    .deptName(dept.getName())
+                    .browser(browser)
+                    .ip(ip)
+                    .address(address)
+                    .key(EncryptUtils.desEncrypt(token))
+                    .loginTime(new Date())
+                    .build();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
@@ -205,4 +217,5 @@ public class OnlineUserService {
             }
         }
     }
+
 }

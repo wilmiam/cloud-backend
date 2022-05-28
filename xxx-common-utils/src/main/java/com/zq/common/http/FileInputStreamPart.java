@@ -7,6 +7,7 @@ import java.io.InputStream;
  * @since 2019-03-14
  */
 public class FileInputStreamPart {
+
     private String filename;
     private InputStream data;
 
@@ -31,6 +32,7 @@ public class FileInputStreamPart {
     }
 
     public static class Builder {
+
         private String filename;
         private InputStream data;
 
@@ -50,5 +52,7 @@ public class FileInputStreamPart {
             part.setData(this.data);
             return part;
         }
+
     }
+
 }

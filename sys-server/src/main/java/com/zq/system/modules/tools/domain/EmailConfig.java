@@ -27,6 +27,7 @@ import java.io.Serializable;
 
 /**
  * 邮件配置类，数据存覆盖式存入数据存
+ *
  * @author Zheng Jie
  * @date 2018-12-26
  */
@@ -59,4 +60,5 @@ public class EmailConfig implements Serializable {
     @NotBlank
     @ApiModelProperty(value = "收件人")
     private String fromUser;
+
 }

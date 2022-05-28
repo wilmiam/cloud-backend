@@ -106,13 +106,6 @@
             <artifactId>httpmime</artifactId>
         </dependency>
 
-        <!-- 解析客户端操作系统、浏览器信息 -->
-        <dependency>
-            <groupId>nl.basjes.parse.useragent</groupId>
-            <artifactId>yauaa</artifactId>
-            <version>5.23</version>
-        </dependency>
-
         <!-- jfinal -->
         <dependency>
             <groupId>com.jfinal</groupId>

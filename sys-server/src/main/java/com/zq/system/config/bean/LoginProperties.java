@@ -111,6 +111,7 @@ public class LoginProperties {
     }
 
     static class FixedArithmeticCaptcha extends ArithmeticCaptcha {
+
         public FixedArithmeticCaptcha(int width, int height) {
             super(width, height);
         }
@@ -131,5 +132,7 @@ public class LoginProperties {
 
             return chars.toCharArray();
         }
+
     }
+
 }

@@ -35,4 +35,5 @@ public class ElPermissionConfig {
         // 判断当前用户的所有权限是否包含接口上定义的权限
         return elPermissions.contains("admin") || Arrays.stream(permissions).anyMatch(elPermissions::contains);
     }
+
 }

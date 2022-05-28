@@ -39,4 +39,5 @@ public interface GenConfigService {
      * @return 表配置
      */
     GenConfig update(String tableName, GenConfig genConfig);
+
 }

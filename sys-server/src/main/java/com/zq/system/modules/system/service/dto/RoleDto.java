@@ -15,9 +15,9 @@
  */
 package com.zq.system.modules.system.service.dto;
 
+import com.zq.system.base.BaseDTO;
 import lombok.Getter;
 import lombok.Setter;
-import com.zq.system.base.BaseDTO;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -61,4 +61,5 @@ public class RoleDto extends BaseDTO implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }
