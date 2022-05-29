@@ -19,6 +19,7 @@ import cn.hutool.core.util.StrUtil;
 import com.zq.admin.modules.security.service.OnlineUserService;
 import com.zq.admin.modules.security.service.UserCacheManager;
 import com.zq.common.config.security.SecurityProperties;
+import com.zq.common.config.security.TokenProvider;
 import com.zq.common.context.ContextUtils;
 import com.zq.common.vo.OnlineUserDto;
 import io.jsonwebtoken.ExpiredJwtException;

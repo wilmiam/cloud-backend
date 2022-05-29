@@ -16,8 +16,10 @@
 package com.zq.user.config;
 
 import cn.hutool.core.util.StrUtil;
+import com.zq.common.config.redis.BaseCacheKeys;
 import com.zq.common.config.redis.RedisUtils;
 import com.zq.common.config.security.SecurityProperties;
+import com.zq.common.config.security.TokenProvider;
 import com.zq.common.context.ContextUtils;
 import com.zq.common.vo.OnlineUserDto;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -74,7 +76,8 @@ public class TokenFilter extends GenericFilterBean {
                 cleanUserCache = true;
             } finally {
                 if (cleanUserCache || Objects.isNull(onlineUserDto)) {
-                    // userCacheClean.cleanUserCache(String.valueOf(tokenProvider.getClaims(token).get(TokenProvider.AUTHORITIES_KEY)));
+                    String username = String.valueOf(tokenProvider.getClaims(token).get(TokenProvider.AUTHORITIES_KEY));
+                    redisUtils.hdel(BaseCacheKeys.USER_DATA_MAP_KEY, username);
                 }
             }
             if (onlineUserDto != null && StringUtils.isNotBlank(token)) {

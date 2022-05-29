@@ -186,7 +186,7 @@ public class DeployServiceImpl implements DeployService {
 
     private void sleep(int second) {
         try {
-            Thread.sleep(second * 1000);
+            Thread.sleep(second * 1000L);
         } catch (InterruptedException e) {
             log.error(e.getMessage(), e);
         }
@@ -219,7 +219,6 @@ public class DeployServiceImpl implements DeployService {
     private void stopApp(int port, ExecuteShellUtil executeShellUtil) {
         //发送停止命令
         executeShellUtil.execute(String.format("lsof -i :%d|grep -v \"PID\"|awk '{print \"kill -9\",$2}'|sh", port));
-
     }
 
     /**

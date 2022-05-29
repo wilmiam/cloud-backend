@@ -16,8 +16,8 @@
 package com.zq.admin.modules.security.service;
 
 import cn.hutool.core.util.RandomUtil;
-import com.zq.admin.config.bean.LoginProperties;
 import com.zq.admin.modules.security.service.dto.JwtUserDto;
+import com.zq.common.config.redis.BaseCacheKeys;
 import com.zq.common.config.redis.RedisUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,7 +48,7 @@ public class UserCacheManager {
     public JwtUserDto getUserCache(String userName) {
         if (StringUtils.isNotEmpty(userName)) {
             // 获取数据
-            Object obj = redisUtils.hget(LoginProperties.cacheKey, userName);
+            Object obj = redisUtils.hget(BaseCacheKeys.USER_DATA_MAP_KEY, userName);
             if (obj != null) {
                 return (JwtUserDto) obj;
             }
@@ -66,7 +66,7 @@ public class UserCacheManager {
         if (StringUtils.isNotEmpty(userName)) {
             // 添加数据, 避免数据同时过期
             long time = idleTime + RandomUtil.randomInt(900, 1800);
-            redisUtils.hset(LoginProperties.cacheKey, userName, user, time);
+            redisUtils.hset(BaseCacheKeys.USER_DATA_MAP_KEY, userName, user, time);
         }
     }
 
@@ -80,7 +80,7 @@ public class UserCacheManager {
     public void cleanUserCache(String userName) {
         if (StringUtils.isNotEmpty(userName)) {
             // 清除数据
-            redisUtils.hdel(LoginProperties.cacheKey, userName);
+            redisUtils.hdel(BaseCacheKeys.USER_DATA_MAP_KEY, userName);
         }
     }
 

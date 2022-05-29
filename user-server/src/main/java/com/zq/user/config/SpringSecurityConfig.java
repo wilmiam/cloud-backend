@@ -18,6 +18,7 @@ package com.zq.user.config;
 import com.zq.common.annotation.AnonymousAccess;
 import com.zq.common.config.redis.RedisUtils;
 import com.zq.common.config.security.SecurityProperties;
+import com.zq.common.config.security.TokenProvider;
 import com.zq.common.utils.RequestMethodEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
