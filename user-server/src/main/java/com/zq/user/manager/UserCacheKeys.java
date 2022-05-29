@@ -29,11 +29,11 @@ public class UserCacheKeys extends BaseCacheKeys {
     /**
      * 用户当前apptoken的缓存key
      *
-     * @param memberId
+     * @param userId
      * @return
      */
-    public static String liveAppTokenKey(Long memberId) {
-        return LIVE_APP_TOKEN + memberId;
+    public static String liveAppTokenKey(String userId) {
+        return LIVE_APP_TOKEN + userId;
     }
 
 }

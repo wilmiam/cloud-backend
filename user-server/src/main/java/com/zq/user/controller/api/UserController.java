@@ -1,4 +1,4 @@
-package com.zq.user.controller.app;
+package com.zq.user.controller.api;
 
 
 import com.zq.common.annotation.Limit;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "用户相关接口")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/user/app")
+@RequestMapping(value = "/user/api")
 public class UserController {
 
     private final UserService userService;
