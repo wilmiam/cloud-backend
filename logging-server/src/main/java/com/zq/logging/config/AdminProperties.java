@@ -30,7 +30,7 @@ public class AdminProperties {
 
     public static boolean ipLocal;
 
-    @Value("${ip.local-parsing}")
+    @Value("${ip.local-parsing:true}")
     public void setIpLocal(Boolean ipLocal) {
         AdminProperties.ipLocal = ipLocal;
     }

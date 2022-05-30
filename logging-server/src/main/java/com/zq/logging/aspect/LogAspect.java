@@ -95,7 +95,7 @@ public class LogAspect {
             OnlineUserDto adminContext = ContextUtils.getAdminContext();
             return adminContext.getUserName();
         } catch (Exception e) {
-            return "";
+            return "匿名接口";
         }
     }
 

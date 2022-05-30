@@ -13,9 +13,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @EnableCaching
 @EnableScheduling
-@MapperScan("com.zq.user.dao")
+@MapperScan({"com.zq.user.dao", "com.zq.logging.mapper"})
 @EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages = {"com.zq.user", "com.zq.common.config"})
+@SpringBootApplication(scanBasePackages = {"com.zq.user", "com.zq.logging", "com.zq.common.config"})
 public class UserApplication {
 
     public static void main(String[] args) {
