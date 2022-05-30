@@ -13,12 +13,8 @@ import com.zq.common.vo.ResultVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * @author wilmiam
@@ -172,11 +168,17 @@ public class ApiUtils {
      *
      * @param params
      * @return
-     * @throws UnsupportedEncodingException
      */
-    public static String decode(String params) throws UnsupportedEncodingException {
-        params = URLDecoder.decode(params, "utf-8");
-        params = EncryptUtils.rsaDecodeByPrivateKey(params, RsaUtils.privateKey);
+    public static String decode(String params, String encryptType) {
+        if (StringUtils.isBlank(params)) {
+            return "";
+        }
+        params = EncryptUtils.urlDecode(params, "UTF-8");
+        if ("RSA".equals(encryptType)) {
+            params = EncryptUtils.rsaDecodeByPrivateKey(params, RsaUtils.privateKey);
+        } else {
+            params = EncryptUtils.base64Decode(params);
+        }
         return params;
     }
 
@@ -187,14 +189,17 @@ public class ApiUtils {
      *
      * @param params
      * @return
-     * @throws UnsupportedEncodingException
      */
-    public static String encode(String params) throws UnsupportedEncodingException {
-        params = EncryptUtils.rsaDecodeByPrivateKey(params, RsaUtils.publicKey);
+    public static String encode(String params, String encryptType) {
         if (StringUtils.isBlank(params)) {
             return "";
         }
-        params = URLEncoder.encode(params, "utf-8");
+        if ("RSA".equals(encryptType)) {
+            params = EncryptUtils.rsaDecodeByPrivateKey(params, RsaUtils.publicKey);
+        } else {
+            params = EncryptUtils.base64Decode(params);
+        }
+        params = EncryptUtils.urlEncode(params, "UTF-8");
         return params;
     }
 
@@ -203,16 +208,11 @@ public class ApiUtils {
      * <p>
      * 2017年3月15日 下午3:14:27
      *
-     * @param paramMaps
+     * @param content
      * @return
      */
-    public static String getSign(TreeMap<String, String> paramMaps) {
-        // 原始请求串
-        StringBuilder src = new StringBuilder();
-        for (Map.Entry<String, String> entry : paramMaps.entrySet()) {
-            src.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
-        }
-        return MD5.create().digestHex(src.toString());
+    public static String getSign(String content) {
+        return MD5.create().digestHex(content).toUpperCase();
     }
 
 }

@@ -37,6 +37,8 @@ public class ApiForm {
     private String nonce; // 随机字串(建议使用UUID)
     private String version; // 接口版本
     private String apiNo; // 接口码
+    private Integer type; // 1-app；2-api，内部定
+    private String clientType; // 客户端类型 xcx-小程序，H5，api
     private String bizContent; // 请求业务参数
     private JSONObject bizContentJson; // 请求业务的json对象
     private MultipartFile file; // 上传文件用
@@ -44,12 +46,19 @@ public class ApiForm {
 
     public boolean parseBizContent() {
         try {
-            // API参数是否加密
-            boolean flag = ConfigCache.getValueToBoolean("API.PARAM.ENCRYPT");
-            if (StrUtil.isNotBlank(bizContent) && flag) {
-                bizContent = ApiUtils.decode(bizContent);
+            if (type == 1) {
+                // API参数是否加密
+                boolean flag = ConfigCache.getValueToBoolean("API.PARAM.ENCRYPT");
+                if (StrUtil.isNotBlank(bizContent) && flag) {
+                    bizContent = ApiUtils.decode(bizContent, "");
+                }
+            } else {
+                if (StrUtil.isNotBlank(bizContent)) {
+                    bizContent = ApiUtils.decode(bizContent, "BASE64");
+                }
             }
-            if (StrUtil.isBlank(bizContent)) {
+
+            if (bizContent == null) {
                 bizContent = "";
             }
             bizContentJson = JSON.parseObject(bizContent);
@@ -148,13 +157,27 @@ public class ApiForm {
 
     public TreeMap<String, String> getSignTreeMap() {
         TreeMap<String, String> treeMap = new TreeMap<>();
+        treeMap.put("appId", this.appId);
+        treeMap.put("apiNo", this.apiNo);
         treeMap.put("timestamp", this.timestamp);
-        treeMap.put("nonce", this.nonce);
         treeMap.put("method", this.method);
         treeMap.put("version", this.version);
         String bizContent = StrUtil.isBlank(this.bizContent) ? "" : this.bizContent;
         treeMap.put("bizContent", bizContent);
         return treeMap;
+    }
+
+    public String getSignStr(String key) {
+        TreeMap<String, String> treeMap = getSignTreeMap();
+
+        // 原始请求串
+        StringBuilder src = new StringBuilder();
+        for (Map.Entry<String, String> entry : treeMap.entrySet()) {
+            src.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+        }
+        src.append("key=").append(key);
+
+        return src.toString();
     }
 
 }

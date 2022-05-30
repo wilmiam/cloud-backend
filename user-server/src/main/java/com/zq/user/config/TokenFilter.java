@@ -19,7 +19,6 @@ import cn.hutool.core.util.StrUtil;
 import com.zq.common.config.redis.BaseCacheKeys;
 import com.zq.common.config.redis.RedisUtils;
 import com.zq.common.config.security.SecurityProperties;
-import com.zq.common.config.security.TokenProvider;
 import com.zq.common.context.ContextUtils;
 import com.zq.common.vo.OnlineUserDto;
 import io.jsonwebtoken.ExpiredJwtException;

@@ -1,5 +1,6 @@
 package com.zq.api.config;
 
+import com.zq.common.constant.FeignHeader;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import org.springframework.context.annotation.Bean;
@@ -55,7 +56,7 @@ public class FeignConfig {
             @Override
             public void apply(RequestTemplate template) {
                 HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-                template.header("X-App-Token", request.getParameter("token"));
+                template.header(FeignHeader.API_TOKEN, request.getParameter("token"));
                 Enumeration<String> headerNames = request.getHeaderNames();
                 if (headerNames != null) {
                     while (headerNames.hasMoreElements()) {

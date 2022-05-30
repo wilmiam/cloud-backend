@@ -19,7 +19,6 @@ import com.zq.admin.modules.security.service.OnlineUserService;
 import com.zq.admin.modules.security.service.UserCacheManager;
 import com.zq.common.annotation.AnonymousAccess;
 import com.zq.common.config.security.SecurityProperties;
-import com.zq.common.config.security.TokenProvider;
 import com.zq.common.utils.RequestMethodEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;

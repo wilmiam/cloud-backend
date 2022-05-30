@@ -1,5 +1,7 @@
 package com.zq.common.config.base;
 
+import com.zq.common.constant.FeignHeader;
+import com.zq.common.constant.SystemName;
 import com.zq.common.exception.BusinessException;
 import com.zq.common.utils.ThrowableUtil;
 import com.zq.common.vo.ResultVo;
@@ -94,8 +96,9 @@ public class UnifiedExceptionHandler {
     @ExceptionHandler(DataAccessException.class)
     public ResultVo handleDataAccessException(DataAccessException ex, HttpServletRequest request) {
         log.error(">> 访问数据失败 " + request.getRequestURI(), ex);
+        String header = request.getHeader(FeignHeader.SERVER_NAME);
         String error = "服务器繁忙";
-        if (request.getRequestURI().contains("/app/")) {
+        if (StringUtils.isNotBlank(header) && SystemName.API.equals(header)) {
             error = ThrowableUtil.getStackTrace(ex);
         }
         return ResultVo.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), error);
@@ -104,8 +107,9 @@ public class UnifiedExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public ResultVo defaultErrorHandler(Exception ex, HttpServletRequest request) {
         log.error(">> 服务器内部错误 " + request.getRequestURI(), ex);
+        String header = request.getHeader(FeignHeader.SERVER_NAME);
         String error = "服务器繁忙";
-        if (request.getRequestURI().contains("/app/")) {
+        if (StringUtils.isNotBlank(header) && SystemName.API.equals(header)) {
             error = ThrowableUtil.getStackTrace(ex);
         }
         return ResultVo.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), error);

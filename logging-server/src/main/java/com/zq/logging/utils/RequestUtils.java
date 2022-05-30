@@ -3,8 +3,8 @@ package com.zq.logging.utils;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
 import com.zq.common.config.base.SpringContextHolder;
-import com.zq.common.constant.CloudConstant;
 import com.zq.logging.config.AdminProperties;
+import com.zq.logging.constant.Constant;
 import net.dreamlu.mica.ip2region.core.Ip2regionSearcher;
 import net.dreamlu.mica.ip2region.core.IpInfo;
 import nl.basjes.parse.useragent.UserAgent;
@@ -46,7 +46,7 @@ public class RequestUtils {
      * 根据ip获取详细地址
      */
     public static String getHttpCityInfo(String ip) {
-        String api = String.format(CloudConstant.Url.IP_URL, ip);
+        String api = String.format(Constant.Url.IP_URL, ip);
         cn.hutool.json.JSONObject object = JSONUtil.parseObj(HttpUtil.get(api));
         return object.get("addr", String.class);
     }

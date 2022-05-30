@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.zq.common.constant;
+package com.zq.logging.constant;
 
 /**
  * 常用静态常量
@@ -21,7 +21,7 @@ package com.zq.common.constant;
  * @author Zheng Jie
  * @date 2018-12-26
  */
-public class CloudConstant {
+public class Constant {
 
     /**
      * 用于IP定位转换

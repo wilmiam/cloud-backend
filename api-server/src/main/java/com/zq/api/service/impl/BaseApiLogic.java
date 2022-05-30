@@ -27,7 +27,7 @@ public abstract class BaseApiLogic implements IApiLogic {
             return ApiUtils.getCheckSignValidError(form);
         }
 
-        String serverSign = ApiUtils.getSign(form.getSignTreeMap());
+        String serverSign = ApiUtils.getSign(form.getSignStr(""));
         if (!serverSign.equals(form.getSign())) {
             return ApiUtils.getCheckSignValidError(form);
         }

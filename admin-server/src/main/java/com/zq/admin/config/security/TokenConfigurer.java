@@ -18,7 +18,6 @@ package com.zq.admin.config.security;
 import com.zq.admin.modules.security.service.OnlineUserService;
 import com.zq.admin.modules.security.service.UserCacheManager;
 import com.zq.common.config.security.SecurityProperties;
-import com.zq.common.config.security.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

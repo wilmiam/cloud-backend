@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSON;
 import com.zq.api.constant.ApiCodeEnum;
 import com.zq.api.form.ApiForm;
 import com.zq.api.form.ApiResp;
-import com.zq.api.service.ApiService;
+import com.zq.api.service.AppService;
 import com.zq.api.utils.ApiUtils;
 import com.zq.common.config.security.ApiTokenUtils;
 import com.zq.common.utils.ThrowableUtil;
@@ -17,26 +17,29 @@ import feign.FeignException;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
-@Api(tags = "API接口")
+/**
+ * @author wilmiam
+ * @since 2021-08-16 15:37
+ */
+@Api(tags = "APP接口")
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
-public class ApiController {
+@RequestMapping("/api/app")
+public class AppController {
 
-    private final ApiService apiService;
+    private final AppService appService;
 
     /**
      * 允许用户未登录状态下执行的方法名
      */
-    private final String[] allowMethod = {"sendCode"};
+    private final String[] allowMethod = {"apiLogin", "signinWxLogin", "getSigninWxPhone", "wxLogin", "getWxPhone"};
 
     /**
      * 获取信息入口
@@ -44,7 +47,7 @@ public class ApiController {
      * 2016年10月3日 下午1:38:27
      */
     @RequestMapping("/action")
-    public ApiResp action(HttpServletRequest request, ApiForm form, @RequestHeader(required = false) String token) {
+    public ApiResp action(HttpServletRequest request, ApiForm form) {
         long start = System.currentTimeMillis();
 
         // 不处理Request Method:OPTIONS的请求
@@ -52,7 +55,7 @@ public class ApiController {
             return ApiUtils.getSuccessResp(form);
         }
 
-        form.setType(2);
+        form.setType(1);
         //解析业务参数
         if (!form.parseBizContent()) {
             return ApiUtils.getParamError(form);
@@ -86,12 +89,7 @@ public class ApiController {
         // 调用接口方法
         ApiResp resp;
         try {
-            // 身份验证
-            resp = apiService.auth(form, token);
-            if (resp.isSuccess()) {
-                // 调用接口方法
-                resp = apiService.action(form);
-            }
+            resp = appService.action(form);
         } catch (Exception e) {
             log.error("调用方法异常：{}", e.getMessage());
             stackTrace = ThrowableUtil.getStackTrace(e);
@@ -127,7 +125,7 @@ public class ApiController {
         }
 
         String clientIp = ServletUtil.getClientIP(request);
-        apiService.addLog(form, clientIp, logType, resp.getMsg(), stackTrace, System.currentTimeMillis() - start);
+        appService.addLog(form, clientIp, logType, resp.getMsg(), stackTrace, System.currentTimeMillis() - start);
         return resp;
     }
 
