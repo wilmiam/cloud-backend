@@ -39,7 +39,7 @@ public class AppController {
     /**
      * 允许用户未登录状态下执行的方法名
      */
-    private final String[] allowMethod = {"apiLogin", "signinWxLogin", "getSigninWxPhone", "wxLogin", "getWxPhone"};
+    private final String[] allowMethod = {"wxLogin", "getWxPhone"};
 
     /**
      * 获取信息入口
