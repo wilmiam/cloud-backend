@@ -43,7 +43,7 @@ import java.util.Map;
  */
 @Service
 @RequiredArgsConstructor
-public class SysSysLogServiceImpl implements SysLogService {
+public class SysLogServiceImpl implements SysLogService {
 
     private final SysLogMapper sysLogMapper;
 
