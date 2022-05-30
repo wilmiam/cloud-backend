@@ -9,9 +9,7 @@ import com.zq.api.form.ApiForm;
 import com.zq.api.form.ApiResp;
 import com.zq.api.service.ApiService;
 import com.zq.api.utils.ApiUtils;
-import com.zq.common.config.security.ApiTokenUtils;
 import com.zq.common.utils.ThrowableUtil;
-import com.zq.common.vo.ApiTokenVo;
 import com.zq.common.vo.ResultVo;
 import feign.FeignException;
 import io.swagger.annotations.Api;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 
 @Api(tags = "API接口")
 @Slf4j
@@ -32,11 +29,6 @@ import java.util.Arrays;
 public class ApiController {
 
     private final ApiService apiService;
-
-    /**
-     * 允许用户未登录状态下执行的方法名
-     */
-    private final String[] allowMethod = {"sendCode"};
 
     /**
      * 获取信息入口
@@ -62,24 +54,6 @@ public class ApiController {
         if (StrUtil.isBlank(method)) {
             method = request.getParameter("method");
             form.setMethod(method);
-        }
-
-        if (StrUtil.isBlank(form.getToken())) {
-            boolean contains = Arrays.asList(allowMethod).contains(method);
-            if (!contains) {
-                return ApiUtils.getLoginValidError(form);
-            }
-        }
-
-        ApiTokenVo tokenVo = ApiTokenUtils.getAppTokenVo(form.getToken());
-        if (tokenVo == null) {
-            boolean contains = Arrays.asList(allowMethod).contains(method);
-            if (!contains) {
-                return ApiUtils.getLoginValidError(form);
-            }
-        } else {
-            form.setUserId(String.valueOf(tokenVo.getUserId()));
-            form.setApiTokenVo(tokenVo);
         }
 
         String stackTrace = "";
