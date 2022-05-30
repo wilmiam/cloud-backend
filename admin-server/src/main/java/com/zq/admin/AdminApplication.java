@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @EnableTransactionManagement
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
-@MapperScan({"com.zq.*.mapper", "com.zq.*.dao"})
+@MapperScan({"com.zq.logging.mapper"})
 @SpringBootApplication(scanBasePackages = {"com.zq.admin", "com.zq.logging", "com.zq.common.config"})
 public class AdminApplication {
 
