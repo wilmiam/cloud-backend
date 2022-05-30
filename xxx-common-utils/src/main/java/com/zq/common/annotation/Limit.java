@@ -52,7 +52,7 @@ public @interface Limit {
     String key() default "";
 
     /**
-     * 前缀前面还会有一个{@code BaseCacheKeys.PREFIX}的项目前缀, 默认为"rate-limit"
+     * 前缀前面还会有一个{@link com.zq.common.config.redis.BaseCacheKeys.PREFIX}的项目前缀, 默认为"rate-limit"
      *
      * @return
      */
@@ -74,6 +74,7 @@ public @interface Limit {
 
     /**
      * 对象里的属性名,仅当{@link #limitType}为{@code LimitType.POJO_FIELD}时有用
+     * {@code}
      *
      * @return
      */
