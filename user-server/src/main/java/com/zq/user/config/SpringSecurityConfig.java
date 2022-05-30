@@ -18,6 +18,7 @@ package com.zq.user.config;
 import com.zq.common.annotation.AnonymousAccess;
 import com.zq.common.config.redis.RedisUtils;
 import com.zq.common.config.security.SecurityProperties;
+import com.zq.common.config.security.TokenProvider;
 import com.zq.common.utils.RequestMethodEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
@@ -76,7 +77,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         Map<String, Set<String>> anonymousUrls = getAnonymousUrl(handlerMethodMap);
         Set<String> allType = anonymousUrls.get(RequestMethodEnum.ALL.getType());
         //不使用注解的时候在这添加url放行
-        allType.add("/user/app/**");
+        allType.add("/user/api/**");
 
         httpSecurity
                 // 禁用 CSRF
@@ -184,4 +185,5 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         anonymousUrls.put(RequestMethodEnum.ALL.getType(), all);
         return anonymousUrls;
     }
+
 }

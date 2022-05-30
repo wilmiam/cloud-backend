@@ -27,6 +27,7 @@ package com.zq.common.config.base;
  */
 
 public interface CallBack {
+
     /**
      * 回调执行方法
      */
@@ -40,5 +41,6 @@ public interface CallBack {
     default String getCallBackName() {
         return Thread.currentThread().getId() + ":" + this.getClass().getName();
     }
+
 }
 

@@ -85,4 +85,5 @@ public class ResultVo<T> implements Serializable {
     public void setData(T data) {
         this.data = data;
     }
+
 }

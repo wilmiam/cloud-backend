@@ -19,6 +19,8 @@ public abstract class BaseCacheKeys {
 
     private static final String RATE_LIMIT = PREFIX + "rate-limit.";
 
+    public static final String USER_DATA_MAP_KEY = "USER-LOGIN-DATA";
+
     /**
      * 构建app端用户token的缓存key
      *

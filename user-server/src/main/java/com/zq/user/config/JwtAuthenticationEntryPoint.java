@@ -36,4 +36,5 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         // 当用户尝试访问安全的REST资源而不提供任何凭据时，将调用此方法发送401 响应
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException == null ? "Unauthorized" : authException.getMessage());
     }
+
 }

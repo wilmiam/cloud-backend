@@ -37,7 +37,6 @@
         <module>eureka-server</module>
         <module>config-server</module>
         <module>xxx-common-utils</module>
-        <module>sys-server</module>
         <module>file-server</module>
         <module>api-server</module>
         <module>user-server</module>

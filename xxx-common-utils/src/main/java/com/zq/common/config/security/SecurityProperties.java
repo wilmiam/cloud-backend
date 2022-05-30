@@ -73,4 +73,5 @@ public class SecurityProperties {
     public String getTokenStartWith() {
         return tokenStartWith + " ";
     }
+
 }

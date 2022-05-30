@@ -102,4 +102,5 @@ public class ApiTokenUtils implements InitializingBean {
     public static boolean isTokenValid(String token) {
         return getClaims(token) != null;
     }
+
 }

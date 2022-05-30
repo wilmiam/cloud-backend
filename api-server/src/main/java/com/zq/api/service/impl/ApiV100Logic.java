@@ -24,4 +24,5 @@ public class ApiV100Logic extends BaseApiLogic implements IApiLogic {
     public ApiResp sendCode(ApiForm form) {
         return ApiUtils.toApiResp(form, userFeign.sendCode(form.getString("phone")));
     }
+
 }

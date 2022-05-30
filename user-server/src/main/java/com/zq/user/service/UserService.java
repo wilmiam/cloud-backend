@@ -127,11 +127,11 @@ public class UserService {
         redisUtils.setObj(UserCacheKeys.appTokenKey(token), tokenVo, UserCacheKeys.APP_TOKEN_EXPIRE_MINUTES);
 
         // 重新登录删除前一个token实现单点登录
-        String cacheToken = redisUtils.getStr(UserCacheKeys.liveAppTokenKey(appUser.getId()));
+        String cacheToken = redisUtils.getStr(UserCacheKeys.liveAppTokenKey(appUser.getId().toString()));
         redisUtils.deleteObj(UserCacheKeys.appTokenKey(cacheToken));
 
         // 限制同一时间同一帐号只能在一个设备上登录
-        redisUtils.setStr(UserCacheKeys.liveAppTokenKey(appUser.getId()), token, UserCacheKeys.APP_TOKEN_EXPIRE_MINUTES);
+        redisUtils.setStr(UserCacheKeys.liveAppTokenKey(appUser.getId().toString()), token, UserCacheKeys.APP_TOKEN_EXPIRE_MINUTES);
 
         return tokenVo;
     }

@@ -27,4 +27,5 @@ public class BusinessException extends RuntimeException {
     public int getCode() {
         return code;
     }
+
 }

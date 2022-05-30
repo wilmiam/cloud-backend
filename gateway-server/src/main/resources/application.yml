@@ -29,6 +29,11 @@ spring:
           predicates:
             - Path=/sys/**, /webSocket/**
 
+        - id: admin
+          uri: lb://${admin.name}
+          predicates:
+            - Path=/admin/**
+
         - id: oauth
           uri: lb://${oauth.name}
           predicates:

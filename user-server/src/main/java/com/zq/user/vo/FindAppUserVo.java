@@ -101,4 +101,5 @@ public class FindAppUserVo extends PageReqVo {
      */
     @ApiModelProperty("开放平台获取的unionid,解决这个同一个企业的不同APP和不同公众号之间的帐号共通")
     private String unionId;
+
 }

@@ -2,10 +2,13 @@ server:
   port: ${admin.port}
 # 配置数据源
 spring:
+  application:
+    name: ${admin.name}
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   freemarker:
     check-template-location: false
-  application:
-    name:  ${admin.name}
   redis:
     # 数据库索引
     database: 0
@@ -27,6 +30,8 @@ spring:
       min-idle: 10
       # 最大连接数
       max-active: 20
+      # 超时时间(以秒数为单位)
+      remove-abandoned-timeout: 180
       # 获取连接超时时间
       max-wait: 5000
       # 连接有效性检测时间
@@ -35,8 +40,11 @@ spring:
       min-evictable-idle-time-millis: 300000
       # 连接在池中最大生存的时间
       max-evictable-idle-time-millis: 900000
+      # 指明连接是否被空闲连接回收器(如果有)进行检验.如果检测失败,则连接将被从池中去除
       test-while-idle: true
-      test-on-borrow: false
+      # 指明是否在从池中取出连接前进行检验,如果检验失败, 则从池中去除连接并尝试取出另一个
+      test-on-borrow: true
+      # 是否在归还到池中前进行检验
       test-on-return: false
       # 检测连接是否有效
       validation-query: select 1
@@ -45,8 +53,9 @@ spring:
         enabled: true
       stat-view-servlet:
         enabled: true
-        url-pattern: /druid/*
+        url-pattern: /admin/druid/*
         reset-enable: false
+        allow: ""
       filter:
         stat:
           enabled: true
@@ -66,6 +75,17 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 
+# mybatis plus 配置
+mybatis-plus:
+  global-config:
+    db-config:
+      select-strategy: not_empty
+      update-strategy: not_empty
+
+#日志输出配置
+logging:
+  level:
+    com.zq.*: @logging.level@
 
 #七牛云
 qiniu:
@@ -82,10 +102,12 @@ rsa:
 
 # 登录相关配置
 login:
-  # 登录缓存
-  cache-enable: true
   #  是否限制单用户登录
   single-login: false
+  # Redis用户登录缓存配置
+  user-cache:
+    # 存活时间/秒
+    idle-time: 7200
   #  验证码
   login-code:
     #  验证码类型配置 查看 LoginProperties 类
@@ -121,11 +143,11 @@ file:
     path: ~/file/
     avatar: ~/avatar/
   linux:
-    path: /home/eladmin/file/
-    avatar: /home/eladmin/avatar/
+    path: /data/file/
+    avatar: /data/avatar/
   windows:
-    path: C:\eladmin\file\
-    avatar: C:\eladmin\avatar\
+    path: D:\data\file\
+    avatar: D:\data\avatar\
   # 文件大小 /M
   maxSize: 100
   avatarMaxSize: 5

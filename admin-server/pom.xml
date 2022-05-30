@@ -29,6 +29,11 @@
             <version>1.0.0</version>
         </dependency>
         <dependency>
+            <groupId>com.zq</groupId>
+            <artifactId>logging-server</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
@@ -154,13 +159,6 @@
             <version>0.1.55</version>
         </dependency>
 
-        <!-- 解析客户端操作系统、浏览器信息 -->
-        <dependency>
-            <groupId>nl.basjes.parse.useragent</groupId>
-            <artifactId>yauaa</artifactId>
-            <version>5.23</version>
-        </dependency>
-
         <!-- 获取系统信息 -->
         <dependency>
             <groupId>com.github.oshi</groupId>
@@ -191,6 +189,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!-- 打包时跳过测试 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
         </plugins>
 
