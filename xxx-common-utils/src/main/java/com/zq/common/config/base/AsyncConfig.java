@@ -14,7 +14,7 @@ import java.util.concurrent.Executor;
 /**
  * 异步执行配置
  * <p>
- * 注解ConditionalOnProperty(value = "async.pool.enable", havingValue = "true")
+ * 注解ConditionalOnProperty(value = "task.pool.enable", havingValue = "true")
  * 当获取到async.pool.enable的值等于havingValue的值时才加载配置
  *
  * @author wilmiam
