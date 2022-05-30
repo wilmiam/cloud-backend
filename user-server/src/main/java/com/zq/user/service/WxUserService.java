@@ -97,7 +97,7 @@ public class WxUserService {
                 appUser.setUnionId(userInfo.getString("unionId"));   // 微信开放平台 通用的 unionid
                 appUser.setGender(userInfo.getString("gender"));  // 性别 0.未知 1.男 2.女
                 appUser.setAvatar(userInfo.getString("avatarUrl"));   // 头像
-                appUser.setWxName(userInfo.getString("nickName"));      // 微信昵称
+                appUser.setNickname(userInfo.getString("nickName"));      // 微信昵称
                 String address = userInfo.getString("country") + " " + userInfo.getString("province") + " " + userInfo.getString("city");
                 appUser.setAddress(address.trim().replace("  ", " "));
                 flag = true;
@@ -109,7 +109,7 @@ public class WxUserService {
             appUser.setAvatar(vo.getAvatar());
         }
         if (!flag && StringUtils.isNotBlank(vo.getNickname())) {
-            appUser.setWxName(vo.getNickname());
+            appUser.setNickname(vo.getNickname());
         }
         if (!flag && StringUtils.isNotBlank(vo.getSex())) {
             appUser.setGender(vo.getSex());
@@ -132,7 +132,7 @@ public class WxUserService {
                 Optional<WxUser> optionalWxUser = wxUserList.stream().max(Comparator.comparing(WxUser::getLastLoginTime));
                 optionalWxUser.ifPresent(u -> {
                     user.setUsername(u.getUsername());
-                    user.setName(u.getName());
+                    user.setRealname(u.getRealname());
                     user.setIdCard(u.getIdCard());
                 });
             }
@@ -149,8 +149,8 @@ public class WxUserService {
             if (StringUtils.isBlank(wxUser.getAvatar())) {
                 wxUser.setAvatar(user.getAvatar());
             }
-            if (StringUtils.isBlank(wxUser.getWxName())) {
-                wxUser.setWxName(user.getWxName());
+            if (StringUtils.isBlank(wxUser.getNickname())) {
+                wxUser.setNickname(user.getNickname());
             }
             wxUser.setUnionId(user.getUnionId());
             wxUser.setGender(user.getGender());
@@ -167,7 +167,7 @@ public class WxUserService {
                 .userId(wxUser.getId())
                 .phone(wxUser.getPhone())
                 .account(wxUser.getUsername())
-                .nickname(StringUtils.isBlank(wxUser.getName()) ? wxUser.getWxName() : wxUser.getName())
+                .nickname(StringUtils.isBlank(wxUser.getRealname()) ? wxUser.getNickname() : wxUser.getRealname())
                 .build();
 
         String token = ApiTokenUtils.createToken(tokenVo, UserCacheKeys.APP_TOKEN_EXPIRE_MINUTES);
@@ -201,7 +201,7 @@ public class WxUserService {
         if (StringUtils.isNotBlank(vo.getPhone()) && !vo.getPhone().contains("*")) {
             wxUser.setPhone(vo.getPhone());
         }
-        wxUser.setWxName(vo.getWxName());
+        wxUser.setNickname(vo.getNickname());
         wxUser.setGender(vo.getGender());
         wxUser.setAge(vo.getAge());
         wxUser.setAddress(vo.getAddress());

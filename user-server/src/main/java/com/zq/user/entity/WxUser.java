@@ -22,7 +22,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@TableName(value = "WX_USER")
+@TableName(value = "t_wx_user")
 public class WxUser {
 
     /**
@@ -39,28 +39,28 @@ public class WxUser {
     private String phone;
 
     /**
-     * 微信昵称
-     */
-    @ApiModelProperty("微信昵称")
-    private String wxName;
-
-    /**
      * 账号
      */
     @ApiModelProperty("账号")
     private String username;
 
     /**
-     * 密码
+     * 登录密码
      */
-    @ApiModelProperty("密码")
+    @ApiModelProperty("登录密码")
     private String passwd;
 
     /**
-     * 名称
+     * 昵称
      */
-    @ApiModelProperty("名称")
-    private String name;
+    @ApiModelProperty("昵称")
+    private String nickname;
+
+    /**
+     * 真实姓名
+     */
+    @ApiModelProperty("真实姓名")
+    private String realname;
 
     /**
      * 身份证号码
@@ -87,15 +87,15 @@ public class WxUser {
     private String gender;
 
     /**
-     * 微信获取的地址
+     * 地址
      */
-    @ApiModelProperty("微信获取的地址")
+    @ApiModelProperty("地址")
     private String address;
 
     /**
-     * 状态
+     * 状态：0未激活 1正常 2暂停使用 3永久停号
      */
-    @ApiModelProperty("状态")
+    @ApiModelProperty("状态：0未激活 1正常 2暂停使用 3永久停号")
     private Integer state;
 
     /**
@@ -111,15 +111,15 @@ public class WxUser {
     private String openId;
 
     /**
-     * 微信开放平台获取的unionId
+     * 开放平台获取的unionid,解决这个同一个企业的不同APP和不同公众号之间的帐号共通
      */
-    @ApiModelProperty("微信开放平台获取的unionId")
+    @ApiModelProperty("开放平台获取的unionid,解决这个同一个企业的不同APP和不同公众号之间的帐号共通")
     private String unionId;
 
     /**
-     * 最后访问IP
+     * 最后登录访问IP
      */
-    @ApiModelProperty("最后访问IP")
+    @ApiModelProperty("最后登录访问IP")
     private String accessIp;
 
     /**
