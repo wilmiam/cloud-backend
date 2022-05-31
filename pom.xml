@@ -25,7 +25,7 @@
         <mybatis.plus.version>3.4.0</mybatis.plus.version>
         <pagehelper.version>5.2.0</pagehelper.version>
         <jjwt.version>0.9.1</jjwt.version>
-        <fastjson.version>1.2.76</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <hutool.version>5.7.7</hutool.version>
 
         <logback.version>1.2.10</logback.version>
