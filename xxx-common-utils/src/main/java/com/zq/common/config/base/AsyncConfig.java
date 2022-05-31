@@ -52,7 +52,7 @@ public class AsyncConfig implements AsyncConfigurer {
 
     @Override
     public Executor getAsyncExecutor() {
-        log.info(">> 初始化spring线程池...");
+        log.info(">> 初始化spring线程池 [core-pool={}] [max-pool={}] [queue-capacity={}] [keep-alive-seconds={}]", corePoolSize, maxPoolSize, queueCapacity, threadTimeout);
         ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
 
         // 当一个任务通过execute(Runnable)方法欲添加到线程池时：

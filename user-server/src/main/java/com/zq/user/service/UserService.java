@@ -154,7 +154,8 @@ public class UserService {
 
     // @Cacheable
     public AppUser getUserInfo(String userId) {
-        return userDao.selectById(userId);
+        AppUser appUser = userDao.selectById(userId);
+        return appUser;
     }
 
     /**
