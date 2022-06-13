@@ -27,7 +27,6 @@ public class HttpRequestUtils {
 
     private static final Logger log = LoggerFactory.getLogger(HttpRequestUtils.class);
 
-    private static boolean ipLocal = false;
     private static final String MICROSOFT_IE = "MSIE";
     private static final int IE_URL_LIMIT = 150;
 
