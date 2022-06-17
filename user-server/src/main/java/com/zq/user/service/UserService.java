@@ -21,6 +21,7 @@ import com.zq.user.vo.LoginVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -152,7 +153,7 @@ public class UserService {
         userDao.updateById(appUser);
     }
 
-    // @Cacheable
+    @Cacheable(key = "'info:' + #userId")
     public AppUser getUserInfo(String userId) {
         AppUser appUser = userDao.selectById(userId);
         return appUser;
@@ -164,6 +165,7 @@ public class UserService {
      * @param vo
      * @return
      */
+    // @Cacheable(key = "'list:' + #vo")
     public PageVo<AppUser> getUserList(FindAppUserVo vo) {
         LambdaQueryWrapper<AppUser> lambdaQuery = Wrappers.lambdaQuery(AppUser.class);
         lambdaQuery.orderByAsc(AppUser::getId);
