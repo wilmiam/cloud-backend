@@ -1,9 +1,9 @@
 server:
-  port: ${user.port}
+  port: 8700
 #配置数据源
 spring:
   application:
-    name: ${user.name}
+    name: USER-SERVER
   servlet:
     #上传文件限制
     multipart:

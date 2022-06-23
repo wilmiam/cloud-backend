@@ -1,9 +1,15 @@
 server:
-  port: ${file.port}
+  port: 8200
 spring:
+  application:
+    name: FILE-SERVER
   servlet:
     multipart:
       max-file-size: 100MB
-      max-request-size: 100MB
-  application:
-    name: ${file.name}
+      max-request-size: 150MB
+  mvc:
+    format:
+      date: yyyy-MM-dd HH:mm:ss
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8

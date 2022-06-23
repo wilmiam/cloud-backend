@@ -1,9 +1,9 @@
 server:
-  port: ${api.port}
+  port: 8100
 #配置数据源
 spring:
   application:
-    name: ${api.name}
+    name: API-SERVER
   servlet:
     #上传文件限制
     multipart:

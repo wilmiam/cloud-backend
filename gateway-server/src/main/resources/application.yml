@@ -1,8 +1,8 @@
 server:
-  port: ${gateway.port}
+  port: 9888
 spring:
   application:
-    name: ${gateway.name}
+    name: GATEWAY-SERVER
   cloud:
     gateway:
       default-filters:
@@ -20,32 +20,19 @@ spring:
             maxAge: 3600
       routes:
         - id: api
-          uri: lb://${api.name}
+          uri: lb://API-SERVER
           predicates:
             - Path=/api/**
-
-        - id: sys
-          uri: lb://${sys.name}
-          predicates:
-            - Path=/sys/**, /webSocket/**
-
         - id: admin
-          uri: lb://${admin.name}
+          uri: lb://ADMIN-SERVER
           predicates:
             - Path=/admin/**
-
-        - id: oauth
-          uri: lb://${oauth.name}
-          predicates:
-            - Path=/oauth/**
-
         - id: file
-          uri: lb://${file.name}
+          uri: lb://FILE-SERVER
           predicates:
             - Path=/file/**
-
         - id: user
-          uri: lb://${user.name}
+          uri: lb://USER-SERVER
           predicates:
             - Path=/user/**
 

@@ -1,24 +1,4 @@
-oauth.port: 8555
-oauth.name: AUTH-SERVER
-
-sys.port: 8666
-sys.name: SYS-SERVER
-
-admin.port: 9000
-admin.name: ADMIN-SERVER
-
-file.port: 8200
-file.name: FILE-SERVER
-
-api.port: 8100
-api.name: API-SERVER
-
-user.port: 8700
-user.name: USER-SERVER
-
-gateway.port: 9888
-gateway.name: GATEWAY-SERVER
-
+#Redis配置
 redis.url: 127.0.0.1
 redis.port: 6379
 redis.password:
