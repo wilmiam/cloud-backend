@@ -14,6 +14,7 @@ package com.zq.common.config.security;/*
  *  limitations under the License.
  */
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.zq.common.vo.ApiTokenVo;
 import io.jsonwebtoken.*;
@@ -73,6 +74,9 @@ public class ApiTokenUtils implements InitializingBean {
     }
 
     public static ApiTokenVo getAppTokenVo(String token) {
+        if (StrUtil.isBlank(token)) {
+            return null;
+        }
         Claims claims = getClaims(token);
         if (claims == null) {
             return null;
