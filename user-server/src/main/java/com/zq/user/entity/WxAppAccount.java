@@ -21,7 +21,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@TableName(value = "WX_APP_ACCOUNT")
+@TableName(value = "t_wx_app_account")
 public class WxAppAccount {
 
     /**
