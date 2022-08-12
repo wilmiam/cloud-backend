@@ -4,8 +4,8 @@ import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * @author CodeAnyWay
- * @since 2019-04-28
+ * @author wilmiam
+ * @since 2022-08-12 11:45
  */
 @Getter
 @Setter
