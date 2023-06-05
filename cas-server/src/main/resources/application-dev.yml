@@ -17,4 +17,4 @@ spring:
     use-session: true
     cas-server-login-url: http://175.178.197.14:8081/cas/login/login?service=http://172.20.10.5:9888/oauth/login
     cas-server-url-prefix: http://175.178.197.14:8081/cas
-    server-name: 172.20.10.5:9888
+    server-name: 172.20.10.5:9888 #网关地址

@@ -31,12 +31,12 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @EnableFeignClients
 @EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages = {"com.zq.auth", "com.zq.common.config"},
+@SpringBootApplication(scanBasePackages = {"com.zq.cas", "com.zq.common.config"},
         exclude = DataSourceAutoConfiguration.class)
-public class OauthApplication {
+public class CasServerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OauthApplication.class, args);
+        SpringApplication.run(CasServerApplication.class, args);
     }
 
     /**

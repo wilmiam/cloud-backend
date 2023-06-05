@@ -253,7 +253,7 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
-    public Dept getById(Long orgId) {
+    public Dept getById(Long deptId) {
         Optional<Dept> deptOptional = deptRepository.findById(deptId);
         return deptOptional.orElse(null);
     }

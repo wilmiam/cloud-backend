@@ -1,9 +1,9 @@
 server:
-  port: ${auth.port}
+  port: 9002
 #配置数据源
 spring:
   application:
-    name: ${auth.name}
+    name: CAS-SERVER
   redis:
     #数据库索引
     host: ${redis.url}
@@ -12,7 +12,3 @@ spring:
     database: 0
     #连接超时时间
     timeout: 5000
-
-#登录配置
-login:
-  single: true

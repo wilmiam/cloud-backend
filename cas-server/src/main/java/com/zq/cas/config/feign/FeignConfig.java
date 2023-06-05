@@ -1,6 +1,6 @@
 package com.zq.cas.config.feign;
 
-import com.zq.common.utils.HttpRequestUtils;
+import com.zq.common.http.HttpRequestUtils;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import feign.codec.Encoder;
