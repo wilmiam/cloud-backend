@@ -157,6 +157,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Boolean isExistName(String username) {
+        User user = userRepository.findByUsername(username);
+        return user != null;
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(Set<Long> ids) {
         for (Long id : ids) {

@@ -252,6 +252,12 @@ public class DeptServiceImpl implements DeptService {
         }
     }
 
+    @Override
+    public Dept getById(Long orgId) {
+        Optional<Dept> deptOptional = deptRepository.findById(deptId);
+        return deptOptional.orElse(null);
+    }
+
     private void updateSubCnt(Long deptId) {
         if (deptId != null) {
             int count = deptRepository.countByPid(deptId);

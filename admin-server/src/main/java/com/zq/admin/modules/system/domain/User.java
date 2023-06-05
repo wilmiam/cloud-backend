@@ -106,6 +106,15 @@ public class User extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "最后修改密码的时间", hidden = true)
     private Date pwdResetTime;
 
+    @ApiModelProperty("法院分级码")
+    private String gradingCode;
+
+    @ApiModelProperty("用户代码")
+    private String userCode;
+
+    @ApiModelProperty("身份证")
+    private String idCard;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

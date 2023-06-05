@@ -1,0 +1,20 @@
+# 系统跳转配置
+jump:
+  domain-map:
+    default: http://147.1.5.135:8090
+    invoice: http://147.1.4.67:8060
+    archive: http://147.1.5.135:8090
+
+spring:
+  #单点登陆配置
+  cas:
+    sign-out-filters: /oauth/logout
+    auth-filters: /oauth/login
+    validate-filters: /*
+    request-wrapper-filters: /*
+    assertion-filters: /*
+    redirect-after-validation: true
+    use-session: true
+    cas-server-login-url: http://147.1.6.16:8080/cas/login?service=http://147.1.5.135/oauth/login
+    cas-server-url-prefix: http://147.1.6.16:8080/cas
+    server-name: http://147.1.5.135

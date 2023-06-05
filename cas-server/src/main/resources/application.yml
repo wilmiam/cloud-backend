@@ -1,0 +1,18 @@
+server:
+  port: ${auth.port}
+#配置数据源
+spring:
+  application:
+    name: ${auth.name}
+  redis:
+    #数据库索引
+    host: ${redis.url}
+    port: ${redis.port}
+    password: ${redis.password}
+    database: 0
+    #连接超时时间
+    timeout: 5000
+
+#登录配置
+login:
+  single: true

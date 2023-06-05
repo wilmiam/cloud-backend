@@ -135,4 +135,6 @@ public interface DeptService {
      */
     void verification(Set<DeptDto> deptDtos);
 
+    Dept getById(Long orgId);
+
 }

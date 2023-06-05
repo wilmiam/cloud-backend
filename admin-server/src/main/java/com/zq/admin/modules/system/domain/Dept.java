@@ -67,6 +67,15 @@ public class Dept extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "子节点数目", hidden = true)
     private Integer subCount = 0;
 
+    @ApiModelProperty("法院分级码")
+    private String gradingCode;
+
+    @ApiModelProperty("机构代码")
+    private String orgCode;
+
+    @ApiModelProperty(value = "简称")
+    private String abbreviation;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

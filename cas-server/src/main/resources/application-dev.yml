@@ -1,0 +1,20 @@
+# 系统跳转配置
+jump:
+  domain-map:
+    default: http://172.20.10.5:8026
+    oa-document-zat: http://192.168.0.29:8026/
+    default-ld: http://192.168.0.162:8026
+
+spring:
+  #单点登陆配置
+  cas:
+    sign-out-filters: /oauth/logout
+    auth-filters: /oauth/login
+    validate-filters: /*
+    request-wrapper-filters: /*
+    assertion-filters: /*
+    redirect-after-validation: true
+    use-session: true
+    cas-server-login-url: http://175.178.197.14:8081/cas/login/login?service=http://172.20.10.5:9888/oauth/login
+    cas-server-url-prefix: http://175.178.197.14:8081/cas
+    server-name: 172.20.10.5:9888

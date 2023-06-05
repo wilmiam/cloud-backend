@@ -137,4 +137,6 @@ public interface UserService {
      */
     void updateCenter(User resources);
 
+    Boolean isExistName(String username);
+
 }
