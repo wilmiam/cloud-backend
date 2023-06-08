@@ -69,7 +69,7 @@ spring:
 mybatis-plus:
   global-config:
     db-config:
-      select-strategy: not_empty
+      where-strategy: not_empty
       update-strategy: not_empty
 
 #logging.level.com.zq.drug.dao: debug

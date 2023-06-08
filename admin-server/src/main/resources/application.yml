@@ -79,7 +79,7 @@ spring:
 mybatis-plus:
   global-config:
     db-config:
-      select-strategy: not_empty
+      where-strategy: not_empty
       update-strategy: not_empty
 
 #日志输出配置
