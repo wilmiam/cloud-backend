@@ -16,7 +16,7 @@ spring:
             allowCredentials: true
             allowedOriginPatterns: "*"
             allowedMethods: "PUT, POST, GET, OPTIONS, DELETE"
-            allowedHeaders: "Content-type, Authorization"
+            allowedHeaders: "*"
             maxAge: 3600
       routes:
         - id: api
