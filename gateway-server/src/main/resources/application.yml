@@ -14,7 +14,7 @@ spring:
         cors-configurations:
           '[/**]':
             allowCredentials: true
-            allowedOrigins: "*"
+            allowedOriginPatterns: "*"
             allowedMethods: "PUT, POST, GET, OPTIONS, DELETE"
             allowedHeaders: "Content-type, Authorization"
             maxAge: 3600

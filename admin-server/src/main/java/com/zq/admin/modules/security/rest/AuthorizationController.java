@@ -32,6 +32,7 @@ import com.zq.common.annotation.rest.AnonymousGetMapping;
 import com.zq.common.annotation.rest.AnonymousPostMapping;
 import com.zq.common.config.redis.RedisUtils;
 import com.zq.common.config.security.SecurityProperties;
+import com.zq.common.vo.ResultVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +44,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -72,6 +75,7 @@ public class AuthorizationController {
     private final OnlineUserService onlineUserService;
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final UserDetailsService userDetailsService;
     @Resource
     private LoginProperties loginProperties;
 
@@ -146,6 +150,26 @@ public class AuthorizationController {
     public ResponseEntity<Object> logout(HttpServletRequest request) {
         onlineUserService.logout(tokenProvider.getToken(request));
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ApiOperation("cas登录")
+    @AnonymousPostMapping(value = "/casLogin")
+    public ResultVo<Map<String, Object>> casLogin(@RequestBody AuthUserDto authUser, HttpServletRequest request) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(authUser.getUsername());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        // 生成令牌
+        String token = TokenProvider.createToken(authentication);
+
+        final JwtUserDto jwtUserDto = (JwtUserDto) authentication.getPrincipal();
+        // 保存在线信息
+        onlineUserService.save(jwtUserDto, token, request);
+
+        // 返回 token 与 用户信息
+        Map<String, Object> authInfo = new HashMap<String, Object>(1) {{
+            put("token", token);
+        }};
+        return ResultVo.success(authInfo);
     }
 
 }

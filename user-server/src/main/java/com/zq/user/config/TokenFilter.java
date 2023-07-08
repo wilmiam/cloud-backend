@@ -16,12 +16,10 @@
 package com.zq.user.config;
 
 import cn.hutool.core.util.StrUtil;
-import com.zq.common.config.redis.BaseCacheKeys;
-import com.zq.common.config.redis.RedisUtils;
-import com.zq.common.config.security.SecurityProperties;
 import com.zq.common.context.ContextUtils;
 import com.zq.common.vo.OnlineUserDto;
-import io.jsonwebtoken.ExpiredJwtException;
+import com.zq.common.vo.ResultVo;
+import com.zq.user.feign.AdminFeignClient;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +33,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Objects;
 
 /**
  * @author /
@@ -45,18 +42,15 @@ public class TokenFilter extends GenericFilterBean {
     private static final Logger log = LoggerFactory.getLogger(TokenFilter.class);
 
     private final TokenProvider tokenProvider;
-    private final SecurityProperties properties;
-    private final RedisUtils redisUtils;
+    private final AdminFeignClient adminFeignClient;
 
     /**
-     * @param tokenProvider Token
-     * @param properties    JWT
-     * @param redisUtils    redis
+     * @param tokenProvider    Token
+     * @param adminFeignClient adminFeign
      */
-    public TokenFilter(TokenProvider tokenProvider, SecurityProperties properties, RedisUtils redisUtils) {
-        this.properties = properties;
+    public TokenFilter(TokenProvider tokenProvider, AdminFeignClient adminFeignClient) {
         this.tokenProvider = tokenProvider;
-        this.redisUtils = redisUtils;
+        this.adminFeignClient = adminFeignClient;
     }
 
     @Override
@@ -67,17 +61,11 @@ public class TokenFilter extends GenericFilterBean {
         // 对于 Token 为空的不需要去查 Redis
         if (StrUtil.isNotBlank(token)) {
             OnlineUserDto onlineUserDto = null;
-            boolean cleanUserCache = false;
             try {
-                onlineUserDto = redisUtils.getObj(properties.getOnlineKey() + token, OnlineUserDto.class);
-            } catch (ExpiredJwtException e) {
-                log.error(e.getMessage());
-                cleanUserCache = true;
-            } finally {
-                if (cleanUserCache || Objects.isNull(onlineUserDto)) {
-                    String username = String.valueOf(tokenProvider.getClaims(token).get(TokenProvider.AUTHORITIES_KEY));
-                    redisUtils.hdel(BaseCacheKeys.USER_DATA_MAP_KEY, username);
-                }
+                ResultVo<OnlineUserDto> resultVo = adminFeignClient.getCurrentUser();
+                onlineUserDto = resultVo.getData();
+            } catch (Exception e) {
+                log.error(">> 获取当前用户失败：" + e.getMessage());
             }
             if (onlineUserDto != null && StringUtils.isNotBlank(token)) {
                 Authentication authentication = tokenProvider.getAuthentication(token);

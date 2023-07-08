@@ -15,8 +15,7 @@
  */
 package com.zq.user.config;
 
-import com.zq.common.config.redis.RedisUtils;
-import com.zq.common.config.security.SecurityProperties;
+import com.zq.user.feign.AdminFeignClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,12 +29,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class TokenConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
     private final TokenProvider tokenProvider;
-    private final SecurityProperties properties;
-    private final RedisUtils redisUtils;
+    private final AdminFeignClient adminFeignClient;
 
     @Override
     public void configure(HttpSecurity http) {
-        TokenFilter customFilter = new TokenFilter(tokenProvider, properties, redisUtils);
+        TokenFilter customFilter = new TokenFilter(tokenProvider, adminFeignClient);
         http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
