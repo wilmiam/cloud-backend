@@ -5,6 +5,10 @@ spring:
     name: CONFIG-SERVER
   profiles:
     active: native  # 配置使用本地储存
+  security:
+    user:
+      name: admin
+      password: 123456
   cloud:
     config:
       server:
@@ -18,12 +22,14 @@ spring:
 eureka:
   instance:
     prefer-ip-address: true
-    lease-renewal-interval-in-seconds: 2 #每间隔1s，向服务端发送一次心跳，证明自己依然"存活"
-    lease-expiration-duration-in-seconds: 6 #告诉服务端，如果我2s之内没有给你发心跳，就代表我"死"了，将我踢出掉。
+    lease-renewal-interval-in-seconds: 5 #向服务端发送心跳间隔
+    lease-expiration-duration-in-seconds: 15 #告诉服务端多少秒没收到心跳将我踢出掉。
     instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
   client:
-    service-url:
-      defaultZone: @eureka.server.url@
+    # 客户端拉取readOnly缓存的时间间隔，默认是30s
+    registry-fetch-interval-seconds: 3 # 拉取注册表信息间隔时间
+    serviceUrl:
+      defaultZone: @register.url@
 
 management:
   endpoints:

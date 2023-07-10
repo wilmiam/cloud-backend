@@ -65,7 +65,10 @@ public class TokenFilter extends GenericFilterBean {
                 ResultVo<OnlineUserDto> resultVo = adminFeignClient.getCurrentUser();
                 onlineUserDto = resultVo.getData();
             } catch (Exception e) {
-                log.error(">> 获取当前用户失败：" + e.getMessage());
+                String requestUri = httpServletRequest.getRequestURI();
+                if (!"/error".equals(requestUri)) {
+                    log.error(">> 获取当前用户失败：[{}] {}", requestUri, e.getMessage());
+                }
             }
             if (onlineUserDto != null && StringUtils.isNotBlank(token)) {
                 Authentication authentication = tokenProvider.getAuthentication(token);

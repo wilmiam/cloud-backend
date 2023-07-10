@@ -32,6 +32,8 @@ import com.zq.common.annotation.rest.AnonymousGetMapping;
 import com.zq.common.annotation.rest.AnonymousPostMapping;
 import com.zq.common.config.redis.RedisUtils;
 import com.zq.common.config.security.SecurityProperties;
+import com.zq.common.context.ContextUtils;
+import com.zq.common.vo.OnlineUserDto;
 import com.zq.common.vo.ResultVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -122,6 +124,12 @@ public class AuthorizationController {
     @GetMapping(value = "/info")
     public ResponseEntity<Object> getUserInfo() {
         return ResponseEntity.ok(SecurityUtils.getCurrentUser());
+    }
+
+    @ApiOperation("获取当前用户")
+    @GetMapping(value = "/getCurrentUser")
+    public ResultVo<OnlineUserDto> getCurrentUser() {
+        return ResultVo.success(ContextUtils.getAdminContext());
     }
 
     @ApiOperation("获取验证码")
