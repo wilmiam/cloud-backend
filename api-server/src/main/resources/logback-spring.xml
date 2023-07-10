@@ -6,7 +6,7 @@
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
     <!-- 项目名称也是主要日志文件名 -->
-    <property name="PROJECT_NAME" value="user"/>
+    <property name="PROJECT_NAME" value="api"/>
     <!-- 日志目录 -->
     <property name="LOG_PATH" value="/data/logs/${LOG_PATH:-${PROJECT_NAME}}"/>
     <!-- 日志格式 -->
@@ -191,12 +191,12 @@
         <appender-ref ref="WARN-APPENDER"/>
         <appender-ref ref="ERROR-APPENDER"/>
     </root>
-    <logger name="com.zq.user" level="DEBUG"/>
+    <logger name="com.zq.api" level="DEBUG"/>
 
     <!--环境配置-->
     <springProfile name="!dev">
-        <logger name="com.zq.user.feign" level="INFO"/>
-        <logger name="com.zq.user.dao" level="INFO"/>
+        <logger name="com.zq.api.feign" level="INFO"/>
+        <logger name="com.zq.api.dao" level="INFO"/>
         <logger name="com.zq.logging.mapper" level="INFO"/>
     </springProfile>
 
