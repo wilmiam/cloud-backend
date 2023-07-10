@@ -131,6 +131,7 @@
             <version>${qiniu.version}</version>
         </dependency>
 
+        <!-- 必须放在mapstruct依赖前面 -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
