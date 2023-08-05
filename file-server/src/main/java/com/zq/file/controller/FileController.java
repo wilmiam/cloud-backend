@@ -1,9 +1,9 @@
 package com.zq.file.controller;
 
 import com.zq.common.utils.AssertUtils;
-import com.zq.common.utils.UploadUtils;
 import com.zq.common.vo.ResultVo;
 import com.zq.common.vo.UploadVo;
+import com.zq.file.utils.UploadUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -11,6 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author wilmiam
+ */
 @Api(tags = "上传相关")
 @RestController
 @RequestMapping("/file")

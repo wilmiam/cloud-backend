@@ -14,12 +14,21 @@ spring:
 eureka:
   instance:
     prefer-ip-address: true
-    lease-renewal-interval-in-seconds: 5 #向服务端发送心跳间隔
-    lease-expiration-duration-in-seconds: 15 #告诉服务端多少秒没收到心跳将我踢出掉。
+    lease-renewal-interval-in-seconds: 2 #向服务端发送心跳间隔
+    lease-expiration-duration-in-seconds: 6 #告诉服务端多少秒没收到心跳将我踢出掉
     instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
   client:
-    # 客户端拉取readOnly缓存的时间间隔，默认是30s
-    registry-fetch-interval-seconds: 3 # 拉取注册表信息间隔时间
+    registry-fetch-interval-seconds: 2 #从服务端注册表中获取注册信息的时间间隔
     serviceUrl:
       defaultZone: @register.url@
 
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 2000 #连接超时时间
+        read-timeout: 10000 #读超时时间
+
+ribbon:
+  # ribbon服务列表刷新间隔（单位ms）
+  ServerListRefreshInterval: 2000
