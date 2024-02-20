@@ -16,7 +16,7 @@ eureka:
     prefer-ip-address: true
     lease-renewal-interval-in-seconds: 2 #向服务端发送心跳间隔
     lease-expiration-duration-in-seconds: 6 #告诉服务端多少秒没收到心跳将我踢出掉
-    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
   client:
     registry-fetch-interval-seconds: 2 #从服务端注册表中获取注册信息的时间间隔
     serviceUrl:

@@ -11,7 +11,7 @@ eureka: # 相关文章：https://blog.csdn.net/weixin_49149614/article/details/1
   instance:
     #设置使用IP注册就会优先使用IP，hostname则无效
     prefer-ip-address: true
-    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
   server:
     # 关闭自我保护机制（程序停掉了还注册的问题）
     enable-self-preservation: false
