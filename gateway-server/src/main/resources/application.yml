@@ -5,19 +5,21 @@ spring:
     name: GATEWAY-SERVER
   cloud:
     gateway:
-      default-filters:
+      default-filters: # 剔除响应头中重复的值  RETAIN_FIRST:只保留第一个 RETAIN_LAST:保留最后一个 RETAIN_UNIQUE:去除重复
         - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_UNIQUE
       discovery:
         locator:
           enabled: true
+          lower-case-service-id: true
       globalcors:
         cors-configurations:
           '[/**]':
+            #这里有个allowCredentials: true这个东西是设置允许访问携带cookie的，这点一定要和前端对应！
             allowCredentials: true
+            #可以填写多个域名用","隔开 例如："http://www.xiaolc.cn,https://spring.io"  "*"代表允许所有
             allowedOriginPatterns: "*"
-            allowedMethods: "PUT, POST, GET, OPTIONS, DELETE"
             allowedHeaders: "*"
-            maxAge: 3600
+            allowedMethods: "GET, POST, DELETE, PUT, OPTIONS"
       routes:
         - id: api
           uri: lb://API-SERVER
