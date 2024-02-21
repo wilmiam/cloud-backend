@@ -126,7 +126,7 @@
             <id>dev</id>
             <properties>
                 <profiles.active>dev</profiles.active>
-                <register.url>http://admin:123456@127.0.0.1:8800/eureka/</register.url>
+                <register.url>http://admin:Gxzq2024@127.0.0.1:8800/eureka/</register.url>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -137,7 +137,7 @@
             <id>test</id>
             <properties>
                 <profiles.active>test</profiles.active>
-                <register.url>http://admin:123456@127.0.0.1:8800/eureka/</register.url>
+                <register.url>http://admin:Gxzq2024@127.0.0.1:8800/eureka/</register.url>
             </properties>
         </profile>
         <profile>
@@ -145,7 +145,7 @@
             <id>product</id>
             <properties>
                 <profiles.active>product</profiles.active>
-                <register.url>http://admin:123456@127.0.0.1:8800/eureka/</register.url>
+                <register.url>http://admin:Gxzq2024@127.0.0.1:8800/eureka/</register.url>
             </properties>
         </profile>
     </profiles>
