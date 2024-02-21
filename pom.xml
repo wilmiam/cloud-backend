@@ -23,7 +23,7 @@
         <swagger.version>2.9.2</swagger.version>
         <alibaba.druid.version>1.2.21</alibaba.druid.version>
         <mybatis.plus.version>3.5.5</mybatis.plus.version>
-        <pagehelper.version>6.1.0</pagehelper.version>
+        <pagehelper.version>5.3.3</pagehelper.version>
         <jjwt.version>0.9.1</jjwt.version>
         <fastjson.version>1.2.83</fastjson.version>
         <hutool.version>5.8.26</hutool.version>
