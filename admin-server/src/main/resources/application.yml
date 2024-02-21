@@ -82,11 +82,6 @@ mybatis-plus:
       where-strategy: not_empty
       update-strategy: not_empty
 
-#日志输出配置
-logging:
-  level:
-    com.zq.*: @logging.level@
-
 #七牛云
 qiniu:
   # 文件大小 /M
