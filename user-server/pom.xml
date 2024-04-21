@@ -65,13 +65,11 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatis.plus.version}</version>
         </dependency>
         <!-- druid数据源驱动 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>${alibaba.druid.version}</version>
         </dependency>
         <!-- mysql -->
         <dependency>

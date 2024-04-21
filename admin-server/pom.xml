@@ -97,12 +97,10 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatis.plus.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>${alibaba.druid.version}</version>
         </dependency>
 
         <!-- quartz -->
@@ -114,7 +112,6 @@
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
-            <version>${jjwt.version}</version>
         </dependency>
 
         <!--支付宝依赖-->

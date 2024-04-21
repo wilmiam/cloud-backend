@@ -16,18 +16,20 @@ eureka:
     prefer-ip-address: true
     lease-renewal-interval-in-seconds: 2 #向服务端发送心跳间隔
     lease-expiration-duration-in-seconds: 6 #告诉服务端多少秒没收到心跳将我踢出掉
-    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
   client:
-    registry-fetch-interval-seconds: 2 #从服务端注册表中获取注册信息的时间间隔
+    registry-fetch-interval-seconds: 6 #从服务端注册表中获取注册信息的时间间隔
     serviceUrl:
       defaultZone: @register.url@
 
+#Feign 超时配置
 feign:
   client:
     config:
       default:
-        connect-timeout: 2000 #连接超时时间
-        read-timeout: 10000 #读超时时间
+        connect-timeout: 2000 # 连接超时时间 ms
+        read-timeout: 10000 # 读取超时时间 ms
+#        logger-level: BASIC # 仅记录请求的方法，URL以及响应状态码和执行时间。四种不同级别：NONE、BASIC、HEADERS、FULL
 
 ribbon:
   # ribbon服务列表刷新间隔（单位ms）

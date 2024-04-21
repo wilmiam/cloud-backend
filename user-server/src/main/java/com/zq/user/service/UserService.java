@@ -177,7 +177,7 @@ public class UserService {
             lambdaQuery.like(AppUser::getPhone, vo.getPhone());
         }
 
-        return PagingUtils.paging(vo, userDao, lambdaQuery, AppUser.class);
+        return PagingUtils.paging(vo, userDao, AppUser.class, lambdaQuery);
     }
 
 }

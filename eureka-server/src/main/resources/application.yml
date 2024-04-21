@@ -6,12 +6,12 @@ spring:
   security:
     user:
       name: admin
-      password: GXfy2021
+      password: Gxzq2024
 eureka: # 相关文章：https://blog.csdn.net/weixin_49149614/article/details/121059046
   instance:
     #设置使用IP注册就会优先使用IP，hostname则无效
     prefer-ip-address: true
-    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
   server:
     # 关闭自我保护机制（程序停掉了还注册的问题）
     enable-self-preservation: false
@@ -28,4 +28,4 @@ eureka: # 相关文章：https://blog.csdn.net/weixin_49149614/article/details/1
     fetch-registry: false
     # 设置与Eureka Server交互的地址，查询服务和注册服务都需要依赖这个地址。默认是http://127.0.0.1:8000/eureka ；多个地址可使用,分隔
     service-url:
-      defaultZone: http://admin:GXfy2021@127.0.0.1:8800/eureka/
+      defaultZone: http://admin:Gxzq2024@127.0.0.1:8800/eureka/
