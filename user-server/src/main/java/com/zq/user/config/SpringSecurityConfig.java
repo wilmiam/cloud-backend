@@ -16,9 +16,8 @@
 package com.zq.user.config;
 
 import com.zq.common.annotation.AnonymousAccess;
-import com.zq.common.config.redis.RedisUtils;
-import com.zq.common.config.security.SecurityProperties;
 import com.zq.common.utils.RequestMethodEnum;
+import com.zq.user.feign.AdminFeignClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -52,8 +51,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtAuthenticationEntryPoint authenticationErrorHandler;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final ApplicationContext applicationContext;
-    private final SecurityProperties properties;
-    private final RedisUtils redisUtils;
+    private final AdminFeignClient adminFeignClient;
 
     @Bean
     public GrantedAuthorityDefaults grantedAuthorityDefaults() {
@@ -137,7 +135,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private TokenConfigurer securityConfigurerAdapter() {
-        return new TokenConfigurer(tokenProvider, properties, redisUtils);
+        return new TokenConfigurer(tokenProvider, adminFeignClient);
     }
 
     private Map<String, Set<String>> getAnonymousUrl(Map<RequestMappingInfo, HandlerMethod> handlerMethodMap) {

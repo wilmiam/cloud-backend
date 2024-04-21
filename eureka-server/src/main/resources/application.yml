@@ -6,22 +6,26 @@ spring:
   security:
     user:
       name: admin
-      password: 123456
-eureka:
+      password: Gxzq2024
+eureka: # 相关文章：https://blog.csdn.net/weixin_49149614/article/details/121059046
+  instance:
+    #设置使用IP注册就会优先使用IP，hostname则无效
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
   server:
     # 关闭自我保护机制（程序停掉了还注册的问题）
     enable-self-preservation: false
-    # 主动失效检测间隔,配置成5秒
-    eviction-interval-timer-in-ms: 2000
-    # 禁用readOnlyCacheMap
-    use-read-only-response-cache: false
+    # 主动检测失效间隔,配置成3秒,默认60000
+    eviction-interval-timer-in-ms: 3000
+    # 拉取服务的时候，不从ReadOnlyCacheMap里查，直接从ReadWriteCacheMap取。
+    use-read-only-response-cache: false # 关闭从ReadOnlyCacheMap拉取数据。
+    # 缩短ReadWriteCacheMap向ReadOnlyCacheMap同步的时间间隔，默认30秒
+    response-cache-update-interval-ms: 3000 # 减少readWrite 和 readOnly 同步时间间隔。readWrite更新到readOnly
   client:
-    # 客户端拉取readOnly缓存的时间间隔，默认是30s
-    registry-fetch-interval-seconds: 10
     # 表示是否将自己注册到Eureka Server，默认为true。
     register-with-eureka: false
     # 表示是否从Eureka Server获取注册信息，默认为true。
     fetch-registry: false
-    # 设置与Eureka Server交互的地址，查询服务和注册服务都需要依赖这个地址。默认是http://localhost:8761/eureka/；多个地址可使用,分隔
+    # 设置与Eureka Server交互的地址，查询服务和注册服务都需要依赖这个地址。默认是http://127.0.0.1:8000/eureka ；多个地址可使用,分隔
     service-url:
-      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${spring.cloud.client.ip-address}:${server.port}/eureka/
+      defaultZone: http://admin:Gxzq2024@127.0.0.1:8800/eureka/

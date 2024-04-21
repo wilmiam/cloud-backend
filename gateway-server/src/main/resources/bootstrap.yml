@@ -8,13 +8,17 @@ spring:
       discovery:
         enabled: true
         service-id: CONFIG-SERVER
+      username: admin
+      password: 123456
 
 eureka:
   instance:
     prefer-ip-address: true
-    lease-renewal-interval-in-seconds: 2 #每间隔1s，向服务端发送一次心跳，证明自己依然"存活"
-    lease-expiration-duration-in-seconds: 6 #告诉服务端，如果我2s之内没有给你发心跳，就代表我"死"了，将我踢出掉。
-    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+    lease-renewal-interval-in-seconds: 2 #向服务端发送心跳间隔
+    lease-expiration-duration-in-seconds: 6 #告诉服务端多少秒没收到心跳将我踢出掉
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
   client:
-    service-url:
-      defaultZone: @eureka.server.url@
+    registry-fetch-interval-seconds: 2 #从服务端注册表中获取注册信息的时间间隔
+    serviceUrl:
+      defaultZone: @register.url@
+

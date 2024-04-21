@@ -1,6 +1,5 @@
 package com.zq.user.controller.admin;
 
-import com.zq.common.annotation.AnonymousAccess;
 import com.zq.common.vo.PageVo;
 import com.zq.common.vo.ResultVo;
 import com.zq.logging.annotation.Log;
@@ -28,7 +27,7 @@ public class UserAdminController {
     private final UserService userService;
 
     @Log("获取用户列表")
-    @AnonymousAccess
+    // @AnonymousAccess
     @ApiOperation("获取用户列表")
     @PostMapping(value = "/getUserList")
     public ResultVo<PageVo<AppUser>> getUserList(@RequestBody FindAppUserVo vo) {
