@@ -1,7 +1,10 @@
 package com.zq.common.utils;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.core.conditions.ISqlSegment;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -16,6 +19,7 @@ import com.zq.common.exception.BusinessException;
 import com.zq.common.vo.PageReqVo;
 import com.zq.common.vo.PageVo;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -147,16 +151,18 @@ public abstract class PagingUtils {
      * @return
      */
     public static <R, Q extends PageReqVo> PageVo<R> paging(Q reqVo, BaseMapper<R> mapper, Class<R> clazz, LambdaQueryWrapper<R> lambdaQuery, boolean searchCount) {
-        R entity;
-        try {
-            entity = clazz.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new BusinessException("分页类型转换错误");
+        R entity = lambdaQuery.getEntity();
+        if (entity == null) {
+            try {
+                entity = clazz.newInstance();
+            } catch (InstantiationException | IllegalAccessException e) {
+                throw new BusinessException("分页类型转换错误");
+            }
         }
 
         // 已设置在lambdaQuery的字段实体类中不应该重复设置
-        String[] whereFields = getWhereFields(lambdaQuery);
-        BeanUtil.copyProperties(reqVo, entity, whereFields);
+        String[] whereFields = getWhereFields(lambdaQuery, clazz);
+        BeanUtil.copyProperties(reqVo, entity, CopyOptions.create().setIgnoreProperties(whereFields).setIgnoreNullValue(true).setOverride(false));
 
         lambdaQuery.setEntity(entity);
 
@@ -173,7 +179,7 @@ public abstract class PagingUtils {
      * @param <R>
      * @return
      */
-    public static <R> String[] getWhereFields(LambdaQueryWrapper<R> lambdaQuery) {
+    public static <R> String[] getWhereFields(Wrapper<R> lambdaQuery, Class<R> clazz) {
         List<String> fields = new ArrayList<>();
 
         MergeSegments expression = lambdaQuery.getExpression();
@@ -187,13 +193,30 @@ public abstract class PagingUtils {
             if (nextSegment instanceof SqlKeyword) {
                 ISqlSegment sqlSegment = normal.get(i);
 
+                // 数据库字段名
                 String segment = sqlSegment.getSqlSegment();
                 if (segment.startsWith("#{")) {
                     continue;
                 }
 
-                String field = StrUtil.toCamelCase(segment.toLowerCase());
-                fields.add(field);
+                String fieldName = StrUtil.toCamelCase(segment.toLowerCase());
+
+                // 判断使用注解的需要获取类真实字段名
+                Field[] declaredFields = clazz.getDeclaredFields();
+                for (Field field : declaredFields) {
+                    TableId tableId = field.getAnnotation(TableId.class);
+                    if (tableId != null && segment.equals(tableId.value())) {
+                        fieldName = field.getName();
+                        break;
+                    }
+                    TableField tableField = field.getAnnotation(TableField.class);
+                    if (tableField != null && segment.equals(tableField.value())) {
+                        fieldName = field.getName();
+                        break;
+                    }
+                }
+
+                fields.add(fieldName);
             }
         }
 
