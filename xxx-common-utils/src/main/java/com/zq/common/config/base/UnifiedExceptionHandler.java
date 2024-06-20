@@ -12,6 +12,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConversionException;
+import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * API接口统一异常处理类
@@ -81,7 +85,7 @@ public class UnifiedExceptionHandler {
         return ResultVo.fail(HttpStatus.BAD_REQUEST.value(), "无法解析请求消息");
     }
 
-    @ExceptionHandler({MissingServletRequestPartException.class, MissingServletRequestParameterException.class})
+    @ExceptionHandler({MissingServletRequestPartException.class, MissingServletRequestParameterException.class, BindException.class})
     public ResultVo handleMissingServletRequestPartException(Exception ex, HttpServletRequest request) {
         log.warn(">> missing servlet request part/param error: {} {}", request.getRequestURI(), ex.getMessage());
         String paranmName = "";
@@ -89,8 +93,11 @@ public class UnifiedExceptionHandler {
             paranmName = ((MissingServletRequestPartException) ex).getRequestPartName();
         } else if (ex instanceof MissingServletRequestParameterException) {
             paranmName = ((MissingServletRequestParameterException) ex).getParameterName();
+        } else if (ex instanceof BindException) {
+            List<FieldError> fieldErrors = ((BindException) ex).getBindingResult().getFieldErrors();
+            paranmName = fieldErrors.stream().map(f -> "[" + f.getDefaultMessage() + "(" + f.getField() + ")]").collect(Collectors.joining("、"));
         }
-        return ResultVo.fail(HttpStatus.BAD_REQUEST.value(), "缺少请求参数" + paranmName);
+        return ResultVo.fail(HttpStatus.BAD_REQUEST.value(), "缺少请求参数：" + paranmName);
     }
 
     @ExceptionHandler(DataAccessException.class)
