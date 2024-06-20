@@ -56,7 +56,7 @@ public abstract class PagingUtils {
     public static <E, Q extends PageReqVo> PageVo<E> paging(Q reqVo, Function<Q, List<E>> rowsLoader, boolean searchCount) {
         PageHelper.startPage(reqVo.getPage(), reqVo.getSize(), searchCount);
         com.github.pagehelper.Page<E> page = (com.github.pagehelper.Page) rowsLoader.apply(reqVo);
-        return PageVo.ofReqVo(reqVo, page.getResult(), Long.valueOf(page.getTotal()).intValue());
+        return PageVo.ofReqVo(reqVo, page.getResult(), page.getTotal());
     }
 
     /*↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓以下是mybatis-plus自带分页插件↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓*/
@@ -96,7 +96,7 @@ public abstract class PagingUtils {
         Page<E> page = new Page<>(reqVo.getPage(), reqVo.getSize());
         page.setSearchCount(searchCount);
         page = mapper.selectPage(page, Wrappers.lambdaQuery(entity));
-        return PageVo.ofReqVo(reqVo, page.getRecords(), Long.valueOf(page.getTotal()).intValue());
+        return PageVo.ofReqVo(reqVo, page.getRecords(), page.getTotal());
     }
 
     /**
@@ -125,7 +125,7 @@ public abstract class PagingUtils {
         Page<E> page = new Page<>(reqVo.getPage(), reqVo.getSize());
         page.setSearchCount(searchCount);
         page = mapper.selectPage(page, lambdaQuery);
-        return PageVo.ofReqVo(reqVo, page.getRecords(), Long.valueOf(page.getTotal()).intValue());
+        return PageVo.ofReqVo(reqVo, page.getRecords(), page.getTotal());
     }
 
     /**
@@ -169,7 +169,7 @@ public abstract class PagingUtils {
         Page<E> page = new Page<>(reqVo.getPage(), reqVo.getSize());
         page.setSearchCount(searchCount);
         page = mapper.selectPage(page, lambdaQuery);
-        return PageVo.ofReqVo(reqVo, page.getRecords(), Long.valueOf(page.getTotal()).intValue());
+        return PageVo.ofReqVo(reqVo, page.getRecords(), page.getTotal());
     }
 
     /**

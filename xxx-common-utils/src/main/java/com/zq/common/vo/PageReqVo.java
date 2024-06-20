@@ -3,6 +3,7 @@ package com.zq.common.vo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 /**
  * 分页查询请求对象
@@ -10,6 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author wilmiam
  * @since 2021-07-09 18:13
  */
+@Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PageReqVo {
 
@@ -37,9 +39,6 @@ public class PageReqVo {
         return pageReqVo;
     }
 
-    public PageReqVo() {
-    }
-
     @JsonIgnore
     public int getOffset() {
         return (getPage() - 1) * getSize();
@@ -50,32 +49,8 @@ public class PageReqVo {
         return page > 0 ? page : 1;
     }
 
-    public void setPage(int page) {
-        this.page = page;
-    }
-
     public int getSize() {
         return size > 0 ? size : DEFAULT_SIZE;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public String getSort() {
-        return sort;
-    }
-
-    public void setSort(String sort) {
-        this.sort = sort;
-    }
-
-    public String getDir() {
-        return dir;
-    }
-
-    public void setDir(String dir) {
-        this.dir = dir;
     }
 
 }
