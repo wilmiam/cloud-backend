@@ -35,11 +35,11 @@ public abstract class PagingUtils {
      *
      * @param reqVo
      * @param rowsLoader
-     * @param <R>
+     * @param <E>
      * @param <Q>
      * @return
      */
-    public static <R, Q extends PageReqVo> PageVo<R> paging(Q reqVo, Function<Q, List<R>> rowsLoader) {
+    public static <E, Q extends PageReqVo> PageVo<E> paging(Q reqVo, Function<Q, List<E>> rowsLoader) {
         return paging(reqVo, rowsLoader, true);
     }
 
@@ -48,14 +48,14 @@ public abstract class PagingUtils {
      *
      * @param reqVo
      * @param rowsLoader
-     * @param <R>
+     * @param <E>
      * @param <Q>
      * @return
      */
     @SuppressWarnings("all")
-    public static <R, Q extends PageReqVo> PageVo<R> paging(Q reqVo, Function<Q, List<R>> rowsLoader, boolean searchCount) {
+    public static <E, Q extends PageReqVo> PageVo<E> paging(Q reqVo, Function<Q, List<E>> rowsLoader, boolean searchCount) {
         PageHelper.startPage(reqVo.getPage(), reqVo.getSize(), searchCount);
-        com.github.pagehelper.Page<R> page = (com.github.pagehelper.Page) rowsLoader.apply(reqVo);
+        com.github.pagehelper.Page<E> page = (com.github.pagehelper.Page) rowsLoader.apply(reqVo);
         return PageVo.ofReqVo(reqVo, page.getResult(), Long.valueOf(page.getTotal()).intValue());
     }
 
@@ -67,11 +67,11 @@ public abstract class PagingUtils {
      * @param reqVo
      * @param mapper
      * @param clazz
-     * @param <R>
+     * @param <E>
      * @param <Q>
      * @return
      */
-    public static <R, Q extends PageReqVo> PageVo<R> paging(Q reqVo, BaseMapper<R> mapper, Class<R> clazz) {
+    public static <E, Q extends PageReqVo> PageVo<E> paging(Q reqVo, BaseMapper<E> mapper, Class<E> clazz) {
         return paging(reqVo, mapper, clazz, true);
     }
 
@@ -81,19 +81,19 @@ public abstract class PagingUtils {
      * @param reqVo
      * @param mapper
      * @param clazz
-     * @param <R>
+     * @param <E>
      * @param <Q>
      * @return
      */
-    public static <R, Q extends PageReqVo> PageVo<R> paging(Q reqVo, BaseMapper<R> mapper, Class<R> clazz, boolean searchCount) {
-        R entity;
+    public static <E, Q extends PageReqVo> PageVo<E> paging(Q reqVo, BaseMapper<E> mapper, Class<E> clazz, boolean searchCount) {
+        E entity;
         try {
             entity = clazz.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             throw new BusinessException("分页类型转换错误");
         }
         BeanUtil.copyProperties(reqVo, entity);
-        Page<R> page = new Page<>(reqVo.getPage(), reqVo.getSize());
+        Page<E> page = new Page<>(reqVo.getPage(), reqVo.getSize());
         page.setSearchCount(searchCount);
         page = mapper.selectPage(page, Wrappers.lambdaQuery(entity));
         return PageVo.ofReqVo(reqVo, page.getRecords(), Long.valueOf(page.getTotal()).intValue());
@@ -104,11 +104,11 @@ public abstract class PagingUtils {
      *
      * @param reqVo
      * @param mapper
-     * @param <R>
+     * @param <E>
      * @param <Q>
      * @return
      */
-    public static <R, Q extends PageReqVo> PageVo<R> paging(Q reqVo, BaseMapper<R> mapper, Wrapper<R> lambdaQuery) {
+    public static <E, Q extends PageReqVo> PageVo<E> paging(Q reqVo, BaseMapper<E> mapper, Wrapper<E> lambdaQuery) {
         return paging(reqVo, mapper, lambdaQuery, true);
     }
 
@@ -117,12 +117,12 @@ public abstract class PagingUtils {
      *
      * @param reqVo
      * @param mapper
-     * @param <R>
+     * @param <E>
      * @param <Q>
      * @return
      */
-    public static <R, Q extends PageReqVo> PageVo<R> paging(Q reqVo, BaseMapper<R> mapper, Wrapper<R> lambdaQuery, boolean searchCount) {
-        Page<R> page = new Page<>(reqVo.getPage(), reqVo.getSize());
+    public static <E, Q extends PageReqVo> PageVo<E> paging(Q reqVo, BaseMapper<E> mapper, Wrapper<E> lambdaQuery, boolean searchCount) {
+        Page<E> page = new Page<>(reqVo.getPage(), reqVo.getSize());
         page.setSearchCount(searchCount);
         page = mapper.selectPage(page, lambdaQuery);
         return PageVo.ofReqVo(reqVo, page.getRecords(), Long.valueOf(page.getTotal()).intValue());
@@ -133,11 +133,11 @@ public abstract class PagingUtils {
      *
      * @param reqVo
      * @param mapper
-     * @param <R>
+     * @param <E>
      * @param <Q>
      * @return
      */
-    public static <R, Q extends PageReqVo> PageVo<R> paging(Q reqVo, BaseMapper<R> mapper, Class<R> clazz, LambdaQueryWrapper<R> lambdaQuery) {
+    public static <E, Q extends PageReqVo> PageVo<E> paging(Q reqVo, BaseMapper<E> mapper, Class<E> clazz, LambdaQueryWrapper<E> lambdaQuery) {
         return paging(reqVo, mapper, clazz, lambdaQuery, true);
     }
 
@@ -146,12 +146,12 @@ public abstract class PagingUtils {
      *
      * @param reqVo
      * @param mapper
-     * @param <R>
+     * @param <E>
      * @param <Q>
      * @return
      */
-    public static <R, Q extends PageReqVo> PageVo<R> paging(Q reqVo, BaseMapper<R> mapper, Class<R> clazz, LambdaQueryWrapper<R> lambdaQuery, boolean searchCount) {
-        R entity = lambdaQuery.getEntity();
+    public static <E, Q extends PageReqVo> PageVo<E> paging(Q reqVo, BaseMapper<E> mapper, Class<E> clazz, LambdaQueryWrapper<E> lambdaQuery, boolean searchCount) {
+        E entity = lambdaQuery.getEntity();
         if (entity == null) {
             try {
                 entity = clazz.newInstance();
@@ -166,7 +166,7 @@ public abstract class PagingUtils {
 
         lambdaQuery.setEntity(entity);
 
-        Page<R> page = new Page<>(reqVo.getPage(), reqVo.getSize());
+        Page<E> page = new Page<>(reqVo.getPage(), reqVo.getSize());
         page.setSearchCount(searchCount);
         page = mapper.selectPage(page, lambdaQuery);
         return PageVo.ofReqVo(reqVo, page.getRecords(), Long.valueOf(page.getTotal()).intValue());
@@ -176,10 +176,10 @@ public abstract class PagingUtils {
      * 获取设置的条件字段名
      *
      * @param lambdaQuery
-     * @param <R>
+     * @param <E>
      * @return
      */
-    public static <R> String[] getWhereFields(Wrapper<R> lambdaQuery, Class<R> clazz) {
+    public static <E> String[] getWhereFields(Wrapper<E> lambdaQuery, Class<E> clazz) {
         List<String> fields = new ArrayList<>();
 
         MergeSegments expression = lambdaQuery.getExpression();
