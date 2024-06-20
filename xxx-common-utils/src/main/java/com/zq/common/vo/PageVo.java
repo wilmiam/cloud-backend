@@ -1,7 +1,6 @@
 package com.zq.common.vo;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -13,7 +12,6 @@ import java.util.List;
  * @author wilmiam
  * @since 2021-07-09 18:13
  */
-@ApiModel("分页查询结果")
 @Data
 @JsonPropertyOrder({"start", "size", "total", "rows"})
 public class PageVo<T> {
