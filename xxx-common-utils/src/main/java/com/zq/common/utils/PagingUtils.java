@@ -163,7 +163,6 @@ public abstract class PagingUtils {
         // 已设置在lambdaQuery的字段实体类中不应该重复设置
         String[] whereFields = getWhereFields(lambdaQuery, clazz);
         BeanUtil.copyProperties(reqVo, entity, CopyOptions.create().setIgnoreProperties(whereFields).setIgnoreNullValue(true).setOverride(false));
-
         lambdaQuery.setEntity(entity);
 
         Page<E> page = new Page<>(reqVo.getPage(), reqVo.getSize());
