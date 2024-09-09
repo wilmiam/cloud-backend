@@ -113,7 +113,7 @@ public class WxUser {
     /**
      * 开放平台获取的unionid,解决这个同一个企业的不同APP和不同公众号之间的帐号共通（同企业多平台是唯一的）
      */
-    @ApiModelProperty("开放平台获取的unionid,解决这个同一个企业的不同APP和不同公众号之间的帐号共通")
+    @ApiModelProperty("开放平台获取的unionid,解决这个同一个企业的不同APP和不同公众号之间的帐号共通（同企业多平台是唯一的）")
     private String unionId;
 
     /**
