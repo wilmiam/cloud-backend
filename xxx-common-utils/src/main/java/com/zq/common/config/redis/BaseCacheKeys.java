@@ -11,13 +11,13 @@ import org.apache.commons.lang3.StringUtils;
  */
 public abstract class BaseCacheKeys {
 
-    public static final String PREFIX = "cloud.";
+    public static final String PREFIX = "cloud:";
 
-    private static final String APP_TOKEN = PREFIX + "app-token.";
+    private static final String APP_TOKEN = PREFIX + "app-token:";
 
-    private static final String ADMIN_TOKEN = PREFIX + "admin-token.";
+    private static final String ADMIN_TOKEN = PREFIX + "admin-token:";
 
-    private static final String RATE_LIMIT = PREFIX + "rate-limit.";
+    private static final String RATE_LIMIT = PREFIX + "rate-limit:";
 
     public static final String USER_DATA_MAP_KEY = "USER-LOGIN-DATA";
 
