@@ -65,30 +65,30 @@ public abstract class BaseCacheKeys {
     public static String rateLimitKey(LimitType type, String prefix, String key, String param) {
         String result = RATE_LIMIT;
         if (StringUtils.isNotBlank(prefix)) {
-            result = PREFIX + prefix + ".";
+            result = PREFIX + prefix + ":";
         }
         switch (type) {
             case IP:
-                result += "ip.";
+                result += "ip:";
                 break;
             case USER:
-                result += "u.";
+                result += "u:";
                 break;
             case PARAM:
-                result += "p.";
+                result += "p:";
                 break;
             case POJO_FIELD:
-                result += "f.";
+                result += "f:";
                 break;
             case KEY:
-                result += "k.";
+                result += "k:";
                 break;
             default:
                 // nothing to do
         }
         result += key;
         if (StringUtils.isNotBlank(param)) {
-            result += "." + param;
+            result += ":" + param;
         }
         return result;
     }
