@@ -1,10 +1,14 @@
 package com.zq.common.config.base;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.StrUtil;
 import com.zq.common.constant.FeignHeader;
 import com.zq.common.constant.SystemName;
 import com.zq.common.exception.BusinessException;
 import com.zq.common.utils.ThrowableUtil;
 import com.zq.common.vo.ResultVo;
+import org.apache.catalina.connector.ClientAbortException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +16,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConversionException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -21,6 +26,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -70,7 +76,7 @@ public class UnifiedExceptionHandler {
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public ResultVo handleMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException ex, HttpServletRequest request) {
         String detail = ex.getClass().getName();
-        if (ex.getSupportedMediaTypes() != null && !ex.getSupportedMediaTypes().isEmpty()) {
+        if (CollUtil.isNotEmpty(ex.getSupportedMediaTypes())) {
             detail = MediaType.toString(ex.getSupportedMediaTypes());
             detail = "支持的content-type: " + detail;
         }
@@ -109,6 +115,51 @@ public class UnifiedExceptionHandler {
             error = ThrowableUtil.getStackTrace(ex);
         }
         return ResultVo.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), error);
+    }
+
+    /**
+     * 权限
+     *
+     * @param ade
+     * @param request
+     * @return
+     */
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResultVo handleAccessDeniedException(AccessDeniedException ade, HttpServletRequest request) {
+        log.warn(">> AccessDenied Exception: {}, {}", request.getRequestURI(), ade.getMessage());
+        String errMessage = ade.getMessage();
+        // 防止空的错误信息
+        if (StringUtils.isBlank(errMessage)) {
+            errMessage = "无权限";
+        }
+        return ResultVo.fail(HttpStatus.FORBIDDEN.value(), errMessage);
+    }
+
+    /**
+     * 客户端断开的异常
+     *
+     * @param cae
+     * @param request
+     */
+    @ExceptionHandler(ClientAbortException.class)
+    public void handleClientAbortException(ClientAbortException cae, HttpServletRequest request) {
+        log.warn(">> ClientAbort Exception: {}, {}", request.getRequestURI(), cae.getMessage());
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResultVo handleMaxUploadSizeExceededException(MaxUploadSizeExceededException musee, HttpServletRequest request) {
+        String message = musee.getMessage();
+        log.warn(">> MaxUploadSizeExceeded Exception: {}, {}", request.getRequestURI(), message);
+
+        String errMsg = "超过最大文件上传大小";
+
+        String str = StrUtil.subBetween(message, "The field file exceeds its maximum permitted size of ", " bytes.");
+        Long maxUploadSize = Convert.toLong(str);
+        if (maxUploadSize != null) {
+            errMsg += "：" + (maxUploadSize / 1024 / 1024) + "MB";
+        }
+
+        return ResultVo.fail(HttpStatus.PAYLOAD_TOO_LARGE.value(), errMsg);
     }
 
     @ExceptionHandler(value = Exception.class)
