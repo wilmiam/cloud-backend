@@ -106,7 +106,7 @@ public class UnifiedExceptionHandler {
             paranmName = ((MissingServletRequestParameterException) ex).getParameterName();
         } else if (ex instanceof BindException) {
             List<FieldError> fieldErrors = ((BindException) ex).getBindingResult().getFieldErrors();
-            paranmName = fieldErrors.stream().map(f -> "[" + f.getDefaultMessage() + "(" + f.getField() + ")]").collect(Collectors.joining("、"));
+            paranmName = fieldErrors.stream().map(f -> f.getDefaultMessage() + "[" + f.getField() + "]").collect(Collectors.joining("、"));
         }
         return ResultVo.fail(HttpStatus.BAD_REQUEST.value(), "缺少请求参数：" + paranmName);
     }
