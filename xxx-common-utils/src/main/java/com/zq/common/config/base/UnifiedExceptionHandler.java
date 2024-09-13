@@ -60,12 +60,6 @@ public class UnifiedExceptionHandler {
         return ResultVo.fail(ex.getCode(), errMessage);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResultVo handleArgumentNotValidException(MethodArgumentNotValidException ex, HttpServletRequest request) {
-        log.warn(">> argument not valid error: {} {}", request.getRequestURI(), ex.getMessage());
-        return ResultVo.fail(HttpStatus.BAD_REQUEST.value(), "无效的请求参数" + ex.getParameter().getParameterName());
-    }
-
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResultVo handleMethodNotSupportedException(HttpRequestMethodNotSupportedException ex, HttpServletRequest request) {
         log.warn(">> method not supported error: {} {}, expected: {}",
@@ -89,6 +83,17 @@ public class UnifiedExceptionHandler {
     public ResultVo handleMessageConversionException(HttpMessageConversionException ex, HttpServletRequest request) {
         log.warn(">> message conversion error: {} {}", request.getRequestURI(), ex.getMessage());
         return ResultVo.fail(HttpStatus.BAD_REQUEST.value(), "无法解析请求消息");
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResultVo handleArgumentNotValidException(MethodArgumentNotValidException ex, HttpServletRequest request) {
+        log.warn(">> argument not valid error: {} {}", request.getRequestURI(), ex.getMessage());
+        String paranmName = ex.getParameter().getParameterName();
+        List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
+        if (CollUtil.isNotEmpty(fieldErrors)) {
+            paranmName = fieldErrors.stream().map(f -> "[" + f.getDefaultMessage() + "(" + f.getField() + ")]").collect(Collectors.joining("、"));
+        }
+        return ResultVo.fail(HttpStatus.BAD_REQUEST.value(), "无效的请求参数：" + paranmName);
     }
 
     @ExceptionHandler({MissingServletRequestPartException.class, MissingServletRequestParameterException.class, BindException.class})
