@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * 在线用户
@@ -84,5 +85,7 @@ public class OnlineUserDto implements Serializable {
      * 登录时间
      */
     private Date loginTime;
+
+    private Set<String> authority;
 
 }

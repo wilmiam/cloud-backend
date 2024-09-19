@@ -80,6 +80,7 @@ public class OnlineUserService {
                     .address(address)
                     .key(EncryptUtils.desEncrypt(token))
                     .loginTime(new Date())
+                    .authority(jwtUserDto.getRoles())
                     .build();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
