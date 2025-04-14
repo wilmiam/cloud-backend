@@ -98,4 +98,46 @@ CREATE TABLE `t_app_user`  (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 96 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Table structure for t_wx_app_account
+-- ----------------------------
+DROP TABLE IF EXISTS `t_wx_app_account`;
+CREATE TABLE `t_wx_app_account` (
+    `id`          varchar(32)  NOT NULL,
+    `app_id`      varchar(255) NOT NULL COMMENT '微信公众号id',
+    `app_secret`  varchar(255) NOT NULL COMMENT 'app秘钥',
+    `app_name`    varchar(255) DEFAULT NULL COMMENT '小程序名称',
+    `state`       int          DEFAULT NULL COMMENT '状态 1正常 2停用',
+    `create_time` datetime     DEFAULT NULL,
+    `update_time` datetime     DEFAULT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='小程序账号详细信息'
+
+-- ----------------------------
+-- Table structure for t_wx_user
+-- ----------------------------
+DROP TABLE IF EXISTS `t_wx_user`;
+CREATE TABLE `t_wx_user` (
+    `id`              varchar(32) COLLATE utf8mb4_bin NOT NULL COMMENT '主键',
+    `phone`           varchar(20) COLLATE utf8mb4_bin  DEFAULT '' COMMENT '手机号',
+    `username`        varchar(255) COLLATE utf8mb4_bin DEFAULT '' COMMENT '账号',
+    `passwd`          varchar(255) COLLATE utf8mb4_bin DEFAULT '' COMMENT '登录密码',
+    `nickname`        varchar(50) COLLATE utf8mb4_bin  DEFAULT '' COMMENT '昵称',
+    `realname`        varchar(50) COLLATE utf8mb4_bin  DEFAULT '' COMMENT '真实姓名',
+    `id_card`         varchar(20) COLLATE utf8mb4_bin  DEFAULT '' COMMENT '身份证号码',
+    `avatar`          varchar(255) COLLATE utf8mb4_bin DEFAULT '' COMMENT '头像',
+    `age`             int                              DEFAULT '0' COMMENT '年龄',
+    `gender`          varchar(10) COLLATE utf8mb4_bin  DEFAULT '' COMMENT '性别',
+    `address`         varchar(255) COLLATE utf8mb4_bin DEFAULT '' COMMENT '地址',
+    `state`           tinyint(1) DEFAULT '0' COMMENT '状态：0未激活 1正常 2暂停使用 3永久停号',
+    `app_id`          varchar(50) COLLATE utf8mb4_bin  DEFAULT NULL COMMENT '微信APPID',
+    `open_id`         varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT '微信openId',
+    `union_id`        varchar(255) COLLATE utf8mb4_bin DEFAULT '' COMMENT '开放平台获取的unionid,解决这个同一个企业的不同APP和不同公众号之间的帐号共通',
+    `access_ip`       varchar(50) COLLATE utf8mb4_bin  DEFAULT '' COMMENT '最后登录访问IP',
+    `last_login_time` datetime                         DEFAULT NULL COMMENT '最后登录时间',
+    `create_time`     datetime                         DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`     datetime                         DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户表'
+
 SET FOREIGN_KEY_CHECKS = 1;

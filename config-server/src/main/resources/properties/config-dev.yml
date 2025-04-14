@@ -7,10 +7,10 @@ redis.password:
 db:
   cloud:
     username: root
-    password: Dk2019!23456
+    password: ZqTestDB#2024#
     driver-class-name: com.mysql.cj.jdbc.Driver
     url:
-      cloud: jdbc:mysql://47.107.148.253:3306/cloud?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+      cloud: jdbc:mysql://119.45.183.210:13308/cloud?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
 
 #jwt
 jwt:
